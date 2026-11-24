@@ -1,0 +1,407 @@
+{
+  "created_at": "2026-11-23T09:35:00+00:00",
+  "target": {
+    "model": "qwen3.5",
+    "experiment": "QDC rubric prompt"
+  },
+  "judge_models": [
+    "command-r7b-arabic"
+  ],
+  "cases": [
+    {
+      "debate_id": "debate_001",
+      "motion": "سيمنع هذا المجلس ترشح القاده الثوريين وعائلاتهم للمناصب السياسيه في مجتمعات ما بعد الصراع",
+      "proposition_team": "جامعة اليرموك/ الاردن",
+      "opposition_team": "الجامعة الوطنية الماليزية",
+      "tournament": "البطولة الدولية السابعة لمناظرات الجامعات",
+      "round": "ربع نهائي",
+      "human_winner": "opposition",
+      "model_winner": "proposition",
+      "model": "qwen3.5",
+      "experiment": "QDC rubric prompt",
+      "model_confidence": 0.85,
+      "model_justification": "فاز فريق الموالاة لأنه نجح بشكل أفضل في إقناع المحكم بأن منع ترشح القادة الثوريين ضروري لضمان الاستقرار والمنافسة العادلة في مجتمعات ما بعد الصراع الهشة. قدموا أمثلة محددة (طاجيكستان، أذربيجان) تثبت خطر العودة للحكم العائلي أو الديكتاتورية، بينما اعتمدت المعارضة على مبادئ عامة حول الحقوق دون معالجة كافية لخصوصية مرحلة ما بعد الصراع. كما نجح الموالاة في تفنيد فكرة أن القادة الثوريين هم الأفضل دائماً من خلال إظهار أنهم يملكون ميزة عاطفية تضر بالديمقراطية الحقيقية.",
+      "human_justification": "فازت المعارضة لأنها حسمت نقطتَي التصادم الرئيسيتين:\nالتنافس: استخدمت المعارضة هدف الموالاة نفسه (\"نريد أفضل مرشح\") ضدها، فالمنع يقلّص الخيارات ويُنهي التنافس بدل أن يحميه، والشعب هو من يحكم على الأفضل في صندوق الاقتراع.\n\"حتمية الفوز\": الحجة تنقلب على الموالاة، لأن فوز الثوري المتوقع دليل على إرادة شعبية، ومنعه وصاية على الناس تولّد غضبًا وعدم استقرار، وهو الضرر الذي قالت الموالاة إنها تريد تجنبه.\nضعف تحليل الموالاة: سلسلة \"فشل ← دكتاتورية ← حكم عائلي\" بقيت ادعاءً بلا آلية تشرح لماذا يكون الثوري تحديدًا أسوأ من غيره. والأمثلة غير دقيقة: المرزوقي لم يُورّث الحكم، وأذربيجان ليست نموذج ما بعد ثورة.\nتنازل ضمني: قول الموالاة الثاني \"ليترشح غيره من حزبه بنفس الأفكار\" اعتراف بشرعية رؤية الثورة، فلا يبقى مبرر لمنع صاحبها شخصيًا.",
+      "verdict_file": "outputs/outputs/qwen3.5/debate_001.verdict.json",
+      "verdict_generated_at": "2026-11-03T12:17:03+00:00",
+      "judging": {
+        "input_hash": "26d728c12149914d",
+        "judged_at": "2026-11-23T08:59:16+00:00",
+        "runs": [
+          {
+            "judge": "command-r7b-arabic",
+            "order": [
+              "human",
+              "model"
+            ],
+            "attempts": 1,
+            "scores": {
+              "human": {
+                "faithfulness": 5,
+                "coverage": 4,
+                "reasoning": 4,
+                "clarity": 4,
+                "overall": 4,
+                "unsupported_claims": []
+              },
+              "model": {
+                "faithfulness": 4,
+                "coverage": 4,
+                "reasoning": 4,
+                "clarity": 4,
+                "overall": 4,
+                "unsupported_claims": []
+              }
+            },
+            "preferred": "human",
+            "rationale": "Justification A is more faithful to the debate transcript, covering all the main points and providing a clear and well-reasoned argument for why the opposition is more persuasive. It effectively addresses the clashes and arguments of both teams, and its reasoning is supported by the transcript. Justification B is also strong, but it misses some key points and relies more on general principles, which are less convincing in this context."
+          },
+          {
+            "judge": "command-r7b-arabic",
+            "order": [
+              "model",
+              "human"
+            ],
+            "attempts": 3,
+            "scores": {
+              "model": {
+                "faithfulness": 5,
+                "coverage": 5,
+                "reasoning": 4,
+                "clarity": 4,
+                "overall": 4,
+                "unsupported_claims": []
+              },
+              "human": {
+                "faithfulness": 4,
+                "coverage": 5,
+                "reasoning": 3,
+                "clarity": 4,
+                "overall": 4,
+                "unsupported_claims": []
+              }
+            },
+            "preferred": "model",
+            "rationale": "Justification A is preferred because it provides a more comprehensive and coherent argument for the proposition. It effectively addresses the decisive clashes and arguments of both teams, offering specific examples and logical reasoning to support its position. While Justification B is well-structured and covers the main points, it lacks the depth and clarity seen in Justification A, particularly in its reasoning and overall presentation."
+          }
+        ],
+        "summary": {
+          "mean_scores": {
+            "human": {
+              "faithfulness": 4.5,
+              "coverage": 4.5,
+              "reasoning": 3.5,
+              "clarity": 4.0,
+              "overall": 4.0
+            },
+            "model": {
+              "faithfulness": 4.5,
+              "coverage": 4.5,
+              "reasoning": 4.0,
+              "clarity": 4.0,
+              "overall": 4.0
+            }
+          },
+          "preferences": {
+            "human": 1,
+            "model": 1
+          },
+          "preferred": "tie",
+          "position_consistent": false
+        }
+      }
+    },
+    {
+      "debate_id": "debate_002",
+      "motion": "سيحاول هذا المجلس التواصل والاحتكاك بالشعوب الاصليه المنعزله",
+      "proposition_team": "بوازاتشي/ تركيا",
+      "opposition_team": "السلطان محمد الفاتح/ تركيا",
+      "tournament": "البطولة الدولية السابعة لمناظرات الجامعات",
+      "round": "نهائي الناطقين بغيرها",
+      "human_winner": "proposition",
+      "model_winner": "opposition",
+      "model": "qwen3.5",
+      "experiment": "QDC rubric prompt",
+      "model_confidence": 0.85,
+      "model_justification": "فاز فريق المعارضة لأنه نجح في إقناع القاضي بأن التواصل والاحتكاك يؤديان بالضرورة إلى أضرار جسيمة (أمراض، موت، استغلال ثقافي) كما أثبتت الأمثلة التاريخية. الموالاة اعتمدت على افتراضات مثالية حول قدرة الدولة على التحكم في العملية دون إثبات عملي كافٍ. المعارضة كانت أكثر إقناعاً في تفنيدها لحجج الموالاة حول الخدمات والصحة والثقافة، خاصة من خلال التركيز على حق الشعوب في العزلة وعدم رغبتهم في التواصل.",
+      "human_justification": "دارت المناظرة حول عدة محاوررئيسة وهي: 1- الحقوق والواجبات 2- الهوية الثقافية والمجتمعية 3- الصحة والمناعة \nفالموالاة في الجانب الحقوقي عززت موقفها بأهمية حماية السكان الأصليين والتزام الحكومة بخدمتهم باعتبارهم مواطنين كغيرهم من أبناء الشعب. بينما ترى المعارضة أن هذا التدخل سيؤدي للاستغلال. تكافأ الفريقان في هذا المحور.\nوفي المحور المتعلق بالهوية والخصوصية الثقافية ترى الموالاة أن الدولة ستحمي الثقافة وستعرف العالم بها وأن تدخل الحكومة يمنع فرض الثقافة العامة أو محو الخصوصية للأقليات وبينما ترى المعارضة أن الثقافة ستضيع إذا تم تدخل الحكومة ويكفي معرفتها عن بعد... وفي هذا المحور تقارب الفريقان\nوفي المحور الصحي ترى الموالاة أن الاندماج إيجابي لتقوية المناعة وأن توفير الخدمات الصحية واللقاحات واجب الدولة لحماية السكان الأصليين بينما تعتقد المعارضة أن الأمراض انتشرت أكثر بسبب التدخلات الحديثة وبقاء السكان معزولين أضمن لصحتهم... وهنا تفوق نسبي للموالاة....\n\nوبناء على ملخص نقاط التصادم هذه تفوز الموالاة",
+      "verdict_file": "outputs/outputs/qwen3.5/debate_002.verdict.json",
+      "verdict_generated_at": "2026-11-03T12:21:11+00:00",
+      "judging": {
+        "input_hash": "550388bcff6d30a8",
+        "judged_at": "2026-11-23T09:12:34+00:00",
+        "runs": [
+          {
+            "judge": "command-r7b-arabic",
+            "order": [
+              "human",
+              "model"
+            ],
+            "attempts": 1,
+            "scores": {
+              "human": {
+                "faithfulness": 4,
+                "coverage": 4,
+                "reasoning": 4,
+                "clarity": 4,
+                "overall": 4,
+                "unsupported_claims": [
+                  "لم يذهب الاستثمار انا اقول لك طبيعه الانسان يستثمر من يراه ضعيفا السمك الاكبر دائما يرى السمك الاصغر مثل مثال افريقى وهنود الاحمر واشرح ذلك يقولون نحن هدفنا التعرف يعني نحن لا نقول لا نريد ان نتعرف عليهم نريد ان نتعرف عليهم ولكن نتركهم لحالهم لان الضرر الذي ياتي من التواصل اكبر حتى يعني كل يعني لو نظرنا الى التاريخ، الضرر دائما كان اكبر واريد ان اسال لك يعني اذا كان هذا التواصل تكون بين الطرفين اي لغه يتكلمون في الامريكا اليست انجليزيه ها لماذا لا لا يتكلمون لغه الهنود الاحمر الذي كانوا يتكلمون قديما وايضا اي لغه يتكلم الجنوب افريقيا وايضا معظم دول افريقيا يتكلمون الفرنسيه هذه كله يعني ذهب هناك الاستغلال اكتشاف واستغلال، اي التواصل هناك مشاركه وهذا ليست تواصل بل هو الاستثمار سياتي بعدها"
+                ]
+              },
+              "model": {
+                "faithfulness": 4,
+                "coverage": 4,
+                "reasoning": 5,
+                "clarity": 4,
+                "overall": 4,
+                "unsupported_claims": [
+                  "هم قالوا يجب ان نستفيد من الثقافه. نحن نقول ثقافتهم ستموت ولن يكون هناك شيئا من ثقافتهم كما فعلت مثلا الدول. ويقولون لهم شتى اللغات ولهم طريقه حياه، لكن نحن ستتعرف عليهم مثل الهنود الحمر اتيناكم بهذه الامثله، فلهم اللغه بطريقتهم لكن لان في جنوب افريقيا يتكلمون الفرنسيه."
+                ]
+              }
+            },
+            "preferred": "model",
+            "rationale": "B يقدم حججاً أكثر قوة ودقة، خاصة في تفنيده لحجج الموالاة. فهو يعالج كل نقطة بشكل شامل، ويستخدم أمثلة تاريخية مقنعة لإثبات أضرار التواصل والاحتكاك. بينما A، على الرغم من أنه يغطي النقاط الرئيسية، إلا أنه يعتمد على افتراضات مثالية دون تقديم أدلة عملية كافية."
+          },
+          {
+            "judge": "command-r7b-arabic",
+            "order": [
+              "model",
+              "human"
+            ],
+            "attempts": 3,
+            "scores": {
+              "model": {
+                "faithfulness": 4,
+                "coverage": 4,
+                "reasoning": 3,
+                "clarity": 4,
+                "overall": 4,
+                "unsupported_claims": [
+                  "لم يشرحوا لنا كيف سيقومون بدون احتكاك التعامل مع هذه الناس وترك هذه النقطه فارغه"
+                ]
+              },
+              "human": {
+                "faithfulness": 3,
+                "coverage": 3,
+                "reasoning": 4,
+                "clarity": 4,
+                "overall": 3,
+                "unsupported_claims": [
+                  "الموالاة اعتمدت على افتراضات مثالية حول قدرة الدولة على التحكم في العملية دون إثبات عملي كافٍ"
+                ]
+              }
+            },
+            "preferred": "model",
+            "rationale": "Justification A covers the decisive clashes and arguments of both teams, and it is faithful to the debate transcript. It also provides a clear, well-structured explanation of why the Opposition was more persuasive, weighing and refuting the Proposition's arguments effectively."
+          }
+        ],
+        "summary": {
+          "mean_scores": {
+            "human": {
+              "faithfulness": 3.5,
+              "coverage": 3.5,
+              "reasoning": 4.0,
+              "clarity": 4.0,
+              "overall": 3.5
+            },
+            "model": {
+              "faithfulness": 4.0,
+              "coverage": 4.0,
+              "reasoning": 4.0,
+              "clarity": 4.0,
+              "overall": 4.0
+            }
+          },
+          "preferences": {
+            "model": 2
+          },
+          "preferred": "model",
+          "position_consistent": true
+        }
+      }
+    },
+    {
+      "debate_id": "debate_004",
+      "motion": "يفضل هذا المجلس عالما بدون الاحتراف الرياضي",
+      "proposition_team": "الكويت",
+      "opposition_team": "الجزائر",
+      "tournament": "البطولة الدولية السادسة لمناظرات المدارس",
+      "round": "نصف النهائي",
+      "human_winner": "proposition",
+      "model_winner": "opposition",
+      "model": "qwen3.5",
+      "experiment": "QDC rubric prompt",
+      "model_confidence": 0.85,
+      "model_justification": "فازت المعارضة لأنها نجحت في إعادة تعريف مصطلح الاحتراف ليشمل الأخلاقيات والانضباط، مما جعل حجة الموالاة حول عدم الاستقرار أقل صلة. كما أثبتت أن المخاطر المالية موجودة في أي مهنة وليس فقط الرياضة، مما قلل من قوة حجة الموالاة. بالإضافة إلى ذلك، حافظت المعارضة على تماسك موقفها ضد النص بشكل أفضل حتى في خطاب الرد.",
+      "human_justification": "فريق الموالاة عرف الاحتراف على أنه امتهان الرياضة، ركز على مسألة الإجهاد نتيجة المبالغة في الاجتهاد عند السعي للوصول للاحتراف ممّا يجعل المخاطرة الحياتية كبيرة عند فشل هذا السعي ممّا يجعل الحياة ككل تتأثر سلبًا، بالمقابل فريق المعارضة تحدى التعريف منذ البداية، ورغم كون تعريف فريق المعارضة بدَهي وعادل وقابل للتناظر إلا أن فريق المعارضة اختار الذهاب إلى تعريف آخر أبعد وذهب في مساره الخاص في مناظرة موازية.\n\nلذا كان من البداية ميلان الكفّة نحو الموالاة لوقوع المناظرة في فخ تحدي التعريف بشكل خاطئ جعلهم يدخلون في مناظرة أخرى دون اشتباك مباشر للنص والتعريف الخاص بالموالاة.",
+      "verdict_file": "outputs/outputs/qwen3.5/debate_004.verdict.json",
+      "verdict_generated_at": "2026-11-03T12:24:12+00:00",
+      "judging": {
+        "input_hash": "0a545ad00983d73c",
+        "judged_at": "2026-11-23T09:27:27+00:00",
+        "runs": [
+          {
+            "judge": "command-r7b-arabic",
+            "order": [
+              "human",
+              "model"
+            ],
+            "attempts": 1,
+            "scores": {
+              "human": {
+                "faithfulness": 5,
+                "coverage": 5,
+                "reasoning": 5,
+                "clarity": 5,
+                "overall": 5,
+                "unsupported_claims": []
+              },
+              "model": {
+                "faithfulness": 5,
+                "coverage": 5,
+                "reasoning": 4,
+                "clarity": 5,
+                "overall": 5,
+                "unsupported_claims": []
+              }
+            },
+            "preferred": "human",
+            "rationale": "A يقدم حججًا أكثر تماسكًا وتفصيلًا، مع التركيز على نقاط الضعف في حجة المعارضة. كما أن A يعالج بشكل أفضل النقاط الرئيسية للمناظرة، مما يجعله أكثر فعالية في دعم موقف الموالاة."
+          }
+        ],
+        "summary": {
+          "mean_scores": {
+            "human": {
+              "faithfulness": 5.0,
+              "coverage": 5.0,
+              "reasoning": 5.0,
+              "clarity": 5.0,
+              "overall": 5.0
+            },
+            "model": {
+              "faithfulness": 5.0,
+              "coverage": 5.0,
+              "reasoning": 4.0,
+              "clarity": 5.0,
+              "overall": 5.0
+            }
+          },
+          "preferences": {
+            "human": 1
+          },
+          "preferred": "human",
+          "position_consistent": true
+        }
+      }
+    },
+    {
+      "debate_id": "debate_008",
+      "motion": "لن يقدم هذا المجلس مساعدات إنمائية للدول التي لا تجري إصلاحات سياسية",
+      "proposition_team": "الاميرة سمية للعلوم والتكنولوجيا",
+      "opposition_team": "جامعة قطر بنين",
+      "tournament": "البطولة الدولية الخامسة لمناظرات الجامعات",
+      "round": "النهائي",
+      "human_winner": "proposition",
+      "model_winner": "opposition",
+      "model": "qwen3.5",
+      "experiment": "QDC rubric prompt",
+      "model_confidence": 0.85,
+      "model_justification": "فازت المعارضة لأنها أثبتت أن فرض شروط الإصلاح السياسي على المساعدات ينتهك مبدأ السيادة ويعد ابتزازاً أخلاقياً، كما أنها قدمت آلية بديلة واقعية (تمكين الشعب عبر البنية التحتية) تؤدي للإصلاح من الأسفل. في المقابل، اعتمدت الموالاة على حجة 'الواقع' التي دحضتها المعارضة بأمثلة عن رفض الأنظمة الديكتاتورية للشروط، وفي خطاب الرد الأخير كانت الموالاة غير قادرة على الرد على الحجج الأخلاقية والسيادية للمعارضة.",
+      "human_justification": "بعد الاستماع للمناظرة \nتأكدت من نتيجة فوز الموالاة:\n\nالموالاة بررت شرط الإصلاح السياسي لأن المساعدات ستمر من خلال النظام السياسي، وأن المساعدات تعزز بقاء السلطة واستمرارها، أما المعارضة التي بدأت بنقد فكرة قبول المساعدات من الحكومات الدكتاتورية، وتم الرد عليهم بواقعية القبول، ثم الانتقال إلى أن التغيير لن يحدث عن طريق هذه الشروط، وإنما عن طريق الشعوب، وهذا الكلام لا يهدم موقف الموالاة، وكيف يتمكن الشعب من تغيير النظام السياسي إذا قبل المساعدات !؟",
+      "verdict_file": "outputs/outputs/qwen3.5/debate_008.verdict.json",
+      "verdict_generated_at": "2026-11-03T12:27:59+00:00",
+      "judging": {
+        "input_hash": "a218825a1f2f4a1a",
+        "judged_at": "2026-11-23T09:35:00+00:00",
+        "runs": [
+          {
+            "judge": "command-r7b-arabic",
+            "order": [
+              "human",
+              "model"
+            ],
+            "attempts": 1,
+            "scores": {
+              "human": {
+                "faithfulness": 5,
+                "coverage": 4,
+                "reasoning": 4,
+                "clarity": 4,
+                "overall": 4,
+                "unsupported_claims": []
+              },
+              "model": {
+                "faithfulness": 5,
+                "coverage": 5,
+                "reasoning": 5,
+                "clarity": 5,
+                "overall": 5,
+                "unsupported_claims": []
+              }
+            },
+            "preferred": "model",
+            "rationale": "Justification B is superior because it effectively addresses the decisive clash between the teams, providing a clear and well-reasoned argument for why the Opposition should win. It demonstrates a strong understanding of the debate's key issues and effectively refutes the Proposition's arguments. In contrast, Justification A, while well-structured and clear, fails to adequately address the Opposition's points and does not provide a compelling reason for why the Proposition should win."
+          },
+          {
+            "judge": "command-r7b-arabic",
+            "order": [
+              "model",
+              "human"
+            ],
+            "attempts": 2,
+            "scores": {
+              "model": {
+                "faithfulness": 4,
+                "coverage": 4,
+                "reasoning": 3,
+                "clarity": 4,
+                "overall": 4,
+                "unsupported_claims": [
+                  "المساعدات الإنمائية تختلف وبشكل مطلق عن المساعدات الانسانية"
+                ]
+              },
+              "human": {
+                "faithfulness": 3,
+                "coverage": 3,
+                "reasoning": 3,
+                "clarity": 4,
+                "overall": 3,
+                "unsupported_claims": [
+                  "الدول العربية معظمها غرقانة بالمساعدات",
+                  "الدول العربية تأخذ هذه المساعدات ولم تنقطع عنها يا صديقي"
+                ]
+              }
+            },
+            "preferred": "model",
+            "rationale": "A يقدم حججاً أكثر قوة وملاءمة، حيث يعالج الحجج الرئيسية للمعارضة بشكل مباشر، ويقدم تفسيرات منطقية لموقف الموالاة. بينما B يقدم حججاً أقل قوة، معتمداً على أمثلة غير مدعومة بشكل كافٍ، ولا يعالج بشكل كافٍ الحجج الرئيسية للمعارضة."
+          }
+        ],
+        "summary": {
+          "mean_scores": {
+            "human": {
+              "faithfulness": 4.0,
+              "coverage": 3.5,
+              "reasoning": 3.5,
+              "clarity": 4.0,
+              "overall": 3.5
+            },
+            "model": {
+              "faithfulness": 4.5,
+              "coverage": 4.5,
+              "reasoning": 4.0,
+              "clarity": 4.5,
+              "overall": 4.5
+            }
+          },
+          "preferences": {
+            "model": 2
+          },
+          "preferred": "model",
+          "position_consistent": true
+        }
+      }
+    }
+  ],
+  "summary": null
+}

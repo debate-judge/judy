@@ -1,0 +1,1643 @@
+{
+  "created_at": "2026-11-23T09:44:00+00:00",
+  "experiment": "QDC rubric prompt",
+  "voting_models": [
+    "deepseek-r1",
+    "gemma4",
+    "gpt-oss",
+    "llama4",
+    "qwen3.5"
+  ],
+  "judge_models": [
+    "command-r7b-arabic"
+  ],
+  "cases": [
+    {
+      "debate_id": "debate_001",
+      "debate_number": 1,
+      "motion": "سيمنع هذا المجلس ترشح القاده الثوريين وعائلاتهم للمناصب السياسيه في مجتمعات ما بعد الصراع",
+      "debate_file": "debates/debate_001.json",
+      "proposition_team": "جامعة اليرموك/ الاردن",
+      "opposition_team": "الجامعة الوطنية الماليزية",
+      "tournament": "البطولة الدولية السابعة لمناظرات الجامعات",
+      "round": "ربع نهائي",
+      "human_winner": "opposition",
+      "votes_proposition": 4,
+      "votes_opposition": 1,
+      "confidence_sum_proposition": 3.4,
+      "confidence_sum_opposition": 0.9,
+      "soft_winner": "proposition",
+      "hard_winner": "proposition",
+      "votes_differing_from_human": [
+        "soft",
+        "hard"
+      ],
+      "models": [
+        {
+          "model": "deepseek-r1",
+          "winner": "opposition",
+          "conf": 0.9,
+          "justification": "المعارضة كانت أكثر إقناعًا في جلسة اليوم، لأنها قدمت حججًا مدعومة بحقوق الإنسان والديمقراطية، وتجنبت الاعتماد على ادعاءات غير مثبتة. بينما الموالاة تعتمد على افتراضات غير مثبتة حول خطر ترشح القادة الثوريين، مما يجعل حججها أقل إقناعًا.",
+          "verdict_file": "outputs/outputs/deepseek-r1/debate_001.verdict.json"
+        },
+        {
+          "model": "gemma4",
+          "winner": "proposition",
+          "conf": 0.95,
+          "justification": "فازت الموالاة لأنها نجحت في إقناع المحكم بأن المخاطر النظامية والسياسية المترتبة على السماح للقادة الثوريين بالترشح في مرحلة ما بعد الصراع تفوق بكثير الفوائد المزعومة. لقد حولت الموالاة النقاش من مجرد الدفاع عن 'الحق الديمقراطي' إلى الدفاع عن 'سلامة العملية الانتقالية' و'حماية مكتسبات الثورة' من التآكل أو التحول إلى استبداد جديد. بينما ركزت المعارضة على الحقوق الفردية والضرورة اللحظية، فشلت في تقديم آلية منطقية ومقنعة لتأمين الانتقال الديمقراطي دون المخاطرة بالتحول إلى نظام شمولي جديد، وهو ما أثبتته الموالاة عبر أمثلة مثل طاجيكستان وأذربيجان.",
+          "verdict_file": "outputs/outputs/gemma4/debate_001.verdict.json"
+        },
+        {
+          "model": "gpt-oss",
+          "winner": "proposition",
+          "conf": 0.7,
+          "justification": "الموالاة قدمت حجة قوية مبنية على أمثلة واقعية تُظهر خطر الاستبداد، بينما المعارضة اعتمدت على حجج عامة بدون أدلة، مما جعل حجة الموالاة أكثر إقناعًا في النقاط الجوهرية للمناظرة.",
+          "verdict_file": "outputs/outputs/gpt-oss/debate_001.verdict.json"
+        },
+        {
+          "model": "llama4",
+          "winner": "proposition",
+          "conf": 0.9,
+          "justification": "الموالاة قدمت حجج قوية حول ضرورة منع ترشح القادة الثوريين وعائلاتهم في مجتمعات ما بعد الصراع، خاصة فيما يتعلق بحماية مكتسبات الثورة و ضمان عدم تحول هذه المجتمعات إلى ديكتاتوريات جديدة",
+          "verdict_file": "outputs/outputs/llama4/debate_001.verdict.json"
+        },
+        {
+          "model": "qwen3.5",
+          "winner": "proposition",
+          "conf": 0.85,
+          "justification": "فاز فريق الموالاة لأنه نجح بشكل أفضل في إقناع المحكم بأن منع ترشح القادة الثوريين ضروري لضمان الاستقرار والمنافسة العادلة في مجتمعات ما بعد الصراع الهشة. قدموا أمثلة محددة (طاجيكستان، أذربيجان) تثبت خطر العودة للحكم العائلي أو الديكتاتورية، بينما اعتمدت المعارضة على مبادئ عامة حول الحقوق دون معالجة كافية لخصوصية مرحلة ما بعد الصراع. كما نجح الموالاة في تفنيد فكرة أن القادة الثوريين هم الأفضل دائماً من خلال إظهار أنهم يملكون ميزة عاطفية تضر بالديمقراطية الحقيقية.",
+          "verdict_file": "outputs/outputs/qwen3.5/debate_001.verdict.json"
+        }
+      ],
+      "human_justification": "فازت المعارضة لأنها حسمت نقطتَي التصادم الرئيسيتين:\nالتنافس: استخدمت المعارضة هدف الموالاة نفسه (\"نريد أفضل مرشح\") ضدها، فالمنع يقلّص الخيارات ويُنهي التنافس بدل أن يحميه، والشعب هو من يحكم على الأفضل في صندوق الاقتراع.\n\"حتمية الفوز\": الحجة تنقلب على الموالاة، لأن فوز الثوري المتوقع دليل على إرادة شعبية، ومنعه وصاية على الناس تولّد غضبًا وعدم استقرار، وهو الضرر الذي قالت الموالاة إنها تريد تجنبه.\nضعف تحليل الموالاة: سلسلة \"فشل ← دكتاتورية ← حكم عائلي\" بقيت ادعاءً بلا آلية تشرح لماذا يكون الثوري تحديدًا أسوأ من غيره. والأمثلة غير دقيقة: المرزوقي لم يُورّث الحكم، وأذربيجان ليست نموذج ما بعد ثورة.\nتنازل ضمني: قول الموالاة الثاني \"ليترشح غيره من حزبه بنفس الأفكار\" اعتراف بشرعية رؤية الثورة، فلا يبقى مبرر لمنع صاحبها شخصيًا.",
+      "evaluations": [
+        {
+          "model": "gemma4",
+          "judge": "command-r7b-arabic",
+          "order": [
+            "human",
+            "model"
+          ],
+          "attempts": 1,
+          "scores": {
+            "human": {
+              "faithfulness": 5,
+              "coverage": 4,
+              "reasoning": 4,
+              "clarity": 4,
+              "overall": 4,
+              "unsupported_claims": []
+            },
+            "model": {
+              "faithfulness": 4,
+              "coverage": 5,
+              "reasoning": 4,
+              "clarity": 4,
+              "overall": 4,
+              "unsupported_claims": []
+            }
+          },
+          "preferred": "human",
+          "rationale": "Justification A is more faithful to the debate transcript, covering all the main points and arguments. It provides a clear and logical reasoning for why the opposition's position is less persuasive, addressing the risks of allowing revolutionary leaders to run for office in post-conflict societies. Justification B, while also strong, occasionally veers into generalities and fails to address specific counterarguments as thoroughly.",
+          "input_hash": "4109dc385f37"
+        },
+        {
+          "model": "gemma4",
+          "judge": "command-r7b-arabic",
+          "order": [
+            "model",
+            "human"
+          ],
+          "attempts": 1,
+          "scores": {
+            "model": {
+              "faithfulness": 5,
+              "coverage": 5,
+              "reasoning": 5,
+              "clarity": 5,
+              "overall": 5,
+              "unsupported_claims": []
+            },
+            "human": {
+              "faithfulness": 5,
+              "coverage": 5,
+              "reasoning": 4,
+              "clarity": 5,
+              "overall": 5,
+              "unsupported_claims": []
+            }
+          },
+          "preferred": "model",
+          "rationale": "Justification A is preferred because it provides a comprehensive and well-structured argument. It effectively addresses the key issues, including the risks of allowing revolutionary leaders to run in post-conflict societies, and how this decision safeguards the transition process and the achievements of the revolution. It also demonstrates a clear understanding of the counterarguments presented by the opposition, effectively refuting them. In contrast, Justification B, while strong in many areas, lacks the same level of depth and coherence in its reasoning, particularly in its handling of the counterarguments.",
+          "input_hash": "4109dc385f37"
+        },
+        {
+          "model": "gpt-oss",
+          "judge": "command-r7b-arabic",
+          "order": [
+            "human",
+            "model"
+          ],
+          "attempts": 1,
+          "scores": {
+            "human": {
+              "faithfulness": 4,
+              "coverage": 4,
+              "reasoning": 3,
+              "clarity": 4,
+              "overall": 4,
+              "unsupported_claims": [
+                "لم يمهد ذلك لم يتحدث عن قاده الثوريين، لماذا امنعهم ولماذا اسمح لهم اساسا"
+              ]
+            },
+            "model": {
+              "faithfulness": 4,
+              "coverage": 4,
+              "reasoning": 4,
+              "clarity": 4,
+              "overall": 4,
+              "unsupported_claims": [
+                "الموالاة لا تعترف بالثورة"
+              ]
+            }
+          },
+          "preferred": "human",
+          "rationale": "Justification A is more faithful to the debate transcript, covering the decisive clashes and arguments of both teams. It provides a clear and concise explanation of why the Proposition team was more persuasive, weighing the risks of allowing revolutionary leaders to run for office against the potential for abuse of power. Justification B, while also strong, contains unsupported claims and lacks the depth of reasoning seen in A.",
+          "input_hash": "77763482c6c5"
+        },
+        {
+          "model": "gpt-oss",
+          "judge": "command-r7b-arabic",
+          "order": [
+            "model",
+            "human"
+          ],
+          "attempts": 1,
+          "scores": {
+            "model": {
+              "faithfulness": 5,
+              "coverage": 5,
+              "reasoning": 5,
+              "clarity": 5,
+              "overall": 5,
+              "unsupported_claims": []
+            },
+            "human": {
+              "faithfulness": 4,
+              "coverage": 4,
+              "reasoning": 4,
+              "clarity": 4,
+              "overall": 4,
+              "unsupported_claims": [
+                "الموالاة قالت انهم يريدون افضل الافضل للترشح، ولكن من سيصوت للمترشحين أليس هو الشعب؟ وفي هذه الحالة يحب ان نركز على فهم وثقة الشعب، ففي حالة الصراع فالثوريون يستحقون الحصول على الثقة من الشعب، فمنذ متى الثقة من الشعب تعتبر باطلة؟",
+                "الموالاة قالت انهم لا يريدون اعادة النظام السابق، ولكن هذه الموالاة تخاف من تطور الدولة. الموالاة تريد البقاء في الحالة السيئة للدولة قبل الثورة."
+              ]
+            }
+          },
+          "preferred": "model",
+          "rationale": "A يقدم حججًا أكثر تفصيلاً ودقة، مع أمثلة واقعية، بينما B يعتمد على نقاط ضعف في حجج A دون تقديم حجج بديلة قوية. A يغطي النقاط الرئيسية بشكل شامل، مع التركيز على التنافس العادل وحماية مكتسبات الثورة، بينما B يترك بعض النقاط دون معالجة كافية.",
+          "input_hash": "77763482c6c5"
+        },
+        {
+          "model": "llama4",
+          "judge": "command-r7b-arabic",
+          "order": [
+            "human",
+            "model"
+          ],
+          "attempts": 1,
+          "scores": {
+            "human": {
+              "faithfulness": 5,
+              "coverage": 4,
+              "reasoning": 4,
+              "clarity": 4,
+              "overall": 4,
+              "unsupported_claims": []
+            },
+            "model": {
+              "faithfulness": 4,
+              "coverage": 5,
+              "reasoning": 4,
+              "clarity": 4,
+              "overall": 4,
+              "unsupported_claims": []
+            }
+          },
+          "preferred": "human",
+          "rationale": "Justification A is more faithful to the debate transcript, covering all the main points and the reasoning is clear and well-structured. Justification B is also strong, but it misses some key points and the reasoning is less clear in places.",
+          "input_hash": "70bc4c05d9ab"
+        },
+        {
+          "model": "llama4",
+          "judge": "command-r7b-arabic",
+          "order": [
+            "model",
+            "human"
+          ],
+          "attempts": 1,
+          "scores": {
+            "model": {
+              "faithfulness": 5,
+              "coverage": 5,
+              "reasoning": 5,
+              "clarity": 5,
+              "overall": 5,
+              "unsupported_claims": []
+            },
+            "human": {
+              "faithfulness": 4,
+              "coverage": 4,
+              "reasoning": 4,
+              "clarity": 4,
+              "overall": 4,
+              "unsupported_claims": [
+                "الموالاة قالت انهم يريدون افضل الافضل للترشح، ولكن من سيصوت للمترشحين أليس هو الشعب؟ وفي هذه الحالة يحب ان نركز على فهم وثقة الشعب، ففي حالة الصراع فالثوريون يستحقون الحصول على الثقة من الشعب، فمنذ متى الثقة من الشعب تعتبر باطلة؟."
+              ]
+            }
+          },
+          "preferred": "model",
+          "rationale": "Justification A is superior because it provides a comprehensive and well-structured analysis of the debate. It effectively addresses the main points made by both teams, demonstrating a deep understanding of the issues at stake. The reasoning is clear and logical, and it effectively supports the proposition's position. In contrast, Justification B, while also well-structured, has some unsupported claims and lacks the same level of depth and clarity in its analysis.",
+          "input_hash": "70bc4c05d9ab"
+        },
+        {
+          "model": "qwen3.5",
+          "judge": "command-r7b-arabic",
+          "order": [
+            "human",
+            "model"
+          ],
+          "attempts": 1,
+          "scores": {
+            "human": {
+              "faithfulness": 5,
+              "coverage": 4,
+              "reasoning": 4,
+              "clarity": 4,
+              "overall": 4,
+              "unsupported_claims": []
+            },
+            "model": {
+              "faithfulness": 4,
+              "coverage": 5,
+              "reasoning": 4,
+              "clarity": 4,
+              "overall": 4,
+              "unsupported_claims": []
+            }
+          },
+          "preferred": "human",
+          "rationale": "Justification A is more faithful to the debate transcript, covering all the main points and providing a clear, well-reasoned argument. It effectively addresses the clashes and arguments of both teams, and its reasoning is supported by the transcript. Justification B is also strong, but it misses some key points and relies more on general principles, which are less convincing in this context.",
+          "input_hash": "c928343e03d9"
+        },
+        {
+          "model": "qwen3.5",
+          "judge": "command-r7b-arabic",
+          "order": [
+            "model",
+            "human"
+          ],
+          "attempts": 2,
+          "scores": {
+            "model": {
+              "faithfulness": 5,
+              "coverage": 5,
+              "reasoning": 4,
+              "clarity": 4,
+              "overall": 4,
+              "unsupported_claims": []
+            },
+            "human": {
+              "faithfulness": 4,
+              "coverage": 5,
+              "reasoning": 4,
+              "clarity": 4,
+              "overall": 4,
+              "unsupported_claims": []
+            }
+          },
+          "preferred": "model",
+          "rationale": "Justification A is preferred because it provides a more comprehensive and coherent argument for the proposition. It effectively addresses the decisive clashes and arguments of both teams, offering specific examples and logical reasoning to support its position. While Justification B is well-structured and covers the main points, it lacks the depth and clarity seen in Justification A, particularly in its analysis of the reasoning behind the proposition's position.",
+          "input_hash": "c928343e03d9"
+        }
+      ],
+      "aggregates": {
+        "soft": {
+          "winner": "proposition",
+          "models": [
+            "gemma4",
+            "gpt-oss",
+            "llama4",
+            "qwen3.5"
+          ],
+          "comparisons": 8,
+          "mean_scores": {
+            "human": {
+              "faithfulness": 4.5,
+              "coverage": 4.25,
+              "reasoning": 3.88,
+              "clarity": 4.12,
+              "overall": 4.12
+            },
+            "majority": {
+              "faithfulness": 4.5,
+              "coverage": 4.88,
+              "reasoning": 4.38,
+              "clarity": 4.38,
+              "overall": 4.38
+            }
+          },
+          "preferred_share": {
+            "majority": 0.5,
+            "human": 0.5,
+            "tie": 0.0
+          }
+        },
+        "hard": {
+          "winner": "proposition",
+          "models": [
+            "gemma4",
+            "gpt-oss",
+            "llama4",
+            "qwen3.5"
+          ],
+          "comparisons": 8,
+          "mean_scores": {
+            "human": {
+              "faithfulness": 4.54,
+              "coverage": 4.26,
+              "reasoning": 3.9,
+              "clarity": 4.14,
+              "overall": 4.14
+            },
+            "majority": {
+              "faithfulness": 4.5,
+              "coverage": 4.9,
+              "reasoning": 4.38,
+              "clarity": 4.38,
+              "overall": 4.38
+            }
+          },
+          "preferred_share": {
+            "majority": 0.5,
+            "human": 0.5,
+            "tie": 0.0
+          }
+        }
+      }
+    },
+    {
+      "debate_id": "debate_002",
+      "debate_number": 2,
+      "motion": "سيحاول هذا المجلس التواصل والاحتكاك بالشعوب الاصليه المنعزله",
+      "debate_file": "debates/debate_002.json",
+      "proposition_team": "بوازاتشي/ تركيا",
+      "opposition_team": "السلطان محمد الفاتح/ تركيا",
+      "tournament": "البطولة الدولية السابعة لمناظرات الجامعات",
+      "round": "نهائي الناطقين بغيرها",
+      "human_winner": "proposition",
+      "votes_proposition": 2,
+      "votes_opposition": 3,
+      "confidence_sum_proposition": 1.85,
+      "confidence_sum_opposition": 2.65,
+      "soft_winner": "opposition",
+      "hard_winner": "opposition",
+      "votes_differing_from_human": [
+        "soft",
+        "hard"
+      ],
+      "models": [
+        {
+          "model": "deepseek-r1",
+          "winner": "proposition",
+          "conf": 0.95,
+          "justification": "The proposition team was more persuasive because they effectively argued that contact with indigenous tribes is necessary for their development and integration into society, while the opposition focused on risks without providing a viable solution. The core clash points were better addressed by the proposition, who presented clear benefits and a systematic approach.",
+          "verdict_file": "outputs/outputs/deepseek-r1/debate_002.verdict.json"
+        },
+        {
+          "model": "gemma4",
+          "winner": "opposition",
+          "conf": 0.95,
+          "justification": "فازت المعارضة لأنها نجحت في تحويل النقاش من مسألة 'المنفعة مقابل الضرر' إلى مسألة 'الخطر الوجودي مقابل الهدف الباطل'. لقد أثبتت المعارضة أن طبيعة تدخل الدولة (الاستغلال) وأن الاحتكاك نفسه (تدمير الثقافة) يلغي الهدف المعلن للموالاة (التعرف). بينما ركزت الموالاة على الحلول النظرية (التنظيم والخدمات) دون تقديم آلية قوية ومقنعة لتجنب المخاطر الأخلاقية والتاريخية التي طرحتها المعارضة.",
+          "verdict_file": "outputs/outputs/gemma4/debate_002.verdict.json"
+        },
+        {
+          "model": "gpt-oss",
+          "winner": "opposition",
+          "conf": 0.85,
+          "justification": "Opposition’s arguments directly attacked the proposition’s core claims and provided concrete examples of harm, while the proposition’s arguments were repetitive and lacked evidence. The opposition’s refutations were more persuasive, leading to a clear win.",
+          "verdict_file": "outputs/outputs/gpt-oss/debate_002.verdict.json"
+        },
+        {
+          "model": "llama4",
+          "winner": "proposition",
+          "conf": 0.9,
+          "justification": "الموالاة قدمت حجج قوية حول أهمية التواصل مع الشعوب الاصليه المنعزله لتعرفهم وتمكينهم من خدمات الدوله، بينما المعارضة ركزت على مخاطر التواصل على ثقافتهم وصحتهم. ومع ذلك، فإن حجج الموالاة كانت أكثر إقناعاً وقدمت حلولاً بناءة حول كيفية تنفيذ التواصل بشكل تدريجي وآمن.",
+          "verdict_file": "outputs/outputs/llama4/debate_002.verdict.json"
+        },
+        {
+          "model": "qwen3.5",
+          "winner": "opposition",
+          "conf": 0.85,
+          "justification": "فاز فريق المعارضة لأنه نجح في إقناع القاضي بأن التواصل والاحتكاك يؤديان بالضرورة إلى أضرار جسيمة (أمراض، موت، استغلال ثقافي) كما أثبتت الأمثلة التاريخية. الموالاة اعتمدت على افتراضات مثالية حول قدرة الدولة على التحكم في العملية دون إثبات عملي كافٍ. المعارضة كانت أكثر إقناعاً في تفنيدها لحجج الموالاة حول الخدمات والصحة والثقافة، خاصة من خلال التركيز على حق الشعوب في العزلة وعدم رغبتهم في التواصل.",
+          "verdict_file": "outputs/outputs/qwen3.5/debate_002.verdict.json"
+        }
+      ],
+      "human_justification": "دارت المناظرة حول عدة محاوررئيسة وهي: 1- الحقوق والواجبات 2- الهوية الثقافية والمجتمعية 3- الصحة والمناعة \nفالموالاة في الجانب الحقوقي عززت موقفها بأهمية حماية السكان الأصليين والتزام الحكومة بخدمتهم باعتبارهم مواطنين كغيرهم من أبناء الشعب. بينما ترى المعارضة أن هذا التدخل سيؤدي للاستغلال. تكافأ الفريقان في هذا المحور.\nوفي المحور المتعلق بالهوية والخصوصية الثقافية ترى الموالاة أن الدولة ستحمي الثقافة وستعرف العالم بها وأن تدخل الحكومة يمنع فرض الثقافة العامة أو محو الخصوصية للأقليات وبينما ترى المعارضة أن الثقافة ستضيع إذا تم تدخل الحكومة ويكفي معرفتها عن بعد... وفي هذا المحور تقارب الفريقان\nوفي المحور الصحي ترى الموالاة أن الاندماج إيجابي لتقوية المناعة وأن توفير الخدمات الصحية واللقاحات واجب الدولة لحماية السكان الأصليين بينما تعتقد المعارضة أن الأمراض انتشرت أكثر بسبب التدخلات الحديثة وبقاء السكان معزولين أضمن لصحتهم... وهنا تفوق نسبي للموالاة....\n\nوبناء على ملخص نقاط التصادم هذه تفوز الموالاة",
+      "evaluations": [
+        {
+          "model": "gemma4",
+          "judge": "command-r7b-arabic",
+          "order": [
+            "human",
+            "model"
+          ],
+          "attempts": 1,
+          "scores": {
+            "human": {
+              "faithfulness": 4,
+              "coverage": 4,
+              "reasoning": 4,
+              "clarity": 4,
+              "overall": 4,
+              "unsupported_claims": [
+                "لم يذهب الاستثمار انا اقول لك طبيعه الانسان يستثمر من يراه ضعيفا السمك الاكبر دائما يرى السمك الاصغر مثل مثال افريقى وهنود الاحمر واشرح ذلك يقولون نحن هدفنا التعرف يعني نحن لا نقول لا نريد ان نتعرف عليهم نريد ان نتعرف عليهم ولكن نتركهم لحالهم لان الضرر الذي ياتي من التواصل اكبر حتى يعني كل يعني لو نظرنا الى التاريخ، الضرر دائما كان اكبر واريد ان اسال لك يعني اذا كان هذا التواصل تكون بين الطرفين اي لغه يتكلمون في الامريكا اليست انجليزيه ها لماذا لا لا يتكلمون لغه الهنود الاحمر الذي كانوا يتكلمون قديما وايضا اي لغه يتكلم الجنوب افريقيا وايضا معظم دول افريقيا يتكلمون الفرنسيه هذه كله يعني ذهب هناك الاستغلال اكتشاف واستغلال، اي التواصل هناك مشاركه وهذا ليست تواصل بل هو الاستثمار سياتي بعدها"
+              ]
+            },
+            "model": {
+              "faithfulness": 4,
+              "coverage": 5,
+              "reasoning": 5,
+              "clarity": 4,
+              "overall": 4,
+              "unsupported_claims": [
+                "طبيعه الانسان يستثمر من يراه ضعيفا السمك الاكبر دائما يرى السمك الاصغر مثل مثال افريقى وهنود الاحمر واشرح ذلك يقولون نحن هدفنا التعرف يعني نحن لا نقول لا نريد ان نتعرف عليهم نريد ان نتعرف عليهم ولكن نتركهم لحالهم لان الضرر الذي ياتي من التواصل اكبر حتى يعني كل يعني لو نظرنا الى التاريخ، الضرر دائما كان اكبر واريد ان اسال لك يعني اذا كان هذا التواصل تكون بين الطرفين اي لغه يتكلمون في الامريكا اليست انجليزيه ها لماذا لا لا يتكلمون لغه الهنود الاحمر الذي كانوا يتكلمون قديما وايضا اي لغه يتكلم الجنوب افريقيا وايضا معظم دول افريقيا يتكلمون الفرنسيه هذه كله يعني ذهب هناك الاستغلال اكتشاف واستغلال، اي التواصل هناك مشاركه وهذا ليست تواصل بل هو الاستثمار سياتي بعدها"
+              ]
+            }
+          },
+          "preferred": "model",
+          "rationale": "B يقدم حججاً أكثر شمولاً وتفصيلاً مع التركيز على المخاطر الأخلاقية والتاريخية المحتملة للتدخل. في حين أن A يقدم حججاً جيدة، إلا أنها تفتقر إلى العمق والتحليل النقدي الذي يقدمه B.",
+          "input_hash": "9240050002eb"
+        },
+        {
+          "model": "gpt-oss",
+          "judge": "command-r7b-arabic",
+          "order": [
+            "human",
+            "model"
+          ],
+          "attempts": 1,
+          "scores": {
+            "human": {
+              "faithfulness": 4,
+              "coverage": 4,
+              "reasoning": 4,
+              "clarity": 4,
+              "overall": 4,
+              "unsupported_claims": [
+                "لم يشرحها لنا ولم تتحقق وما وصلتم الى هدفكم",
+                "لماذا يحتاجون اليكم، كانوا يعيشون الاف من السنين دون تكنولوجيا ولماذا لو ادخلنا تكنولوجيا سيحدث نفس الشيء سيزيل الثقافه يزول الهدف كيف سيكون مثلنا فلا يكون لا يكون فائده من التعرف عليهم",
+                "ثم قلتم كولومبس، دليل كولومبوس في صالحنا، كولومبوس ذهب الى امريكا للاكتشاف وليس للاستغلال. واصلا حينما دخل البريطانيون الى امريكا ماذا حصل لهم، هم ماتوا. ولا يوجد لديكم ادلة من التاريخ ان التواصل جيد، بدون انهيار وزوال الثقافه في الشعوب الاصلية"
+              ]
+            },
+            "model": {
+              "faithfulness": 5,
+              "coverage": 5,
+              "reasoning": 5,
+              "clarity": 5,
+              "overall": 5,
+              "unsupported_claims": [
+                "لماذا لا يتكلمون لغه الهنود الاحمر الذي كانوا يتكلمون قديما",
+                "ثم قلتم لدينا تكنولوجيا، لماذا تكنولوجيا؟ جيد هم عاشوا الاف السنين دون تكنولوجيا ولماذا لو ادخلنا تكنولوجيا سيحدث نفس الشيء سيزيل الثقافه يزول الهدف كيف سيكون مثلنا فلا يكون لا يكون فائده من التعرف عليهم",
+                "ثم قلتم كولومبس، دليل كولومبوس في صالحنا، كولومبوس ذهب الى امريكا للاكتشاف وليس للاستغلال. واصلا حينما دخل البريطانيون الى امريكا ماذا حصل لهم، هم ماتوا. ولا يوجد لديكم ادلة من التاريخ ان التواصل جيد، بدون انهيار وزوال الثقافه في الشعوب الاصلية"
+              ]
+            }
+          },
+          "preferred": "model",
+          "rationale": "B's justification is superior in every category. It is faithful to the debate transcript, covering all the decisive clashes and arguments. Its reasoning is clear and well-supported, effectively explaining why the opposition's position is more persuasive. It is also clear, concise, and well-organized. In contrast, A's justification, while also strong, has some unsupported claims and lacks the same level of clarity and reasoning.",
+          "input_hash": "a370bcdf35d7"
+        },
+        {
+          "model": "qwen3.5",
+          "judge": "command-r7b-arabic",
+          "order": [
+            "human",
+            "model"
+          ],
+          "attempts": 1,
+          "scores": {
+            "human": {
+              "faithfulness": 4,
+              "coverage": 4,
+              "reasoning": 4,
+              "clarity": 4,
+              "overall": 4,
+              "unsupported_claims": [
+                "لم يذهب الاستثمار انا اقول لك طبيعه الانسان يستثمر من يراه ضعيفا السمك الاكبر دائما يرى السمك الاصغر مثل مثال افريقى وهنود الاحمر واشرح ذلك يقولون نحن هدفنا التعرف يعني نحن لا نقول لا نريد ان نتعرف عليهم نريد ان نتعرف عليهم ولكن نتركهم لحالهم لان الضرر الذي ياتي من التواصل اكبر حتى يعني كل يعني لو نظرنا الى التاريخ، الضرر دائما كان اكبر واريد ان اسال لك يعني اذا كان هذا التواصل تكون بين الطرفين اي لغه يتكلمون في الامريكا اليست انجليزيه ها لماذا لا لا يتكلمون لغه الهنود الاحمر الذي كانوا يتكلمون قديما وايضا اي لغه يتكلم الجنوب افريقيا وايضا معظم دول افريقيا يتكلمون الفرنسيه هذه كله يعني ذهب هناك الاستغلال اكتشاف واستغلال، اي التواصل هناك مشاركه وهذا ليست تواصل بل هو الاستثمار سياتي بعدها"
+              ]
+            },
+            "model": {
+              "faithfulness": 4,
+              "coverage": 4,
+              "reasoning": 5,
+              "clarity": 4,
+              "overall": 4,
+              "unsupported_claims": [
+                "هم قالوا يجب ان نستفيد من الثقافه. نحن نقول ثقافتهم ستموت ولن يكون هناك شيئا من ثقافتهم كما فعلت مثلا الدول. ويقولون لهم شتى اللغات ولهم طريقه حياه، لكن نحن ستتعرف عليهم مثل الهنود الحمر اتيناكم بهذه الامثله، فلهم اللغه بطريقتهم لكن لان في جنوب افريقيا يتكلمون الفرنسيه."
+              ]
+            }
+          },
+          "preferred": "model",
+          "rationale": "B يقدم حججاً أكثر قوة ودقة، خاصة في تفنيده لحجج الموالاة. فهو يعالج كل نقطة بشكل شامل، ويستخدم أمثلة تاريخية مقنعة لإثبات أضرار التواصل والاحتكاك. بينما A، على الرغم من أنه يغطي النقاط الرئيسية، إلا أنه يعتمد على افتراضات مثالية دون تقديم أدلة عملية كافية.",
+          "input_hash": "9b0efe0bbebf"
+        },
+        {
+          "model": "qwen3.5",
+          "judge": "command-r7b-arabic",
+          "order": [
+            "model",
+            "human"
+          ],
+          "attempts": 3,
+          "scores": {
+            "model": {
+              "faithfulness": 4,
+              "coverage": 4,
+              "reasoning": 3,
+              "clarity": 4,
+              "overall": 4,
+              "unsupported_claims": [
+                "امريكا لم تذهب الى القارات الاخرى للتعرف على الشعوب المنعزله"
+              ]
+            },
+            "human": {
+              "faithfulness": 4,
+              "coverage": 4,
+              "reasoning": 4,
+              "clarity": 4,
+              "overall": 4,
+              "unsupported_claims": [
+                "امريكا ذهبت الى العراق للديمقراطيه"
+              ]
+            }
+          },
+          "preferred": "model",
+          "rationale": "A is stronger on faithfulness and reasoning, even if B is stronger on overall clarity and coverage.",
+          "input_hash": "9b0efe0bbebf"
+        }
+      ],
+      "aggregates": {
+        "soft": {
+          "winner": "opposition",
+          "models": [
+            "gemma4",
+            "gpt-oss",
+            "qwen3.5"
+          ],
+          "comparisons": 4,
+          "mean_scores": {
+            "human": {
+              "faithfulness": 4.0,
+              "coverage": 4.0,
+              "reasoning": 4.0,
+              "clarity": 4.0,
+              "overall": 4.0
+            },
+            "majority": {
+              "faithfulness": 4.25,
+              "coverage": 4.5,
+              "reasoning": 4.5,
+              "clarity": 4.25,
+              "overall": 4.25
+            }
+          },
+          "preferred_share": {
+            "majority": 1.0,
+            "human": 0.0,
+            "tie": 0.0
+          }
+        },
+        "hard": {
+          "winner": "opposition",
+          "models": [
+            "gemma4",
+            "gpt-oss",
+            "qwen3.5"
+          ],
+          "comparisons": 4,
+          "mean_scores": {
+            "human": {
+              "faithfulness": 4.0,
+              "coverage": 4.0,
+              "reasoning": 4.0,
+              "clarity": 4.0,
+              "overall": 4.0
+            },
+            "majority": {
+              "faithfulness": 4.24,
+              "coverage": 4.51,
+              "reasoning": 4.51,
+              "clarity": 4.24,
+              "overall": 4.24
+            }
+          },
+          "preferred_share": {
+            "majority": 1.0,
+            "human": 0.0,
+            "tie": 0.0
+          }
+        }
+      }
+    },
+    {
+      "debate_id": "debate_004",
+      "debate_number": 4,
+      "motion": "يفضل هذا المجلس عالما بدون الاحتراف الرياضي",
+      "debate_file": "debates/debate_004.json",
+      "proposition_team": "الكويت",
+      "opposition_team": "الجزائر",
+      "tournament": "البطولة الدولية السادسة لمناظرات المدارس",
+      "round": "نصف النهائي",
+      "human_winner": "proposition",
+      "votes_proposition": 2,
+      "votes_opposition": 3,
+      "confidence_sum_proposition": 1.85,
+      "confidence_sum_opposition": 2.5,
+      "soft_winner": "opposition",
+      "hard_winner": "opposition",
+      "votes_differing_from_human": [
+        "soft",
+        "hard"
+      ],
+      "models": [
+        {
+          "model": "deepseek-r1",
+          "winner": "opposition",
+          "conf": 0.8,
+          "justification": "The Opposition team was more persuasive because they effectively defended their position by providing clear examples and refutations, while the Proposition team's arguments were weak and lacked substance in comparison. The core clash point was the necessity of professional sports in society, and the Opposition team successfully argued that it is essential for maintaining discipline and values in sports.",
+          "verdict_file": "outputs/outputs/deepseek-r1/debate_004.verdict.json"
+        },
+        {
+          "model": "gemma4",
+          "winner": "proposition",
+          "conf": 0.95,
+          "justification": "فاز فريق الموالاة لأنه نجح في إقناع الحَكَم بأن المخاطر الجوهرية وعدم الاستقرار في الاحتراف الرياضي تفوقان القيمة الأخلاقية التي دافع عنها فريق المعارضة. تمحور الانتصار حول حجة 'الفقاعة' و'الاستقرار' التي قدمها المتحدثان الثالث والأول للموالاة. أثبت المتحدث الثالث للموالاة أن الاحتراف الرياضي هو 'مغامرة' غير مضمونة، حيث قال: \"الاحتراف الرياضي لا يوجد فيه استقرار لماذا لانك تربط مصيرك بعوامل خارجيه\" (Speech 3). كما نجحت الموالاة في ربط هذا الخطر الفردي بالضرر المجتمعي، مؤكدة أن هذا المسار يدفع الشباب لترك الاستقرار الأكاديمي، حيث ذكرت: \"نحن اليوم لا نضمن لك حياتك نضمن لك مستقبلك نضمن لك استقرارك\" (Speech 5). في المقابل، رغم قوة حجج المعارضة حول الأخلاق، لم تتمكن من تفنيد حجة عدم الاستقرار بشكل فعال، بل ركزت على إعادة تأطير النقاش حول الأخلاقيات، وهو ما اعتبرته الموالاة محاولة للتهرب من جوهر القضية.",
+          "verdict_file": "outputs/outputs/gemma4/debate_004.verdict.json"
+        },
+        {
+          "model": "gpt-oss",
+          "winner": "opposition",
+          "conf": 0.85,
+          "justification": "Opposition's arguments survived the clash points because they were better structured, directly addressed the core issues, and provided concrete examples. Proposition's arguments were fragmented and lacked clear logical chains, leading to their dismissal.",
+          "verdict_file": "outputs/outputs/gpt-oss/debate_004.verdict.json"
+        },
+        {
+          "model": "llama4",
+          "winner": "proposition",
+          "conf": 0.9,
+          "justification": "فريق الموالاة قدم حجج قوية حول تأثير الاحتراف الرياضي على الاستقرار وعلى المجتمع، بينما فريق المعارضة لم يستطع أن يرد بشكل مقنع على هذه الحجج.",
+          "verdict_file": "outputs/outputs/llama4/debate_004.verdict.json"
+        },
+        {
+          "model": "qwen3.5",
+          "winner": "opposition",
+          "conf": 0.85,
+          "justification": "فازت المعارضة لأنها نجحت في إعادة تعريف مصطلح الاحتراف ليشمل الأخلاقيات والانضباط، مما جعل حجة الموالاة حول عدم الاستقرار أقل صلة. كما أثبتت أن المخاطر المالية موجودة في أي مهنة وليس فقط الرياضة، مما قلل من قوة حجة الموالاة. بالإضافة إلى ذلك، حافظت المعارضة على تماسك موقفها ضد النص بشكل أفضل حتى في خطاب الرد.",
+          "verdict_file": "outputs/outputs/qwen3.5/debate_004.verdict.json"
+        }
+      ],
+      "human_justification": "فريق الموالاة عرف الاحتراف على أنه امتهان الرياضة، ركز على مسألة الإجهاد نتيجة المبالغة في الاجتهاد عند السعي للوصول للاحتراف ممّا يجعل المخاطرة الحياتية كبيرة عند فشل هذا السعي ممّا يجعل الحياة ككل تتأثر سلبًا، بالمقابل فريق المعارضة تحدى التعريف منذ البداية، ورغم كون تعريف فريق المعارضة بدَهي وعادل وقابل للتناظر إلا أن فريق المعارضة اختار الذهاب إلى تعريف آخر أبعد وذهب في مساره الخاص في مناظرة موازية.\n\nلذا كان من البداية ميلان الكفّة نحو الموالاة لوقوع المناظرة في فخ تحدي التعريف بشكل خاطئ جعلهم يدخلون في مناظرة أخرى دون اشتباك مباشر للنص والتعريف الخاص بالموالاة.",
+      "evaluations": [
+        {
+          "model": "deepseek-r1",
+          "judge": "command-r7b-arabic",
+          "order": [
+            "human",
+            "model"
+          ],
+          "attempts": 2,
+          "scores": {
+            "human": {
+              "faithfulness": 4,
+              "coverage": 4,
+              "reasoning": 4,
+              "clarity": 4,
+              "overall": 4,
+              "unsupported_claims": [
+                "فريق المعارضه لم يذكر انه يوجد اخلاقيات في الرياضه",
+                "فريق المعارضه لم يذكر انه يوجد انضباط في الرياضه"
+              ]
+            },
+            "model": {
+              "faithfulness": 5,
+              "coverage": 5,
+              "reasoning": 5,
+              "clarity": 5,
+              "overall": 5,
+              "unsupported_claims": [
+                "لا يوجد"
+              ]
+            }
+          },
+          "preferred": "model",
+          "rationale": "B is more faithful to the debate transcript, covering all the main points and providing clear reasoning. A is good but B is superior.",
+          "input_hash": "948951522593"
+        },
+        {
+          "model": "deepseek-r1",
+          "judge": "command-r7b-arabic",
+          "order": [
+            "model",
+            "human"
+          ],
+          "attempts": 1,
+          "scores": {
+            "model": {
+              "faithfulness": 4,
+              "coverage": 4,
+              "reasoning": 4,
+              "clarity": 4,
+              "overall": 4,
+              "unsupported_claims": [
+                "الموالاة - المتحدث الثالث: ذكر مثال بثني اليوم بناي ايضا انتهت مسيرته بسبب ليس منه بسبب عامل خارج وهو كونه اسود"
+              ]
+            },
+            "human": {
+              "faithfulness": 4,
+              "coverage": 4,
+              "reasoning": 4,
+              "clarity": 4,
+              "overall": 4,
+              "unsupported_claims": [
+                "فريق المعارضة: تحدثت المتحدثة الثالثة عن كيف ان الاحترافيه الاحترافيه تؤثر على الرياضي بحد ذاته وتؤثر على الرياضه وذكرنا مثالا عن عن رياضي ايطالي اثرت لا احترافيته على سمعته بدايه وعلى سمعه ناديه وعلى القيم الرياضيه"
+              ]
+            }
+          },
+          "preferred": "model",
+          "rationale": "Justification A is preferred because it is more faithful to the debate transcript, covering the decisive clashes and arguments of both teams. It provides a clear and concise explanation of why the Opposition team was more persuasive, effectively defending their position with examples and refutations. Justification B, while also well-reasoned and clear, contains unsupported claims and fails to address the core clash point effectively.",
+          "input_hash": "948951522593"
+        },
+        {
+          "model": "gpt-oss",
+          "judge": "command-r7b-arabic",
+          "order": [
+            "human",
+            "model"
+          ],
+          "attempts": 2,
+          "scores": {
+            "human": {
+              "faithfulness": 4,
+              "coverage": 4,
+              "reasoning": 4,
+              "clarity": 4,
+              "overall": 4,
+              "unsupported_claims": [
+                "فريق المعارضه يتهربوا من نص القضيه",
+                "فريق الموالاه يتهربوا من نص القضيه",
+                "فريق المعارضه يدافع عن الانضباط كما دفعنا عن الشفافيه في الرياضه"
+              ]
+            },
+            "model": {
+              "faithfulness": 5,
+              "coverage": 5,
+              "reasoning": 5,
+              "clarity": 5,
+              "overall": 5,
+              "unsupported_claims": [
+                "فريق المعارضه يدافع عن الاحترافيه بمفهومها كا احتراف",
+                "فريق المعارضه يدافع عن الانضباط كما دفعنا عن الشفافيه في الرياضه"
+              ]
+            }
+          },
+          "preferred": "model",
+          "rationale": "B's justification is superior in every category. It is faithful to the debate transcript, covers all the decisive clashes and arguments, provides strong reasoning, is clear and concise, and overall presents a well-structured and persuasive case.",
+          "input_hash": "85ed1783ad86"
+        },
+        {
+          "model": "gpt-oss",
+          "judge": "command-r7b-arabic",
+          "order": [
+            "model",
+            "human"
+          ],
+          "attempts": 2,
+          "scores": {
+            "model": {
+              "faithfulness": 2,
+              "coverage": 2,
+              "reasoning": 2,
+              "clarity": 2,
+              "overall": 2,
+              "unsupported_claims": [
+                "الموالاة - المتحدث الأول",
+                "الموالاة - المتحدث الثاني",
+                "الموالاة - المتحدث الثالث"
+              ]
+            },
+            "human": {
+              "faithfulness": 3,
+              "coverage": 3,
+              "reasoning": 3,
+              "clarity": 3,
+              "overall": 3,
+              "unsupported_claims": [
+                "المعارضة - المتحدث الأول",
+                "المعارضة - المتحدث الثاني",
+                "المعارضة - المتحدث الثالث"
+              ]
+            }
+          },
+          "preferred": "human",
+          "rationale": "Justification B is more faithful to the debate transcript, covering the main points and providing a clear logical chain. It effectively addresses the clash points and offers a well-structured argument, while Justification A contains unsupported claims and lacks clarity.",
+          "input_hash": "85ed1783ad86"
+        },
+        {
+          "model": "qwen3.5",
+          "judge": "command-r7b-arabic",
+          "order": [
+            "human",
+            "model"
+          ],
+          "attempts": 1,
+          "scores": {
+            "human": {
+              "faithfulness": 5,
+              "coverage": 5,
+              "reasoning": 5,
+              "clarity": 5,
+              "overall": 5,
+              "unsupported_claims": []
+            },
+            "model": {
+              "faithfulness": 5,
+              "coverage": 5,
+              "reasoning": 4,
+              "clarity": 5,
+              "overall": 5,
+              "unsupported_claims": []
+            }
+          },
+          "preferred": "human",
+          "rationale": "A يقدم حججًا أكثر تماسكًا وتفصيلًا، مع التركيز على نقاط الضعف في حجة المعارضة. كما أن A يعالج بشكل أفضل النقاط الرئيسية للمناظرة، مما يجعله أكثر فعالية في دعم موقف الموالاة.",
+          "input_hash": "3f95293568fa"
+        },
+        {
+          "model": "qwen3.5",
+          "judge": "command-r7b-arabic",
+          "order": [
+            "model",
+            "human"
+          ],
+          "attempts": 2,
+          "scores": {
+            "model": {
+              "faithfulness": 5,
+              "coverage": 5,
+              "reasoning": 4,
+              "clarity": 4,
+              "overall": 4,
+              "unsupported_claims": []
+            },
+            "human": {
+              "faithfulness": 3,
+              "coverage": 3,
+              "reasoning": 3,
+              "clarity": 4,
+              "overall": 3,
+              "unsupported_claims": [
+                "فريق المعارضة تحدى التعريف منذ البداية، ورغم كون تعريف فريق المعارضة بدَهي وعادل وقابل للتناظر إلا أن فريق المعارضة اختار الذهاب إلى تعريف آخر أبعد وذهب في مساره الخاص في مناظرة موازية."
+              ]
+            }
+          },
+          "preferred": "model",
+          "rationale": "A يقدم حججًا أكثر تماسكًا وتفصيلًا، مع التركيز على نقاط الضعف في حجة المعارضة. بينما B يفتقر إلى العمق في تحليله، ويبدو أنه يتجنب المواجهة المباشرة مع حجج المعارضة.",
+          "input_hash": "3f95293568fa"
+        }
+      ],
+      "aggregates": {
+        "soft": {
+          "winner": "opposition",
+          "models": [
+            "deepseek-r1",
+            "gpt-oss",
+            "qwen3.5"
+          ],
+          "comparisons": 6,
+          "mean_scores": {
+            "human": {
+              "faithfulness": 3.83,
+              "coverage": 3.83,
+              "reasoning": 3.83,
+              "clarity": 4.0,
+              "overall": 3.83
+            },
+            "majority": {
+              "faithfulness": 4.33,
+              "coverage": 4.33,
+              "reasoning": 4.0,
+              "clarity": 4.17,
+              "overall": 4.17
+            }
+          },
+          "preferred_share": {
+            "majority": 0.67,
+            "human": 0.33,
+            "tie": 0.0
+          }
+        },
+        "hard": {
+          "winner": "opposition",
+          "models": [
+            "deepseek-r1",
+            "gpt-oss",
+            "qwen3.5"
+          ],
+          "comparisons": 6,
+          "mean_scores": {
+            "human": {
+              "faithfulness": 3.83,
+              "coverage": 3.83,
+              "reasoning": 3.83,
+              "clarity": 4.0,
+              "overall": 3.83
+            },
+            "majority": {
+              "faithfulness": 4.33,
+              "coverage": 4.33,
+              "reasoning": 3.99,
+              "clarity": 4.16,
+              "overall": 4.16
+            }
+          },
+          "preferred_share": {
+            "majority": 0.66,
+            "human": 0.34,
+            "tie": 0.0
+          }
+        }
+      }
+    },
+    {
+      "debate_id": "debate_0010",
+      "debate_number": 10,
+      "motion": "يجب على الغرب تقديم الدعم المادي والعسكري للجماعات المعارضه للانظمه القمعيه",
+      "debate_file": "debates/debate_0010.json",
+      "proposition_team": "تونس المنار",
+      "opposition_team": "الخرطوم",
+      "tournament": "البطولة الدولية التالتة لمناظرات الجامعات",
+      "round": "ربع النهائي",
+      "human_winner": "proposition",
+      "votes_proposition": 2,
+      "votes_opposition": 3,
+      "confidence_sum_proposition": 1.75,
+      "confidence_sum_opposition": 2.7,
+      "soft_winner": "opposition",
+      "hard_winner": "opposition",
+      "votes_differing_from_human": [
+        "soft",
+        "hard"
+      ],
+      "models": [
+        {
+          "model": "deepseek-r1",
+          "winner": "opposition",
+          "conf": 0.9,
+          "justification": "المعارضة نجحت في تقديم حجج مكثفة تظهر أن تقديم الدعم المالي والعسكري للجماعات المعارضه للانظمه القمعيه يهدد الامن والاستقرار العالميين، وأن الغرب ليس طرفاً مؤهلاً لهذه المهمة. بينما الموالاة تعتمد على ادعاءات غير مثبتة حول دور الغرب في حماية حقوق الإنسان، وتركز على مبدأ حماية الإنسان دون توضيح الآثار السلبية للتدخل. لذلك، أحق Opposition بالفوز因为他们更好地论证ed the risks and weaknesses of the proposition's position.",
+          "verdict_file": "outputs/outputs/deepseek-r1/debate_0010.verdict.json"
+        },
+        {
+          "model": "gemma4",
+          "winner": "opposition",
+          "conf": 0.95,
+          "justification": "فازت المعارضة لأنها نجحت في إقناع المحكم بأن المخاطر العملية للتدخل تفوق المبادئ الأخلاقية. بينما ركزت الموالاة على الواجب الأخلاقي لحماية الإنسان، ركزت المعارضة على التداعيات التاريخية والسياسية للتدخل. على سبيل المثال، في خطاب المتحدث الثاني (S4)، قدمت المعارضة دليلاً قوياً على أن التدخل يؤدي إلى الفوضى، حيث ذكرت: \"كل تدخل تم فيه تدخل بالقوه او امداد المعارضه او كل ما تم باسم حقوق الانسان في العراق في افغانستان\". كما نجحت المعارضة في تفكيك حجة أهلية الغرب في خطاب الرد (S7)، حيث أثبتت التناقض في السياسات الغربية بقولها: \"ذكرنا امثله هاهنا واضحه بالتناقض الصريح بين دعمه في حاله وعدم دعمه في حاله اخرى\".",
+          "verdict_file": "outputs/outputs/gemma4/debate_0010.verdict.json"
+        },
+        {
+          "model": "gpt-oss",
+          "winner": "opposition",
+          "conf": 0.85,
+          "justification": "Opposition’s arguments on sovereignty, agenda, and instability were well‑structured, directly addressed the core clash points, and were supported by specific examples (Iraq, Libya). Proposition’s arguments were generic, lacked concrete evidence, and its refutations did not effectively dismantle the opposition’s claims. Consequently, the opposition achieved a higher level of persuasion.",
+          "verdict_file": "outputs/outputs/gpt-oss/debate_0010.verdict.json"
+        },
+        {
+          "model": "llama4",
+          "winner": "proposition",
+          "conf": 0.9,
+          "justification": "الموالاة قدمت حججاً أكثر إقناعاً ومتسلسلة حول ضرورة دعم الغرب للمعارضة في الأنظمة القمعية لحماية الإنسان وفرض الديمقراطية",
+          "verdict_file": "outputs/outputs/llama4/debate_0010.verdict.json"
+        },
+        {
+          "model": "qwen3.5",
+          "winner": "proposition",
+          "conf": 0.85,
+          "justification": "فاز فريق الموالاة لأنه كان أكثر إقناعاً في الحفاظ على تعريف القضية وتمييز الدعم عن التدخل، كما أن حججه حول حماية الإنسان كانت أقوى من حجج المعارضة حول المخاطر التاريخية التي لم تكن مرتبطة مباشرة بالدعم للجماعات. خطاب الرد للموالاة كان حاسماً في تفنيد مغالطات المعارضة.",
+          "verdict_file": "outputs/outputs/qwen3.5/debate_0010.verdict.json"
+        }
+      ],
+      "human_justification": "في هذه المناظرة ثلاثة أطراف رئيسية\n\n_أنظمة دكتاتورية تقمع شعوبها\n_معارضة تحاول التخلص من هذه الأنظمة عند طريق إسقاطها وإحلال الديموقراطية مكانها\n_الدعم الغربي لهذه الجماعات المعارضة\n\nتهدف الموالاة لحماية هذه الشعوب (وهي المشكلة التي يناقشها النص) ونشر الديموقراطية عن طريق دعم الدول الغربية (لماذا الغربية) بصفتها نموذج قوي ديموقراطيا وملتزمة بحقوق الإنسان\n\nانتهت المناظرة وموقف الموالاة كما هو وبالفعل من خلال دعم الجماعات المعارضة سنصل لهدف حماية الشعوب \n\nفي حين أن المعارضة كان لديها ٣ مشاكل رئيسية:\n١. غياب الشعوب المضطهدة من موقفها وهم الجزء الأساسي.\n2. الخلط بين التدخل العسكري المباشر والدعم.\n3. عدم وضوح ماهية مشكلتهم، هل هي مع فكرة معارضة الأنظمة أو مع فكرة إن الدعم جايي من الغرب، إذا كان لأنه جايي من الغرب فالموالاة تقول عادي حتى لو للغرب مصالحهم الخاصة من الدعم دام بيلتقي مع مصلحتي في اسقاط الأنظمة القمعية.",
+      "evaluations": [
+        {
+          "model": "deepseek-r1",
+          "judge": "command-r7b-arabic",
+          "order": [
+            "human",
+            "model"
+          ],
+          "attempts": 1,
+          "scores": {
+            "human": {
+              "faithfulness": 5,
+              "coverage": 5,
+              "reasoning": 5,
+              "clarity": 5,
+              "overall": 5,
+              "unsupported_claims": []
+            },
+            "model": {
+              "faithfulness": 5,
+              "coverage": 5,
+              "reasoning": 5,
+              "clarity": 5,
+              "overall": 5,
+              "unsupported_claims": []
+            }
+          },
+          "preferred": "tie",
+          "rationale": "كلتا الحجتين كانتا شاملة، متماسكة، ومقنعة. كلاهما يعالج الحجج الرئيسية للفريقين بشكل فعال، ويستخدم أمثلة قوية لدعم موقفه. ومع ذلك، فإن الحجج المقدمة من قبل الموالاة كانت أكثر تناسقاً وتواصلاً، مما يجعل من الصعب اختيار جانب واحد بوضوح. في حين أن حجج المعارضة كانت قوية، إلا أنها في بعض الأحيان كانت تفتقر إلى الوضوح والتنظيم، مما جعل من الصعب متابعتها.",
+          "input_hash": "e1c5f51c843b"
+        },
+        {
+          "model": "deepseek-r1",
+          "judge": "command-r7b-arabic",
+          "order": [
+            "model",
+            "human"
+          ],
+          "attempts": 1,
+          "scores": {
+            "model": {
+              "faithfulness": 5,
+              "coverage": 5,
+              "reasoning": 5,
+              "clarity": 5,
+              "overall": 5,
+              "unsupported_claims": []
+            },
+            "human": {
+              "faithfulness": 3,
+              "coverage": 3,
+              "reasoning": 3,
+              "clarity": 4,
+              "overall": 3,
+              "unsupported_claims": [
+                "فريق المعارضه لم يفند تعريفنا في البدايه حنا قلنا ان الجماعات المعارضه هي الجماعات المشبعه بالديمقراطيه ثم راح يتهموها انها لجماعات يمكن ان لا يمكن ان نعرف طبيعتها وكذا ان لم تفندو في محدثكم الاول فرجاء لا تعلقوا عليه في محدثكم الثاني والثالث فاتكم القطار",
+                "فريق المعارضه لم يفند تعريفنا في البدايه حنا قلنا ان الجماعات المعارضه هي الجماعات المشبعه بالديمقراطيه"
+              ]
+            }
+          },
+          "preferred": "model",
+          "rationale": "A is a strong justification, with clear, well-supported arguments. It effectively addresses the motion and refutes the opposition's claims. B, while it covers the main points, lacks the depth and clarity of A, particularly in its unsupported claims and less robust reasoning.",
+          "input_hash": "e1c5f51c843b"
+        },
+        {
+          "model": "gemma4",
+          "judge": "command-r7b-arabic",
+          "order": [
+            "human",
+            "model"
+          ],
+          "attempts": 1,
+          "scores": {
+            "human": {
+              "faithfulness": 5,
+              "coverage": 5,
+              "reasoning": 5,
+              "clarity": 5,
+              "overall": 5,
+              "unsupported_claims": []
+            },
+            "model": {
+              "faithfulness": 5,
+              "coverage": 5,
+              "reasoning": 5,
+              "clarity": 5,
+              "overall": 5,
+              "unsupported_claims": []
+            }
+          },
+          "preferred": "tie",
+          "rationale": "كلتا الحجتين كانتا شاملة، متماسكة، ومقنعة. كلاهما قدم حججًا قوية لصالح موقفه، مع التركيز على الجوانب الأخلاقية والسياسية. ومع ذلك، فإن الحجج المقدمة من قبل كل من الموالاة والمعارضة كانت متساوية في قوتها، مما يجعل من الصعب تحديد الفائز. لذا، تم اختيار 'تعادل' كخيار مفضل.",
+          "input_hash": "8329bdd3da71"
+        },
+        {
+          "model": "gemma4",
+          "judge": "command-r7b-arabic",
+          "order": [
+            "model",
+            "human"
+          ],
+          "attempts": 1,
+          "scores": {
+            "model": {
+              "faithfulness": 5,
+              "coverage": 5,
+              "reasoning": 5,
+              "clarity": 5,
+              "overall": 5,
+              "unsupported_claims": []
+            },
+            "human": {
+              "faithfulness": 3,
+              "coverage": 3,
+              "reasoning": 3,
+              "clarity": 4,
+              "overall": 3,
+              "unsupported_claims": [
+                "انتهت المناظرة وموقف الموالاة كما هو وبالفعل من خلال دعم الجماعات المعارضة سنصل لهدف حماية الشعوب",
+                "انتهت المناظرة وموقف المعارضة كما هو وبالفعل من خلال دعم الجماعات المعارضة سنصل لهدف حماية الشعوب"
+              ]
+            }
+          },
+          "preferred": "model",
+          "rationale": "A يقدم حججاً أكثر قوة وشمولاً ووفاءً للنص، مع التركيز على المخاطر العملية للتدخل. بينما B يفتقر إلى الوضوح والتفصيل، مع بعض الادعاءات غير المدعومة.",
+          "input_hash": "8329bdd3da71"
+        },
+        {
+          "model": "gpt-oss",
+          "judge": "command-r7b-arabic",
+          "order": [
+            "human",
+            "model"
+          ],
+          "attempts": 1,
+          "scores": {
+            "human": {
+              "faithfulness": 5,
+              "coverage": 5,
+              "reasoning": 4,
+              "clarity": 5,
+              "overall": 5,
+              "unsupported_claims": []
+            },
+            "model": {
+              "faithfulness": 4,
+              "coverage": 5,
+              "reasoning": 4,
+              "clarity": 4,
+              "overall": 4,
+              "unsupported_claims": []
+            }
+          },
+          "preferred": "human",
+          "rationale": "Justification A is stronger in reasoning and clarity, providing a well-structured and persuasive argument. It effectively addresses the core clash points and supports its claims with specific examples. Justification B, while strong in coverage and faithfulness, lacks the depth of reasoning and clarity seen in Justification A.",
+          "input_hash": "8c23305abfec"
+        },
+        {
+          "model": "gpt-oss",
+          "judge": "command-r7b-arabic",
+          "order": [
+            "model",
+            "human"
+          ],
+          "attempts": 2,
+          "scores": {
+            "model": {
+              "faithfulness": 5,
+              "coverage": 5,
+              "reasoning": 4,
+              "clarity": 5,
+              "overall": 5,
+              "unsupported_claims": []
+            },
+            "human": {
+              "faithfulness": 2,
+              "coverage": 2,
+              "reasoning": 2,
+              "clarity": 2,
+              "overall": 2,
+              "unsupported_claims": [
+                "تهدف الموالاة لحماية هذه الشعوب (وهي المشكلة التي يناقشها النص) ونشر الديموقراطية عن طريق دعم الدول الغربية (لماذا الغربية) بصفتها نموذج قوي ديموقراطيا وملتزمة بحقوق الإنسان",
+                "انتهت المناظرة وموقف الموالاة كما هو وبالفعل من خلال دعم الجماعات المعارضة سنصل لهدف حماية الشعوب",
+                "في حين أن المعارضة كان لديها ٣ مشاكل رئيسية: ١. غياب الشعوب المضطهدة من موقفها وهم الجزء الأساسي. 2. الخلط بين التدخل العسكري المباشر والدعم. 3. عدم وضوح ماهية مشكلتهم، هل هي مع فكرة معارضة الأنظمة أو مع فكرة إن الدعم جايي من الغرب، إذا كان لأنه جايي من الغرب فالموالاة تقول عادي حتى لو للغرب مصالحهم الخاصة من الدعم دام بيلتقي مع مصلحتي في اسقاط الأنظمة القمعية."
+              ]
+            }
+          },
+          "preferred": "model",
+          "rationale": "Justification A is superior because it is faithful to the debate transcript, covers the decisive clashes and arguments of both teams, and provides a clear and well-reasoned argument for why the proposition was more persuasive to a rational, informed listener. Justification B contains unsupported claims and does not effectively address the core arguments of the debate.",
+          "input_hash": "8c23305abfec"
+        }
+      ],
+      "aggregates": {
+        "soft": {
+          "winner": "opposition",
+          "models": [
+            "deepseek-r1",
+            "gemma4",
+            "gpt-oss"
+          ],
+          "comparisons": 6,
+          "mean_scores": {
+            "human": {
+              "faithfulness": 3.83,
+              "coverage": 3.83,
+              "reasoning": 3.67,
+              "clarity": 4.17,
+              "overall": 3.83
+            },
+            "majority": {
+              "faithfulness": 4.83,
+              "coverage": 5.0,
+              "reasoning": 4.67,
+              "clarity": 4.83,
+              "overall": 4.83
+            }
+          },
+          "preferred_share": {
+            "majority": 0.5,
+            "human": 0.17,
+            "tie": 0.33
+          }
+        },
+        "hard": {
+          "winner": "opposition",
+          "models": [
+            "deepseek-r1",
+            "gemma4",
+            "gpt-oss"
+          ],
+          "comparisons": 6,
+          "mean_scores": {
+            "human": {
+              "faithfulness": 3.84,
+              "coverage": 3.84,
+              "reasoning": 3.69,
+              "clarity": 4.19,
+              "overall": 3.84
+            },
+            "majority": {
+              "faithfulness": 4.84,
+              "coverage": 5.0,
+              "reasoning": 4.69,
+              "clarity": 4.84,
+              "overall": 4.84
+            }
+          },
+          "preferred_share": {
+            "majority": 0.5,
+            "human": 0.16,
+            "tie": 0.34
+          }
+        }
+      }
+    },
+    {
+      "debate_id": "debate_012",
+      "debate_number": 12,
+      "motion": "سيلغي هذا المجلس التاشيره بين الدول العربيه",
+      "debate_file": "debates/debate_012.json",
+      "proposition_team": "قطر بنين",
+      "opposition_team": "تونس",
+      "tournament": "البطولة الدولية التالتة لمناظرات المدارس",
+      "round": "نصف النهائي",
+      "human_winner": "proposition",
+      "votes_proposition": 2,
+      "votes_opposition": 3,
+      "confidence_sum_proposition": 1.65,
+      "confidence_sum_opposition": 2.63,
+      "soft_winner": "opposition",
+      "hard_winner": "opposition",
+      "votes_differing_from_human": [
+        "soft",
+        "hard"
+      ],
+      "models": [
+        {
+          "model": "deepseek-r1",
+          "winner": "opposition",
+          "conf": 0.9,
+          "justification": "لقد أظهر فريق المعارضة أن فريق الموالاة يتجاهل وجود مشاكل اقتصادية وسياسية وارهابية في الدول العربية، مما يجعل اقتراح废除 التأشيرات غير عملي وضائع. بينما قدمت فريق المعارضة حججًا منطقية وواضحة تخدم هدف حماية الدول العربية من المخاطر الخارجية، وهذا هو المعيار الأساسي لاختيار الفائز.",
+          "verdict_file": "outputs/outputs/deepseek-r1/debate_012.verdict.json"
+        },
+        {
+          "model": "gemma4",
+          "winner": "opposition",
+          "conf": 0.95,
+          "justification": "فازت المعارضة لأنها نجحت في ترسيخ إطار النقاش حول المخاطر الجوهرية للوحدة غير المنظمة، خاصة فيما يتعلق بالسيادة والأمن. أثبتت المعارضة أن التاشيرة ليست مجرد إجراء تنظيمي بل هي حاجز ضروري لحماية الدول من التهديدات الداخلية والخارجية. كما قدمت المعارضة تفنيداً قوياً لحجة التوازن الاقتصادي للموالاة، موضحاً أن إلغاء التاشيرة سيزيد من التفاوت والتركيز السكاني في الدول الغنية، بينما ركزت الموالاة على الإمكانات المستقبلية دون معالجة المخاطر القائمة بشكل كافٍ.",
+          "verdict_file": "outputs/outputs/gemma4/debate_012.verdict.json"
+        },
+        {
+          "model": "gpt-oss",
+          "winner": "opposition",
+          "conf": 0.78,
+          "justification": "Opposition’s case was more persuasive because it addressed each core clash point with concrete examples and logical rebuttals, whereas Proposition’s case was repetitive and lacked depth.",
+          "verdict_file": "outputs/outputs/gpt-oss/debate_012.verdict.json"
+        },
+        {
+          "model": "llama4",
+          "winner": "proposition",
+          "conf": 0.8,
+          "justification": "فريق الموالاة قدم حجج أكثر إقناعا في الجانب الأمني والاقتصادي، خاصة فيما يتعلق بوضع حدود مشروطة مثل دول الخليج وتأثير الغاء التاشيرة على البطالة.",
+          "verdict_file": "outputs/outputs/llama4/debate_012.verdict.json"
+        },
+        {
+          "model": "qwen3.5",
+          "winner": "proposition",
+          "conf": 0.85,
+          "justification": "فاز فريق الموالاة لأنه قدم حججاً أكثر إقناعاً حول كيفية إدارة الأمن والاقتصاد بعد إلغاء التاشير. استخدم أمثلة واقعية من دول الخليج لتوضيح أن الحدود والتفتيش يمكن أن يبقيا دون تاشير، مما دحض حجة المعارضة حول المخاطر الأمنية. كما أوضح أن إلغاء التاشير هو خطوة نحو الوحدة وليس تفككاً، بينما اعتمدت المعارضة على افتراضات غير مثبتة حول هجرة الأدمغة دون تقديم ضمانات بديلة.",
+          "verdict_file": "outputs/outputs/qwen3.5/debate_012.verdict.json"
+        }
+      ],
+      "human_justification": "استحق فريق  الموالاة  الفوز بحججه الجوهرية وحججه  التفنيدية ،  ومن حججهم الجوهرية   الحجة الاقتصادية  التي ستسهم  في القضاء على البطالة     وانتقال الخبرة  والإسهام في تنمية الابتكار    والحجة الاجتماعية   وأكدوا فيها  اتساع رقعة  المنافسة ،علاوة  على القضاء على الفساد،  وعلى الرغم  من محاولة الخصم  ضرب المحور الاقتصادي  بهجرة الأدمغة  وعدم ضمان الاستيعاب  إلا أنهم  تغلبوا  عليها  بالتأكيد  على  الاستيعاب الكامل  وتحقيق التوازن  ،     أما عن حججهم التفنيدية   فقد  تغلبوا   على المحور الأمني بالحدود المشروطة  والحد من الهجرة غير الشرعية  ومراقبة المشكوك فيهم ،  وتغلبوا على حجة الحقوق بعدم الإجبار  أو التعدي على السياسة  وفندوا الحجة الاقتصادية بذكر البدائل الواقعية ،  ولكنهم  لم  يتمكنوا   من هدم الحجة التاريخية  المتمثلة في ذكر تجارب فاشلة للوحدة.\nوقد نجح فريق الموالاة  من البداية  في بناء أرضية المناظرة بشكل جيد؛ حيث ذكروا المشكلة المتمثلة في تفرق الدول العربية   وانخفاض التنمية  ، وصعوبة الحصول على التأشيرة ،  لذا أيدوا قرار المجلس  لتحقيق هدف يتمثل في  وضع لبنة في  توحيد الأمة العربية  ،والتخلص من البطالة والفساد وتحقيق التنمية  المستدامة .  يضاف إلى ذلك  قربهم  من  الواقع والمنطق    وتمكنهم في طرحهم من إظهار عالم عربي مترابط،   يحاول  أن يتغلب على خلافاته للوصول إلى واقع أفضل .",
+      "evaluations": [
+        {
+          "model": "deepseek-r1",
+          "judge": "command-r7b-arabic",
+          "order": [
+            "human",
+            "model"
+          ],
+          "attempts": 1,
+          "scores": {
+            "human": {
+              "faithfulness": 5,
+              "coverage": 5,
+              "reasoning": 5,
+              "clarity": 5,
+              "overall": 5,
+              "unsupported_claims": []
+            },
+            "model": {
+              "faithfulness": 3,
+              "coverage": 3,
+              "reasoning": 3,
+              "clarity": 4,
+              "overall": 3,
+              "unsupported_claims": [
+                "فريق الموالات يتجاهل وجود مشاكل اقتصادية وسياسية وارهابية في الدول العربية"
+              ]
+            }
+          },
+          "preferred": "human",
+          "rationale": "Justification A is superior in every category, providing a thorough and well-reasoned argument that effectively addresses the debate's key points. It demonstrates a deep understanding of the issues and presents a compelling case for the proposition's victory.",
+          "input_hash": "c927cdb99c13"
+        },
+        {
+          "model": "deepseek-r1",
+          "judge": "command-r7b-arabic",
+          "order": [
+            "model",
+            "human"
+          ],
+          "attempts": 1,
+          "scores": {
+            "model": {
+              "faithfulness": 4,
+              "coverage": 4,
+              "reasoning": 4,
+              "clarity": 4,
+              "overall": 4,
+              "unsupported_claims": [
+                "ذكرت ان هناك الفجوه الاقتصاديه التي تهدد حدود هذه التاش التي تحدد هذه الحدود والتاشيره وهذا ما نحن ندعو اليه لعلاج هذه الفجوه الاقتصاديه",
+                "ذكرت ان هذه ايضا تؤثر على هذه الدول قبل ان تؤثر على هذه الدول اريد ان اسالكم سؤالا ما هي الرقع الفاضيه الصحراويه في دول الخليج كعمان في الربع الخالي وكال السعوديه في ربع القالي فعندما نقوم باستقبال هؤلاء الذين يقومون الذين ياتون من الخارج الخبرات نقوم ببناء هذه الفجوات الفاضيه فنقوم ليس بالازدهار فقط بازدهار كل رقعه في مجتمعاتنا فنقوم بالقضاء على هذه الفجوه الذي نتع به القضاء على التوازن اتمام التوازن الاقتصادي وايضا ارفاع وايضا رفع الدول الدول الغنيه ودعم الدول الفقيره",
+                "ذكرت ان قطر لديها من البورصه في لندن 70% لديها من البترول 50% نسبه تعتمد عليها كيف تدعين هذه الادعاءات انا لا اعلم"
+              ]
+            },
+            "human": {
+              "faithfulness": 5,
+              "coverage": 5,
+              "reasoning": 5,
+              "clarity": 5,
+              "overall": 5,
+              "unsupported_claims": [
+                "ذكرت ان هناك الفجوه الاقتصاديه التي تهدد حدود هذه التاش التي تحدد هذه الحدود والتاشيره وهذا ما نحن ندعو اليه لعلاج هذه الفجوه الاقتصاديه",
+                "ذكرت ان هذه ايضا تؤثر على هذه الدول قبل ان تؤثر على هذه الدول اريد ان اسالكم سؤالا ما هي الرقع الفاضيه الصحراويه في دول الخليج كعمان في الربع الخالي وكال السعوديه في ربع القالي فعندما نقوم باستقبال هؤلاء الذين يقومون الذين ياتون من الخارج الخبرات نقوم ببناء هذه الفجوات الفاضيه فنقوم ليس بالازدهار فقط بازدهار كل رقعه في مجتمعاتنا فنقوم بالقضاء على هذه الفجوه الذي نتع به القضاء على التوازن اتمام التوازن الاقتصادي وايضا ارفاع وايضا رفع الدول الدول الغنيه ودعم الدول الفقيره",
+                "ذكرت ان قطر لديها من البورصه في لندن 70% لديها من البترول 50% نسبه تعتمد عليها كيف تدعين هذه الادعاءات انا لا اعلم"
+              ]
+            }
+          },
+          "preferred": "human",
+          "rationale": "B يقدم حججًا أكثر تفصيلاً ودقة، مع التركيز على نقاط الضعف في حجج A. كما أنه يعالج بشكل شامل كل من الحجج الجوهرية والتفنيدية، مما يجعله أكثر شمولاً وتفصيلاً.",
+          "input_hash": "c927cdb99c13"
+        },
+        {
+          "model": "gemma4",
+          "judge": "command-r7b-arabic",
+          "order": [
+            "human",
+            "model"
+          ],
+          "attempts": 2,
+          "scores": {
+            "human": {
+              "faithfulness": 4,
+              "coverage": 4,
+              "reasoning": 4,
+              "clarity": 4,
+              "overall": 4,
+              "unsupported_claims": [
+                "ذكرت ان هناك الفجوه الاقتصاديه التي تهدد حدود هذه التاش التي تحدد هذه الحدود والتاشيره وهذا ما نحن ندعو اليه لعلاج هذه الفجوه الاقتصاديه انا سوف اذكر لكم ما هي الفجوه الاقتصاديه الفجوه الاقتصاديه وهي التوازن الاقتصادي للدوله مثالا على ذلك مصر لديها ايادي عامله ليست لديها موارد قطر لديها موارد ليست لديها ايادي عامله فعندما نقوم بتا بالغاء هذه التاشيره سوف نقوم بالتوازن الاقتصادي"
+              ]
+            },
+            "model": {
+              "faithfulness": 5,
+              "coverage": 5,
+              "reasoning": 5,
+              "clarity": 5,
+              "overall": 5,
+              "unsupported_claims": [
+                "ذكرت ان الدول العربيه حاولت فتح هذه الحدود ولكنها فشلت وانا اقول بدول الخليج التي اختلفت في مستوى المعيشه كما ذكروا وفي الحاله الاقتصاديه ومع ذلك لا يوجد تاشيره ان دل ذلك على شيء فانما يدل بان التاشيره ممكن بان الغاء التاشيره ممكن وان عدم وجوده في المجتمع سوف يحل مشاكل كبيره"
+              ]
+            }
+          },
+          "preferred": "model",
+          "rationale": "B's justification is superior because it is more faithful to the debate transcript, covering all the decisive clashes and arguments of both teams. It provides a clear and concise explanation of why the opposition is more persuasive to a rational, informed listener, effectively refuting the proposition's claims and highlighting the risks of unorganized unity.",
+          "input_hash": "e3d3aa80dd76"
+        },
+        {
+          "model": "gemma4",
+          "judge": "command-r7b-arabic",
+          "order": [
+            "model",
+            "human"
+          ],
+          "attempts": 1,
+          "scores": {
+            "model": {
+              "faithfulness": 4,
+              "coverage": 4,
+              "reasoning": 4,
+              "clarity": 4,
+              "overall": 4,
+              "unsupported_claims": [
+                "لم ننكر ان كل ان اغلب الذين لديهم ماجستير انهم بالطبع سيكونوا مميزين في العمل لكنهم لا يعملوا وطالبوا بحق العمل في مصر لماذا كل هذا بسبب ان ان ان هناك خبرات كثيره لا تسيح لهؤلاء العمل ولكن في تطبيق في الغاء تاشيره بين الدول العربيه ما الذي سيحدث سيحدث ان هذه المجالات او هذه الناس الذين لديهم خبره عاليه لكنهم لا يجدون العمل ان صح التعبير في البيت بطاله سيقومون للذهاب الى هذه الدول ليحصلوا على عمل التي تفقد الخبره ثانيا توفير مناخ مناسب لتبادل الخبرات بين الدول العربيه عندما تستقطب عندما يستقطب الناس طبعا يكون منهم اصحاب عمل لا ننكر ذلك فان ذلك سيؤدي الى تحديد الخبرات في الدوله وتحديد الخبرات في الدوله وتعدها وتعدها سيؤدي الى تبادلها مع المواطنين تبادل هذه الخبرات مع المواطنين الذين لديهم نقص في الخبرات او ما الى ذلك وبالتالي ما الذي سيحدث سيحدث ان تنتقل هذه البلد التي لديها قله قله في الخبرات من من الحاجه الى الاكتفاء من الانجاز الى الابتكار"
+              ]
+            },
+            "human": {
+              "faithfulness": 5,
+              "coverage": 5,
+              "reasoning": 4,
+              "clarity": 5,
+              "overall": 5,
+              "unsupported_claims": [
+                "ثم من حق الدوله ان تمنع كل من دخول الدوله ان تمنع كل من يحد من خطرها مثل الفكر الارهابي ونحو ذلك ليس الان ثم ان التاشيره هي فقط تصريح الدخول والخروج اتناول الان اول محاورنا تناول يا زميل المتحدث الثاني المحور الاقتصادي وبين كيف للسهوله ان تساهم في استقطاب الخبرات وتساهم في حل المشاكل مثل البطاله وغيرها اتناول المحور السياسي الامني وهي احد اهم النقاط ليس الان نقول في هذا المحور بان هذا هذا التغيير هي لبنه او ان هذا القرار هي لبن للمجتمع لانطلاق مراحل اكبر واضرب اكبر مثالا للدول الاوروبيه الدول الاوروبيه ماذا كانت قبل الاتحاد بدات الدول الاوروبيه من الفحم من الفحم انظر ال الى التقدم الذي وصله دول الدول الاوروبيه جيش موحد اقتصاد قوي وموحد دول موحده وهي دول وهي دول تختلف الثقافات دول تختلف اللغات فما بالك الدول العربيه الدول العربيه التي تشترك في اللغات وتشترك في الثقافه وتشترك في القبليه ان هذا القرار ان ادى الى شيء فانما سيؤدي الى التقدم بشتى المجالات حتى على الدول الاوروبيه"
+              ]
+            }
+          },
+          "preferred": "human",
+          "rationale": "B يقدم حججاً أكثر تفصيلاً ودقة، مع التركيز على النقاط الرئيسية في كل محور. إنه يعالج المخاوف بشكل شامل، مع تقديم أمثلة محددة لدعم حججه. في المقابل، A يقدم حججاً أكثر عمومية، مع بعض الادعاءات غير المدعومة، مما يقلل من قوتها. B يظهر أيضاً فهمًا أفضل للنقاش، مع معالجة المخاوف المتعلقة بالسيادة والأمن والاقتصاد والوحدة، مما يجعله أكثر إقناعًا.",
+          "input_hash": "e3d3aa80dd76"
+        },
+        {
+          "model": "gpt-oss",
+          "judge": "command-r7b-arabic",
+          "order": [
+            "model",
+            "human"
+          ],
+          "attempts": 1,
+          "scores": {
+            "model": {
+              "faithfulness": 4,
+              "coverage": 4,
+              "reasoning": 4,
+              "clarity": 4,
+              "overall": 4,
+              "unsupported_claims": [
+                "ذكرت ان هناك الفجوه الاقتصاديه التي تهدد حدود هذه التاش التي تحدد هذه الحدود والتاشيره وهذا ما نحن ندعو اليه لعلاج هذه الفجوه الاقتصاديه",
+                "ذكرت ان هذه ايضا تؤثر على هذه الدول قبل ان تؤثر على هذه الدول اريد ان اسالكم سؤالا ما هي الرقع الفاضيه الصحراويه في دول الخليج كعمان في الربع الخالي وكال السعوديه في ربع القالي فعندما نقوم باستقبال هؤلاء الذين يقومون الذين ياتون من الخارج الخبرات نقوم ببناء هذه الفجوات الفاضيه فنقوم ليس بالازدهار فقط بازدهار كل رقعه في مجتمعاتنا فنقوم بالقضاء على هذه الفجوه الذي نتع به القضاء على التوازن اتمام التوازن الاقتصادي وايضا ارفاع وايضا رفع الدول الدول الغنيه ودعم الدول الفقيره",
+                "ذكرت ان قطر لديها من البورصه في لندن 70% لديها من البترول 50% نسبه تعتمد عليها كيف تدعين هذه الادعاءات انا لا اعلم"
+              ]
+            },
+            "human": {
+              "faithfulness": 5,
+              "coverage": 5,
+              "reasoning": 5,
+              "clarity": 5,
+              "overall": 5,
+              "unsupported_claims": [
+                "استحق فريق  الموالاة  الفوز بحججه الجوهرية وحججه  التفنيدية",
+                "وقد نجح فريق الموالاة  من البداية  في بناء أرضية المناظرة بشكل جيد؛ حيث ذكروا المشكلة المتمثلة في تفرق الدول العربية   وانخفاض التنمية  ، وصعوبة الحصول على التأشيرة ،  لذا أيدوا قرار المجلس  لتحقيق هدف يتمثل في  وضع لبنة في  توحيد الأمة العربية  ،والتخلص من البطالة والفساد وتحقيق التنمية  المستدامة .  يضاف إلى ذلك  قربهم  من  الواقع والمنطق    وتمكنهم في طرحهم من إظهار عالم عربي مترابط،   يحاول  أن يتغلب على خلافاته للوصول إلى واقع أفضل"
+              ]
+            }
+          },
+          "preferred": "human",
+          "rationale": "B's justification is superior because it is faithful to the debate transcript, covers all the decisive clashes and arguments, provides strong reasoning, and is clear and concise. A's justification, while also strong, contains unsupported claims and lacks the depth and clarity of B's.",
+          "input_hash": "3191c5b66b03"
+        }
+      ],
+      "aggregates": {
+        "soft": {
+          "winner": "opposition",
+          "models": [
+            "deepseek-r1",
+            "gemma4",
+            "gpt-oss"
+          ],
+          "comparisons": 5,
+          "mean_scores": {
+            "human": {
+              "faithfulness": 4.8,
+              "coverage": 4.8,
+              "reasoning": 4.6,
+              "clarity": 4.8,
+              "overall": 4.8
+            },
+            "majority": {
+              "faithfulness": 4.0,
+              "coverage": 4.0,
+              "reasoning": 4.0,
+              "clarity": 4.2,
+              "overall": 4.0
+            }
+          },
+          "preferred_share": {
+            "majority": 0.2,
+            "human": 0.8,
+            "tie": 0.0
+          }
+        },
+        "hard": {
+          "winner": "opposition",
+          "models": [
+            "deepseek-r1",
+            "gemma4",
+            "gpt-oss"
+          ],
+          "comparisons": 5,
+          "mean_scores": {
+            "human": {
+              "faithfulness": 4.79,
+              "coverage": 4.79,
+              "reasoning": 4.58,
+              "clarity": 4.79,
+              "overall": 4.79
+            },
+            "majority": {
+              "faithfulness": 4.01,
+              "coverage": 4.01,
+              "reasoning": 4.01,
+              "clarity": 4.21,
+              "overall": 4.01
+            }
+          },
+          "preferred_share": {
+            "majority": 0.21,
+            "human": 0.79,
+            "tie": 0.0
+          }
+        }
+      }
+    }
+  ],
+  "summary": {
+    "soft": {
+      "debates": 5,
+      "mean_scores": {
+        "human": {
+          "faithfulness": 4.19,
+          "coverage": 4.14,
+          "reasoning": 4.0,
+          "clarity": 4.22,
+          "overall": 4.12
+        },
+        "majority": {
+          "faithfulness": 4.38,
+          "coverage": 4.54,
+          "reasoning": 4.31,
+          "clarity": 4.37,
+          "overall": 4.33
+        }
+      },
+      "preferred_share": {
+        "majority": 0.57,
+        "human": 0.36,
+        "tie": 0.07
+      }
+    },
+    "hard": {
+      "debates": 5,
+      "mean_scores": {
+        "human": {
+          "faithfulness": 4.2,
+          "coverage": 4.14,
+          "reasoning": 4.0,
+          "clarity": 4.22,
+          "overall": 4.12
+        },
+        "majority": {
+          "faithfulness": 4.38,
+          "coverage": 4.55,
+          "reasoning": 4.32,
+          "clarity": 4.37,
+          "overall": 4.33
+        }
+      },
+      "preferred_share": {
+        "majority": 0.57,
+        "human": 0.36,
+        "tie": 0.07
+      }
+    }
+  }
+}
