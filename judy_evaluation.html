@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Justification evaluation: human and AI explanations</title>
+<style>
+:root{--bg:#0f1b2d;--pn:#17263d;--p2:#1f3150;--ln:#2e4263;--ink:#e9eef7;--mut:#97a8c4;--H:#5aa2ff;--M:#ff9f55;--S:#38d6a8;--W:#d58bc0;--T:#9aa6b8;--ag:#38d6a8;--onS:#0f1b2d;--ui:"Segoe UI",system-ui,-apple-system,Tahoma,sans-serif;--ser:Georgia,"Iowan Old Style",Palatino,serif}
+[data-theme=light]{--bg:#eef2f7;--pn:#fff;--p2:#e4eaf3;--ln:#c9d4e4;--ink:#14243d;--mut:#51627f;--H:#2a63c9;--M:#c2620f;--S:#0f8f6e;--W:#a64a8f;--T:#7b879a;--ag:#0f8f6e;--onS:#fff}
+*{box-sizing:border-box}body{margin:0;font:14px/1.5 var(--ui);background:var(--bg);color:var(--ink)}
+:focus-visible{outline:2px solid var(--M);outline-offset:2px}
+header{display:flex;flex-wrap:wrap;gap:8px;align-items:center;padding:14px 24px;border-bottom:1px solid var(--ln);background:var(--pn);position:sticky;top:0;z-index:5}
+h1{font:600 20px var(--ser);margin:0 auto 0 0}a{color:var(--ag)}
+button{font:inherit;color:var(--ink);background:var(--p2);border:1px solid var(--ln);border-radius:6px;padding:6px 12px;cursor:pointer}button:hover{border-color:var(--ag)}
+main{max-width:1180px;margin:0 auto;padding:16px 24px 70px}#st{color:var(--mut)}
+.tabs{display:flex;gap:4px;border-bottom:1px solid var(--ln);margin:8px 0 14px}.tabs button{background:none;border:0;border-bottom:3px solid transparent;border-radius:0;padding:8px 14px;color:var(--mut)}.tabs button.on{color:var(--ink);border-color:var(--ag);font-weight:600}
+.card{background:var(--pn);border:1px solid var(--ln);border-radius:6px;padding:16px;margin-bottom:14px}h3{font:600 15px var(--ui);margin:0 0 8px}
+.sh{font:600 22px var(--ser);margin:26px 0 6px}.hero{font:400 19px/1.45 var(--ser);margin:6px 0 14px;max-width:46em}
+table{border-collapse:separate;border-spacing:0;width:100%}th,td{padding:5px 8px;text-align:left;white-space:nowrap}th{color:var(--mut);font-weight:600;font-size:12px}tr+tr td,tr+tr th{border-top:1px solid var(--ln)}.sc{overflow-x:auto}
+tr[data-n]{cursor:pointer}tr[data-n]:hover td{background:var(--p2)}
+.dr{display:grid;grid-template-columns:90px 1.1fr 1.4fr;gap:12px;align-items:center;padding:8px 6px;border-top:1px solid var(--ln);cursor:pointer}.dr:hover{background:var(--p2)}
+.sbr{display:grid;grid-template-columns:70px 1fr 28px;align-items:center;gap:6px;margin:2px 0;font-size:12px}.tr2{height:10px;background:var(--p2);border-radius:2px}.tr2 i{display:block;height:100%;border-radius:2px}
+.pr{display:grid;grid-template-columns:62px 1fr;gap:6px;align-items:center;margin:3px 0;font-size:12px}
+.stk{display:flex;height:22px;border-radius:3px;overflow:hidden;font-size:11px;font-weight:700}.stk i{display:flex;align-items:center;justify-content:center;color:var(--onS);font-style:normal}
+.lg{display:flex;gap:16px;flex-wrap:wrap;margin:6px 0;font-size:12px}.lg i{display:inline-block;width:12px;height:12px;margin-right:5px;vertical-align:-1px}
+.gr td{text-align:center;font-weight:700;color:var(--onS);border:2px solid var(--pn)}.gr td.AI{background:var(--M)}.gr td.Human{background:var(--H)}.gr td.Tie{background:var(--T)}.gr td[data-n]{cursor:pointer}
+.ch{width:100%;max-width:780px}.ch text{font-family:var(--ui)}.ch .tk{fill:var(--mut);font-size:11px}.ch .vl{fill:var(--ink);font-size:11px;font-weight:600}.ch .cl{fill:var(--ink);font-size:11px}.ch .gd{stroke:var(--ln)}
+#dr{position:fixed;top:0;right:0;height:100%;width:min(640px,100%);background:var(--pn);border-left:1px solid var(--ln);padding:20px;overflow:auto;transform:translateX(105%);transition:transform .2s;z-index:20}#dr.o{transform:none}#dr h3{font:600 21px var(--ser)}
+.bd{display:inline-block;padding:0 9px;border-radius:99px;font-size:12px;font-weight:700;color:var(--onS)}.bd.human{background:var(--H)}.bd.model{background:var(--M)}.bd.tie{background:var(--T)}.bd.w{background:var(--p2);color:var(--ink);border:1px solid var(--ln)}
+.tx{white-space:pre-wrap;background:var(--p2);border-radius:6px;padding:10px;margin:6px 0;font-size:14.5px;line-height:1.75;unicode-bidi:plaintext}
+.bh{margin:14px 0 4px;padding-left:8px;border-left:4px solid var(--ln);font-size:14px}.v{border:1px solid var(--ln);border-radius:6px;padding:10px;margin:8px 0}
+.st th,.st td{padding:2px 8px;font-size:12px;text-align:center}.mut{color:var(--mut)}details>summary{cursor:pointer}.trn{margin-left:12px;border-left:1px solid var(--ln);padding-left:10px}
+input#q{width:100%;max-width:440px;padding:6px 10px;margin-bottom:10px;border:1px solid var(--ln);border-radius:6px;background:var(--p2);color:var(--ink);font:inherit}
+[hidden]{display:none!important}.sec{display:none}.sec.on{display:block}#empty{padding:50px 4px;max-width:36em}#empty h2{font:600 24px var(--ser)}
+@media(max-width:760px){.dr{grid-template-columns:1fr}}@media(prefers-reduced-motion:reduce){#dr{transition:none}}
+</style>
+</head>
+<body>
+<header><h1>Justification evaluation</h1><a href="judy_dashboard.html">Main dashboard</a><button id="br">Reload files</button><button id="bt">Light/dark</button></header>
+<main>
+<div id="st"></div>
+<div id="empty"><h2 id="eh">Reading your files</h2><p class="mut" id="ep">Looking for justification_cases.json and vote_justification_cases.json next to this page.</p></div>
+<div id="app" hidden><div class="tabs" id="tabs"></div><section class="sec" id="s0"></section><section class="sec" id="s1"></section><section class="sec" id="s2"></section></div>
+</main>
+<aside id="dr"></aside>
+<script>
+const $=s=>document.querySelector(s),esc=s=>String(s==null?'':s).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c])),
+f1=x=>x==null||isNaN(x)?'–':x.toFixed(1),pc=x=>Math.round(x*100)+'%',num=s=>+(String(s).match(/(\d+)$/)||[0,0])[1],mean=a=>a.length?a.reduce((x,y)=>x+y,0)/a.length:NaN,
+CR=['faithfulness','coverage','reasoning','clarity','overall'],SH={faithfulness:'Faithful',coverage:'Coverage',reasoning:'Reasoning',clarity:'Clarity',overall:'Overall'},
+CAT=[['Sticks to','what was said'],['Covers the','key arguments'],['Quality of','reasoning'],['Clear','to read'],['Overall','']],
+PN={human:'Human preferred',model:'AI preferred',tie:'No clear preference'},S={best:null,vote:null,B:[],V:[],tab:0,q:''};
+
+function agg(rs,w){
+  if(!rs.length)return null;const W=rs.reduce((a,r)=>a+w(r),0),m=(s,k)=>rs.reduce((a,r)=>a+w(r)*r.scores[s][k],0)/W,
+  u=s=>rs.reduce((a,r)=>a+w(r)*(r.scores[s].unsupported_claims||[]).length,0)/W,p=s=>rs.reduce((a,r)=>a+w(r)*(r.preferred==s),0)/W,
+  o={n:rs.length,uh:u('human'),um:u('model'),ph:p('human'),pm:p('model'),pt:p('tie'),h:{},m:{}};
+  CR.forEach(k=>{o.h[k]=m('human',k);o.m[k]=m('model',k)});return o;
+}
+function prep(){
+  S.B=((S.best&&S.best.cases)||[]).filter(c=>c.judging).map(c=>({c,k:'best',n:num(c.debate_id),runs:c.judging.runs,st:agg(c.judging.runs,()=>1),
+    shaky:!!(c.judging.summary&&c.judging.summary.position_consistent===false)})).sort((a,b)=>a.n-b.n);
+  S.V=((S.vote&&S.vote.cases)||[]).filter(c=>(c.evaluations||[]).length).map(c=>{
+    const side={},conf={};c.models.forEach(m=>{side[m.model]=m.winner;conf[m.model]=m.conf==null?.5:+m.conf});
+    const g=w=>c.evaluations.filter(r=>side[r.model]==w),d=c.votes_differing_from_human||[],
+    soft=agg(g(c.soft_winner),()=>1),hard=agg(g(c.hard_winner),r=>conf[r.model]);
+    return{c,k:'vote',n:c.debate_number,runs:c.evaluations,soft:d.includes('soft')?soft:null,hard:d.includes('hard')?hard:null};
+  }).sort((a,b)=>a.n-b.n);
+}
+const lab=a=>a.pm>a.ph?'AI':a.ph>a.pm?'Human':'No clear preference';
+const flips=x=>{const by={};x.runs.forEach(r=>{const k=(r.model?r.model+' / ':'')+r.judge;(by[k]=by[k]||new Set()).add(r.preferred)});return Object.entries(by).filter(e=>e[1].size>1).map(e=>e[0])};
+const leg=a=>`<div class="lg">${a.map(t=>`<span><i style="background:var(${t[1]})"></i>${t[0]}</span>`).join('')}</div>`;
+const stack=a=>`<div class="stk">${[['pm','--M'],['ph','--H'],['pt','--T']].map(k=>a[k[0]]>.001?`<i style="width:${a[k[0]]*100}%;background:var(${k[1]})">${a[k[0]]>=.1?pc(a[k[0]]):''}</i>`:'').join('')}</div>`;
+const drow=(x,bars,prefs)=>`<div class="dr" data-k="${x.k}" data-n="${x.n}"><div><b>Debate ${x.n}${x.shaky?'*':''}</b></div><div>${bars.filter(b=>b[1]!=null).map(b=>`<div class="sbr"><span>${b[0]}</span><div class="tr2"><i style="width:${b[1]/5*100}%;background:var(${b[2]})"></i></div><b>${f1(b[1])}</b></div>`).join('')}</div><div>${prefs.filter(p=>p[1]).map(p=>`<div class="pr"><span class="mut">${p[0]}</span>${stack(p[1])}</div>`).join('')}</div></div>`;
+function gbars(cats,ser){
+  const W=760,H=280,L=34,B=54,T=14,n=ser.length,gw=(W-L-10)/cats.length,bw=gw*.8/n,y=v=>T+(H-T-B)*(1-v/5);let o=`<svg viewBox="0 0 ${W} ${H}" class="ch">`;
+  for(let t=0;t<=5;t++)o+=`<line class="gd" x1="${L}" x2="${W-10}" y1="${y(t)}" y2="${y(t)}"/><text class="tk" x="${L-6}" y="${y(t)+4}" text-anchor="end">${t}</text>`;
+  cats.forEach((c,i)=>{ser.forEach((s,j)=>{const v=s.v[i],x=L+i*gw+gw*.1+j*bw;if(!isNaN(v))o+=`<rect x="${x}" y="${y(v)}" width="${bw-3}" height="${y(0)-y(v)}" rx="2" fill="var(${s.c})"/><text class="vl" x="${x+(bw-3)/2}" y="${y(v)-4}" text-anchor="middle">${f1(v)}</text>`});
+    o+=`<text class="cl" x="${L+i*gw+gw/2}" y="${H-32}" text-anchor="middle">${c.map((t,j)=>`<tspan x="${L+i*gw+gw/2}" dy="${j?14:0}">${t}</tspan>`).join('')}</text>`});
+  return o+'</svg>';
+}
+function exp1(){
+  if(!S.B.length)return'';const B=S.B,A=B.map(x=>x.st),nm=S.best.target.model,av=(k,s)=>mean(A.map(a=>a[s][k])),ai=B.filter(x=>x.st.pm>x.st.ph).length,hu=B.filter(x=>x.st.ph>x.st.pm).length;
+  return`<h2 class="sh">Experiment 1: the best model (${esc(nm)}) against the human explanation</h2>
+  <p class="hero">In ${B.length} debates ${esc(nm)} chose a different winner than the human judges. The judge gave its explanation an average of <b>${f1(av('overall','m'))}</b> out of 5 and the human one <b>${f1(av('overall','h'))}</b>. It preferred the AI explanation in <b>${ai}</b> debates and the human one in <b>${hu}</b>, with no clear preference in ${B.length-ai-hu}.</p>
+  <div class="card"><h3>Quality of the explanation, average over the ${B.length} debates</h3>${gbars(CAT,[{c:'--H',v:CR.map(k=>av(k,'h'))},{c:'--M',v:CR.map(k=>av(k,'m'))}])}${leg([['Human explanation','--H'],['AI explanation','--M']])}
+  <p class="mut">Statements the judge could not find in the debate, per explanation: human ${f1(mean(A.map(a=>a.uh)))}, AI ${f1(mean(A.map(a=>a.um)))}.</p></div>
+  <div class="card"><h3>Debate by debate (click a row to read both texts and the judge’s reasons)</h3>${B.map(x=>drow(x,[['Human',x.st.h.overall,'--H'],['AI',x.st.m.overall,'--M']],[['',x.st]])).join('')}${leg([['AI preferred','--M'],['Human preferred','--H'],['No clear preference','--T']])}
+  <p class="mut">Bars show the overall score (out of 5). The coloured bar shows how often the judge preferred each text. A star (*) marks a debate where the judge changed its mind when the order of the two texts was swapped.</p></div>`;
+}
+function exp2(){
+  if(!S.V.length)return'';const V=S.V,so=V.filter(x=>x.soft),ha=V.filter(x=>x.hard),hb=so.length?[so,'soft']:[ha,'hard'],av=(L,k,s,key)=>mean(L.map(x=>x[key][s][k])),
+  ser=[{c:'--H',v:CR.map(k=>av(hb[0],k,'h',hb[1]))},{c:'--S',v:CR.map(k=>av(so,k,'m','soft'))},{c:'--W',v:CR.map(k=>av(ha,k,'m','hard'))}],
+  cnt=(L,key)=>[L.filter(x=>x[key].pm>x[key].ph).length,L.filter(x=>x[key].ph>x[key].pm).length],ms=[...new Set(V.flatMap(x=>x.runs.map(r=>r.model)))].sort();
+  const sa=cnt(so,'soft'),ha2=cnt(ha,'hard');
+  return`<h2 class="sh">Experiment 2: the AI majority vote against the human explanation</h2>
+  <p class="hero">In ${V.length} debates the majority vote of the models differed from the human winner. With the simple count (${so.length} debates) the judge preferred the AI explanations in <b>${sa[0]}</b> and the human one in <b>${sa[1]}</b>. With the vote weighted by confidence (${ha.length} debates) it preferred the AI explanations in <b>${ha2[0]}</b> and the human one in <b>${ha2[1]}</b>. The rest had no clear preference.</p>
+  <div class="card"><h3>Quality of the explanation, average over the debates</h3>${gbars(CAT,ser)}${leg([['Human explanation','--H'],['AI majority, simple count','--S'],['AI majority, weighted by confidence','--W']])}
+  <p class="mut">Statements not found in the debate, per explanation: human ${f1(mean(hb[0].map(x=>x[hb[1]].uh)))}, simple count ${f1(mean(so.map(x=>x.soft.um)))}, weighted ${f1(mean(ha.map(x=>x.hard.um)))}.</p></div>
+  <div class="card"><h3>Debate by debate</h3>${V.map(x=>drow(x,[['Human',(x.soft||x.hard).h.overall,'--H'],['Count',x.soft&&x.soft.m.overall,'--S'],['Weighted',x.hard&&x.hard.m.overall,'--W']],[['Count',x.soft],['Weighted',x.hard]])).join('')}${leg([['AI preferred','--M'],['Human preferred','--H'],['No clear preference','--T']])}
+  <p class="mut">The AI explanations are those of the models that voted for the winning side. A debate appears for a vote only if that vote differs from the human winner.</p></div>
+  <div class="card sc"><h3>Which AI models beat the human explanation?</h3><table class="gr"><tr><th></th>${V.map(x=>`<th>Debate ${x.n}</th>`).join('')}</tr>${ms.map(m=>`<tr><th>${esc(m)}</th>${V.map(x=>{const r=x.runs.filter(r=>r.model==m);if(!r.length)return'<td></td>';const p=mean(r.map(r=>(r.preferred=='model')+.5*(r.preferred=='tie'))),k=p>.5?'AI':p<.5?'Human':'Tie';return`<td class="${k}" data-k="vote" data-n="${x.n}">${k}</td>`}).join('')}</tr>`).join('')}</table>
+  <p class="mut">AI: the judge preferred that model’s explanation; Human: it preferred the human one; Tie: no clear preference. Empty: the model was not on the winning side in that debate.</p></div>`;
+}
+function ov(){
+  const fl=[...S.B.map(x=>[x,'Best model']),...S.V.map(x=>[x,'Majority vote'])].map(a=>[a[0].n,a[1],flips(a[0])]).filter(a=>a[2].length);
+  return exp1()+exp2()+`<h2 class="sh">How reliable is the judge?</h2><div class="card"><p>Every pair of texts was judged in both orders. When the judge prefers a different text depending on the order, its preference is influenced by position and that result is weak.</p>${fl.length?'<table><tr><th>Experiment</th><th>Debate</th><th>Judge (and model) that changed its preference</th></tr>'+fl.map(a=>`<tr><td>${a[1]}</td><td>${a[0]}</td><td>${esc(a[2].join('; '))}</td></tr>`).join('')+'</table>':'<p><b>No order-dependent results.</b></p>'}</div>`;
+}
+function cs(){
+  const rows=[...S.B.map(x=>`<tr data-k="best" data-n="${x.n}"><td>Best model</td><td>${x.n}${x.shaky?'*':''}</td><td>${esc(x.c.round||'')}</td><td>${x.c.human_winner}</td><td>${x.c.model_winner}</td><td>${f1(x.st.h.overall)}</td><td>${f1(x.st.m.overall)}</td><td>${lab(x.st)}</td></tr>`),
+  ...S.V.map(x=>{const a=x.soft||x.hard;return`<tr data-k="vote" data-n="${x.n}"><td>Majority vote</td><td>${x.n}</td><td>${esc(x.c.round||'')}</td><td>${x.c.human_winner}</td><td>soft ${x.c.soft_winner}, hard ${x.c.hard_winner}</td><td>${f1(a.h.overall)}</td><td>${x.soft?f1(x.soft.m.overall):'–'} / ${x.hard?f1(x.hard.m.overall):'–'}</td><td>${x.soft?lab(x.soft):'–'} / ${x.hard?lab(x.hard):'–'}</td></tr>`})];
+  return`<div class="card sc"><h3>All compared debates (click a row for the full details)</h3><table><tr><th>Experiment</th><th>Debate</th><th>Round</th><th>Human winner</th><th>AI winner</th><th>Human overall</th><th>AI overall (count / weighted for votes)</th><th>Judge preferred</th></tr>${rows.join('')}</table></div>`;
+}
+const allRuns=()=>[...S.B.flatMap(x=>x.runs.map(r=>[x,r,'Best model'])),...S.V.flatMap(x=>x.runs.map(r=>[x,r,'Majority vote']))];
+const runRows=()=>{const q=S.q.toLowerCase();return allRuns().filter(a=>!q||(a[2]+' '+a[0].n+' '+(a[1].model||'')+' '+a[1].judge+' '+a[1].preferred+' '+a[1].rationale).toLowerCase().includes(q)).map(a=>{const x=a[0],r=a[1],u=s=>(r.scores[s].unsupported_claims||[]).length;
+  return`<tr data-k="${x.k}" data-n="${x.n}"><td>${a[2]}</td><td>${x.n}</td><td>${esc(r.model||x.c.model||'')}</td><td>${esc(r.judge)}</td><td>A = ${r.order[0]}</td><td><span class="bd ${r.preferred}">${PN[r.preferred]}</span></td><td>${r.scores.human.overall}</td><td>${r.scores.model.overall}</td><td>${u('human')}</td><td>${u('model')}</td><td class="mut">${esc(r.rationale.slice(0,100))}…</td></tr>`}).join('')};
+const rt=()=>`<div class="card sc"><h3>Every judge run (${allRuns().length})</h3><input id="q" placeholder="Search model, debate, judge, preference or the judge’s reason" value="${esc(S.q)}"><table><thead><tr><th>Experiment</th><th>Debate</th><th>AI model</th><th>Judge</th><th>Text order</th><th>Preferred</th><th>Human overall</th><th>AI overall</th><th>Not found (human)</th><th>Not found (AI)</th><th>Judge’s reason</th></tr></thead><tbody id="rt">${runRows()}</tbody></table></div>`;
+const tree=(o,k)=>{const e=k==null?'':`<span class="mut">${esc(k)}</span> `;if(o&&typeof o=='object'){const ks=Object.keys(o);return`<details ${ks.length<9?'open':''}><summary>${e}<span class="mut">${Array.isArray(o)?'['+ks.length+']':'{'+ks.length+'}'}</span></summary><div class="trn">${ks.map(x=>tree(o[x],x)).join('')}</div></details>`}
+  return`<div>${e}${typeof o=='string'&&(o.length>60||/[\u0600-\u06FF]/.test(o))?`<div class="tx">${esc(o)}</div>`:`<b>${esc(o)}</b>`}</div>`};
+const wb=w=>`<span class="bd w">${esc(w)}</span>`;
+const rcard=r=>`<div class="v"><b>${esc(r.judge)}</b> ${r.model?`<span class="mut">on ${esc(r.model)}</span>`:''} <span class="mut">text A = ${r.order[0]}, text B = ${r.order[1]}</span><br>Preferred: <span class="bd ${r.preferred}">${PN[r.preferred]}</span>
+  <table class="st"><tr><th></th>${CR.map(k=>`<th>${SH[k]}</th>`).join('')}<th>Not found</th></tr>${['human','model'].map(s=>`<tr><th>${s=='human'?'Human':'AI'}</th>${CR.map(k=>`<td>${r.scores[s][k]}</td>`).join('')}<td>${(r.scores[s].unsupported_claims||[]).length}</td></tr>`).join('')}</table>
+  ${['human','model'].map(s=>(r.scores[s].unsupported_claims||[]).length?`<div class="mut">Not found in the debate (${s=='human'?'human':'AI'} explanation):</div><div class="tx">${esc(r.scores[s].unsupported_claims.join('\n'))}</div>`:'').join('')}
+  <div class="mut">The judge’s reason</div><div class="tx">${esc(r.rationale)}</div></div>`;
+function openCase(k,n){
+  const x=(k=='best'?S.B:S.V).find(y=>y.n==n);if(!x)return;const c=x.c;
+  let h=`<button id="x" style="float:right">Close</button><h3>Debate ${n}</h3><p>${esc(c.proposition_team||'')} <span class="mut">(Proposition)</span> against ${esc(c.opposition_team||'')} <span class="mut">(Opposition)</span><br><span class="mut">${esc([c.tournament,c.round].filter(Boolean).join(', '))}</span></p>${c.motion?`<div class="tx">${esc(c.motion)}</div>`:''}`;
+  h+=`<p>Human winner: ${wb(c.human_winner)} ${k=='best'?`${esc(c.model)} winner: ${wb(c.model_winner)}`:`Soft vote: ${wb(c.soft_winner)} Hard vote: ${wb(c.hard_winner)} <span class="mut">(votes ${c.votes_proposition} for the Proposition, ${c.votes_opposition} for the Opposition)</span>`}</p>
+  <h4 class="bh" style="border-color:var(--H)">Human justification</h4><div class="tx">${esc(c.human_justification||'(missing)')}</div>`;
+  h+=k=='best'?`<h4 class="bh" style="border-color:var(--M)">AI justification (${esc(c.model)})</h4><div class="tx">${esc(c.model_justification)}</div>`
+    :`<h4 class="bh" style="border-color:var(--M)">AI justifications of the voting models</h4>${c.models.map(m=>`<details><summary>${esc(m.model)}: ${wb(m.winner)} <span class="mut">confidence ${m.conf==null?'–':m.conf}</span></summary><div class="tx">${esc(m.justification)}</div></details>`).join('')}`;
+  h+=`<h4 class="bh">The judge’s evaluation (${x.runs.length} runs)</h4>${x.runs.map(rcard).join('')}<details><summary>Everything saved for this debate</summary>${tree(c)}</details>`;
+  $('#dr').innerHTML=h;$('#dr').classList.add('o');
+}
+function render(){
+  const has=S.B.length||S.V.length;$('#empty').hidden=!!has;$('#app').hidden=!has;if(!has)return;
+  const js=[...new Set([...((S.best&&S.best.judge_models)||[]),...((S.vote&&S.vote.judge_models)||[])])];
+  $('#st').textContent=`${S.B.length} best-model comparisons, ${S.V.length} majority-vote comparisons. Judge: ${js.join(', ')||'not recorded'}.`;
+  $('#tabs').innerHTML=['Overview','Debates','Judge runs'].map((t,i)=>`<button class="${S.tab==i?'on':''}" data-t="${i}">${t}</button>`).join('');
+  [ov,cs,rt].forEach((f,i)=>{$('#s'+i).innerHTML=f();$('#s'+i).classList.toggle('on',S.tab==i)});
+}
+const fail=(h,m)=>{$('#eh').textContent=h;$('#ep').innerHTML=m;$('#empty').hidden=false;$('#app').hidden=true};
+async function load(){
+  if(location.protocol=='file:')return fail('This page needs a local web server','Browsers do not let a page read local files directly. Run <code>python start_dashboard.py</code> in this folder, then open <code>http://localhost:8000/judy_evaluation.html</code>.');
+  const j=u=>fetch(u).then(r=>r.ok?r.json():null).catch(()=>null);
+  S.best=await j('justification_cases.json');S.vote=await j('vote_justification_cases.json');prep();
+  if(!S.B.length&&!S.V.length)return fail('No judged cases found','Run the judging notebooks first. This page reads <code>justification_cases.json</code> and <code>vote_justification_cases.json</code> from this folder, and shows the cases that have judge results.');
+  render();
+}
+document.addEventListener('click',e=>{
+  const t=e.target.closest('[data-t],[data-n],#x,#br,#bt');if(!t)return;
+  if(t.id=='x')$('#dr').classList.remove('o');else if(t.id=='br')load();
+  else if(t.id=='bt'){const h=document.documentElement;h.dataset.theme=h.dataset.theme=='dark'?'light':'dark'}
+  else if(t.dataset.t!==undefined){S.tab=+t.dataset.t;render()}
+  else if(t.dataset.n!==undefined)openCase(t.dataset.k,+t.dataset.n);
+});
+document.addEventListener('input',e=>{if(e.target.id=='q'){S.q=e.target.value;$('#rt').innerHTML=runRows()}});
+addEventListener('keydown',e=>{if(e.key=='Escape')$('#dr').classList.remove('o')});
+load();
+</script>
+</body>
+</html>
