@@ -1,0 +1,1107 @@
+<!doctype html>
+<html lang="en" dir="ltr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>JUDY · Experiment Observatory</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Space+Grotesk:wght@500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+/* ============ Design Tokens ============ */
+:root{
+  --bg:#080b16;
+  --bg-grad-1:#1a2b5c;
+  --panel:#121a30;
+  --panel-2:#172239;
+  --panel-3:#1d2944;
+  --line:#2a3654;
+  --line-soft:#1f2a44;
+  --text:#eef3ff;
+  --text-dim:#c5d2ea;
+  --muted:#8d9eb8;
+  --muted-2:#69788f;
+  --cyan:#5ee7f5;
+  --cyan-d:#2bc7d8;
+  --cyan-soft:rgba(94,231,245,0.12);
+  --violet:#b3a4ff;
+  --violet-d:#8b76f0;
+  --violet-soft:rgba(179,164,255,0.12);
+  --green:#5ed898;
+  --red:#ff7a8e;
+  --amber:#ffc870;
+  --shadow-card:0 1px 0 rgba(255,255,255,0.04) inset, 0 12px 32px -10px rgba(0,0,0,0.5);
+  --glow-cyan:0 0 28px rgba(94,231,245,0.22);
+  --glow-violet:0 0 28px rgba(179,164,255,0.22);
+  --r-sm:8px; --r-md:12px; --r-lg:16px; --r-xl:22px;
+  --font-display:'Space Grotesk','Inter',system-ui,sans-serif;
+  --font-body:'Inter',system-ui,-apple-system,Segoe UI,sans-serif;
+  --font-mono:'JetBrains Mono',ui-monospace,SFMono-Regular,Consolas,monospace;
+}
+body.light{
+  --bg:#f4f7fc;
+  --bg-grad-1:#dbe9fb;
+  --panel:#ffffff;
+  --panel-2:#f1f5fb;
+  --panel-3:#e8eef7;
+  --line:#d6dfeb;
+  --line-soft:#e3e9f3;
+  --text:#0e1a30;
+  --text-dim:#34465f;
+  --muted:#5e7090;
+  --muted-2:#8595b0;
+  --cyan:#0891b2; --cyan-d:#0a7494; --cyan-soft:rgba(8,145,178,0.10);
+  --violet:#6851b8; --violet-d:#4e3da0; --violet-soft:rgba(104,81,184,0.10);
+  --green:#1a8456; --red:#c63f58; --amber:#a06a00;
+  --shadow-card:0 1px 0 rgba(255,255,255,0.7) inset, 0 8px 24px -10px rgba(20,40,80,0.12);
+  --glow-cyan:0 0 24px rgba(8,145,178,0.16);
+  --glow-violet:0 0 24px rgba(104,81,184,0.16);
+}
+
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0;
+  background:
+    radial-gradient(ellipse 60% 40% at 15% 0%, var(--bg-grad-1) 0, transparent 50%),
+    radial-gradient(ellipse 50% 50% at 90% 10%, rgba(139,118,240,0.13) 0, transparent 50%),
+    var(--bg);
+  background-attachment:fixed;
+  color:var(--text);
+  font:14px/1.55 var(--font-body);
+  -webkit-font-smoothing:antialiased;
+  letter-spacing:-0.005em;
+}
+
+/* Scrollbar */
+::-webkit-scrollbar{width:10px;height:10px}
+::-webkit-scrollbar-track{background:transparent}
+::-webkit-scrollbar-thumb{background:var(--line);border-radius:99px;border:2px solid transparent;background-clip:padding-box}
+::-webkit-scrollbar-thumb:hover{background:var(--muted-2);background-clip:padding-box}
+
+button,input,select{font:inherit;color:inherit}
+button{
+  cursor:pointer;
+  border:1px solid var(--line);
+  background:linear-gradient(180deg,var(--panel-3),var(--panel-2));
+  color:var(--text);
+  padding:9px 14px;
+  border-radius:var(--r-md);
+  font-weight:500;
+  transition:all .18s ease;
+  display:inline-flex;align-items:center;gap:6px;
+}
+button:hover{
+  border-color:var(--cyan);
+  box-shadow:0 0 0 3px var(--cyan-soft);
+  transform:translateY(-1px);
+}
+button:active{transform:translateY(0)}
+button:disabled{opacity:.5;cursor:not-allowed;transform:none;box-shadow:none}
+.primary{
+  background:linear-gradient(135deg,var(--cyan-d),var(--violet-d));
+  border:0;color:#fff;font-weight:600;
+  box-shadow:0 8px 20px -8px rgba(94,231,245,0.4);
+}
+.primary:hover{
+  background:linear-gradient(135deg,var(--cyan),var(--violet));
+  box-shadow:0 12px 28px -8px rgba(94,231,245,0.5);
+}
+
+/* ============ Header ============ */
+.top{
+  padding:26px clamp(16px,4vw,56px) 22px;
+  display:flex;justify-content:space-between;gap:20px;
+  align-items:center;flex-wrap:wrap;
+  background:linear-gradient(180deg,rgba(255,255,255,0.02),transparent);
+  backdrop-filter:blur(8px);
+  border-bottom:1px solid var(--line-soft);
+  position:relative;
+}
+.top::after{
+  content:'';position:absolute;left:0;right:0;bottom:-1px;height:1px;
+  background:linear-gradient(90deg,transparent,var(--cyan),var(--violet),transparent);
+  opacity:.45;
+}
+.brand{display:flex;gap:16px;align-items:center}
+.logo{
+  width:88px;height:88px;
+  border-radius:var(--r-lg);
+  background:linear-gradient(135deg,rgba(94,231,245,0.12),rgba(179,164,255,0.12));
+  border:1px solid var(--line);
+  display:grid;place-items:center;
+  padding:8px;
+  box-shadow:var(--glow-cyan), 0 8px 24px -8px rgba(0,0,0,0.4);
+  position:relative;overflow:hidden;
+}
+.logo::before{
+  content:'';position:absolute;inset:-50%;
+  background:conic-gradient(from 0deg,transparent,rgba(94,231,245,0.28),transparent 30%);
+  animation:logoSpin 8s linear infinite;
+}
+.logo img{
+  position:relative;z-index:1;
+  width:100%;height:100%;object-fit:contain;
+  filter:drop-shadow(0 2px 6px rgba(0,0,0,0.3));
+}
+@keyframes logoSpin{to{transform:rotate(360deg)}}
+
+.eyebrow{
+  color:var(--cyan);
+  font-size:11px;letter-spacing:.22em;
+  font-weight:600;text-transform:uppercase;
+  font-family:var(--font-mono);
+}
+.title{
+  font-family:var(--font-display);
+  font-size:clamp(24px,3vw,34px);
+  font-weight:700;letter-spacing:-.035em;
+  line-height:1.1;margin:5px 0 0;
+  background:linear-gradient(135deg,var(--text),var(--text-dim));
+  -webkit-background-clip:text;background-clip:text;color:transparent;
+}
+.sub{color:var(--muted);margin-top:7px;max-width:560px;font-size:13px}
+.actions{display:flex;gap:9px;flex-wrap:wrap}
+
+.wrap{max-width:1600px;margin:auto;padding:28px clamp(14px,3vw,42px) 60px}
+
+/* ============ Notice ============ */
+.notice{
+  background:linear-gradient(135deg,var(--cyan-soft),var(--violet-soft));
+  border:1px solid var(--line);
+  padding:14px 18px;
+  border-radius:var(--r-md);
+  color:var(--text-dim);
+  margin-bottom:22px;
+  display:flex;align-items:flex-start;gap:14px;
+}
+.notice::before{
+  content:'';flex:0 0 auto;width:4px;align-self:stretch;
+  background:linear-gradient(180deg,var(--cyan),var(--violet));
+  border-radius:99px;
+}
+.notice strong{color:var(--cyan);font-weight:600}
+
+body.light .notice{background:linear-gradient(135deg,var(--cyan-soft),var(--violet-soft))}
+
+/* ============ Toolbar ============ */
+.toolbar{
+  display:flex;gap:10px;flex-wrap:wrap;align-items:center;
+  margin-bottom:22px;padding:14px;
+  background:linear-gradient(180deg,var(--panel),var(--panel-2));
+  border:1px solid var(--line);
+  border-radius:var(--r-lg);
+  box-shadow:var(--shadow-card);
+}
+.toolbar select,.toolbar input{
+  background:var(--bg);color:var(--text);
+  border:1px solid var(--line);
+  border-radius:var(--r-sm);
+  padding:10px 14px;min-width:180px;
+  transition:all .18s;
+}
+.toolbar select:focus,.toolbar input:focus{
+  outline:0;border-color:var(--cyan);
+  box-shadow:0 0 0 3px var(--cyan-soft);
+}
+.status{
+  margin-left:auto;color:var(--muted);
+  font-size:12px;font-family:var(--font-mono);
+  padding:7px 12px;background:var(--bg);
+  border-radius:99px;border:1px solid var(--line);
+}
+
+/* ============ Cards & Metrics ============ */
+.grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:14px}
+.card{
+  background:linear-gradient(155deg,var(--panel) 0%,var(--panel-2) 100%);
+  border:1px solid var(--line);
+  border-radius:var(--r-lg);
+  padding:18px;min-width:0;
+  box-shadow:var(--shadow-card);
+  transition:all .2s ease;
+  position:relative;overflow:hidden;
+  animation:fadeUp .5s ease both;
+}
+.card::before{
+  content:'';position:absolute;top:0;left:0;right:0;height:1px;
+  background:linear-gradient(90deg,transparent,rgba(255,255,255,0.10),transparent);
+}
+.card:hover{
+  border-color:var(--cyan);
+  transform:translateY(-2px);
+  box-shadow:var(--shadow-card),var(--glow-cyan);
+}
+@keyframes fadeUp{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:translateY(0)}}
+
+.metric-label{
+  color:var(--muted);
+  font-size:10.5px;font-weight:600;
+  letter-spacing:.08em;text-transform:uppercase;
+}
+.metric{
+  font-family:var(--font-display);
+  font-size:34px;font-weight:700;
+  letter-spacing:-.04em;margin:8px 0 4px;
+  background:linear-gradient(135deg,var(--cyan),var(--violet));
+  -webkit-background-clip:text;background-clip:text;color:transparent;
+  line-height:1;
+}
+.metric-note{color:var(--muted-2);font-size:11px}
+
+.section{margin-top:26px}
+.section-head{
+  display:flex;align-items:center;justify-content:space-between;
+  gap:10px;margin-bottom:14px;
+}
+.section h2{
+  font-family:var(--font-display);
+  font-size:18px;margin:0;
+  letter-spacing:-.02em;font-weight:600;
+  position:relative;padding-left:14px;
+}
+.section h2::before{
+  content:'';position:absolute;left:0;top:50%;
+  transform:translateY(-50%);
+  width:4px;height:18px;
+  background:linear-gradient(180deg,var(--cyan),var(--violet));
+  border-radius:99px;
+}
+.hint{
+  font-size:11px;color:var(--muted);
+  font-family:var(--font-mono);
+  padding:4px 10px;background:var(--bg);
+  border-radius:99px;border:1px solid var(--line);
+}
+
+.twocol{display:grid;grid-template-columns:1.25fr 1fr;gap:14px}
+
+/* ============ Chart ============ */
+.chart{
+  height:280px;display:flex;align-items:end;gap:14px;
+  padding:18px 8px 24px;overflow-x:auto;
+}
+.barwrap{
+  height:100%;min-width:65px;flex:1;
+  display:flex;flex-direction:column;
+  justify-content:end;align-items:center;gap:8px;
+}
+.bararea{
+  height:190px;width:100%;
+  display:flex;align-items:end;justify-content:center;
+  border-bottom:1px solid var(--line);
+  background:repeating-linear-gradient(to top,
+    transparent 0,transparent 46px,
+    rgba(94,231,245,0.06) 47px,rgba(94,231,245,0.06) 48px);
+  position:relative;
+}
+.bar{
+  width:min(38px,65%);
+  border-radius:8px 8px 2px 2px;
+  background:linear-gradient(180deg,var(--cyan),var(--violet-d));
+  min-height:2px;position:relative;
+  box-shadow:0 -4px 16px rgba(94,231,245,0.4);
+  animation:barGrow .7s cubic-bezier(.4,0,.2,1);
+  transform-origin:bottom;
+}
+@keyframes barGrow{from{transform:scaleY(0)}to{transform:scaleY(1)}}
+.bar::after{
+  content:'';position:absolute;top:0;left:0;right:0;height:30%;
+  background:linear-gradient(180deg,rgba(255,255,255,0.3),transparent);
+  border-radius:8px 8px 0 0;
+}
+.barval{
+  font-family:var(--font-mono);font-size:11px;
+  color:var(--text);font-weight:600;margin-bottom:4px;
+}
+.barlabel{
+  font-size:10px;color:var(--muted);
+  text-align:center;max-width:90px;overflow-wrap:anywhere;
+}
+
+.legend{
+  display:flex;gap:16px;flex-wrap:wrap;
+  color:var(--muted);font-size:11px;
+  margin-top:14px;padding-top:14px;
+  border-top:1px solid var(--line-soft);
+}
+.dot{
+  display:inline-block;width:9px;height:9px;
+  border-radius:50%;margin-right:6px;
+  box-shadow:0 0 8px currentColor;
+}
+
+/* ============ Tables ============ */
+.tablebox{
+  overflow:auto;border-radius:var(--r-md);
+  border:1px solid var(--line-soft);
+}
+.data{width:100%;border-collapse:collapse;min-width:600px}
+.data th{
+  text-align:left;padding:13px 14px;
+  background:linear-gradient(180deg,var(--panel-3),var(--panel-2));
+  color:var(--muted);
+  font-weight:600;font-size:11px;
+  letter-spacing:.06em;text-transform:uppercase;
+  border-bottom:1px solid var(--line);
+  position:sticky;top:0;z-index:1;
+}
+.data td{
+  padding:12px 14px;
+  border-bottom:1px solid var(--line-soft);
+  font-size:12.5px;vertical-align:top;
+}
+.data tr{transition:background .15s}
+.data tr:hover td{background:var(--cyan-soft)}
+.data tr:last-child td{border-bottom:0}
+
+.pill{
+  display:inline-block;padding:4px 10px;
+  border-radius:99px;
+  background:linear-gradient(135deg,var(--cyan-soft),var(--violet-soft));
+  border:1px solid var(--line);
+  color:var(--text-dim);
+  font-size:10px;font-weight:600;
+  font-family:var(--font-mono);letter-spacing:.04em;
+}
+.good{color:var(--green);font-weight:600}
+.bad{color:var(--red);font-weight:600}
+
+/* ============ Tabs ============ */
+.tabs{
+  display:flex;gap:6px;flex-wrap:wrap;
+  margin-bottom:14px;padding:6px;
+  background:var(--panel-2);
+  border:1px solid var(--line);
+  border-radius:var(--r-md);
+}
+.tab{
+  background:transparent;color:var(--muted);
+  border:0;padding:8px 14px;
+  font-weight:500;font-size:13px;
+}
+.tab:hover{
+  color:var(--text);background:var(--panel-3);
+  transform:none;box-shadow:none;
+}
+.tab.active{
+  background:linear-gradient(135deg,var(--cyan-soft),var(--violet-soft));
+  color:var(--cyan);
+  box-shadow:inset 0 0 0 1px var(--line);
+}
+
+/* ============ Browser ============ */
+.browser{
+  display:grid;grid-template-columns:300px minmax(0,1fr);
+  gap:14px;min-height:440px;
+}
+.side{max-height:650px;overflow:auto;padding:8px}
+.listitem{
+  padding:11px 12px;border-radius:var(--r-sm);
+  cursor:pointer;transition:all .15s;
+  border:1px solid transparent;margin-bottom:4px;
+}
+.listitem:hover{
+  background:var(--panel-3);border-color:var(--line);
+  transform:translateX(2px);box-shadow:none;
+}
+.listitem.active{
+  background:linear-gradient(135deg,var(--cyan-soft),var(--violet-soft));
+  border-color:var(--cyan);
+  box-shadow:var(--glow-cyan);
+}
+.listitem small{
+  display:block;color:var(--muted);
+  font-size:10px;margin-top:3px;
+  font-family:var(--font-mono);
+}
+
+.detail{min-width:0}
+.detailhead{
+  display:flex;justify-content:space-between;gap:10px;
+  flex-wrap:wrap;align-items:center;margin-bottom:14px;
+}
+.detailhead strong{
+  font-family:var(--font-mono);font-size:13px;
+  color:var(--text-dim);font-weight:500;word-break:break-all;
+}
+.json{
+  white-space:pre-wrap;overflow-wrap:anywhere;
+  background:var(--bg);
+  border:1px solid var(--line);
+  border-radius:var(--r-md);
+  padding:18px;max-height:650px;overflow:auto;
+  font:12.5px/1.7 var(--font-mono);color:var(--text-dim);
+}
+.search{width:min(320px,100%)}
+.empty{
+  padding:50px 20px;text-align:center;
+  color:var(--muted);font-style:italic;
+}
+
+.transcript{white-space:pre-wrap;line-height:1.8;color:var(--text-dim)}
+.speech{
+  padding:14px;margin:10px 0;
+  background:var(--panel-3);
+  border:1px solid var(--line);
+  border-radius:var(--r-md);
+  border-left:3px solid var(--cyan);
+}
+.speechhead{
+  display:flex;justify-content:space-between;
+  color:var(--cyan);font-size:11px;
+  margin-bottom:8px;
+  font-family:var(--font-mono);font-weight:600;
+}
+
+.footer{
+  color:var(--muted);font-size:11px;
+  margin:30px auto 0;padding:20px 0 0;
+  border-top:1px solid var(--line-soft);
+  text-align:center;max-width:760px;
+}
+
+.justification{
+  max-width:440px;white-space:pre-wrap;
+  overflow-wrap:anywhere;
+  font-size:12px;color:var(--text-dim);line-height:1.6;
+}
+.justification.collapsed{
+  display:-webkit-box;-webkit-line-clamp:3;
+  -webkit-box-orient:vertical;overflow:hidden;
+}
+.expand{
+  padding:3px 9px;margin-top:6px;
+  font-size:12px;border-radius:6px;
+  min-width:28px;background:var(--panel-3);
+  border:1px solid var(--line);font-weight:600;
+}
+.expand:hover{
+  background:var(--cyan-soft);border-color:var(--cyan);
+  color:var(--cyan);transform:none;box-shadow:none;
+}
+.just-cell{min-width:230px}
+
+.ground-table{direction:rtl;text-align:right;min-width:1120px}
+.ground-table th,.ground-table td{text-align:right;white-space:normal;vertical-align:top}
+.ground-table td:nth-child(2){direction:ltr;text-align:left;min-width:230px}
+.ground-table a{
+  color:var(--cyan);text-decoration:none;
+  font-family:var(--font-mono);font-size:11px;
+}
+.ground-table a:hover{text-decoration:underline}
+.ground-count{
+  color:var(--muted);font-size:12px;
+  margin:8px 0 14px;font-family:var(--font-mono);
+}
+.ground-panel[hidden],.browser[hidden]{display:none}
+
+/* ============ Pagination ============ */
+.pager{
+  display:flex;gap:6px;align-items:center;
+  justify-content:center;flex-wrap:wrap;
+  margin:16px 0 4px;padding:10px;
+}
+.pager button{
+  padding:6px 11px;border-radius:var(--r-sm);
+  min-width:36px;background:var(--panel-3);
+  border:1px solid var(--line);
+}
+.pager button:hover:not(:disabled){
+  background:var(--cyan-soft);border-color:var(--cyan);
+  color:var(--cyan);transform:none;box-shadow:none;
+}
+.pager button:disabled{opacity:.35;cursor:not-allowed}
+.pager .pager-info{
+  color:var(--muted);font-size:12px;
+  margin:0 10px;font-family:var(--font-mono);
+}
+.pager .pager-size{
+  background:var(--bg);color:var(--text);
+  border:1px solid var(--line);
+  border-radius:var(--r-sm);padding:6px 10px;
+}
+
+/* ============ Light theme specifics ============ */
+body.light .card{background:linear-gradient(155deg,#fff,#f6f9fd)}
+body.light .toolbar{background:linear-gradient(180deg,#fff,#f5f8fc)}
+body.light .data th{background:linear-gradient(180deg,#f5f8fc,#eef3f9)}
+body.light .json{background:#f7f9fc;color:#24334a}
+body.light .speech{background:#f5f8fc;border-color:var(--line)}
+body.light .transcript{color:#24334a}
+body.light .listitem:hover,body.light .listitem.active{
+  background:linear-gradient(135deg,var(--cyan-soft),var(--violet-soft));
+}
+body.light .tab.active{background:linear-gradient(135deg,var(--cyan-soft),var(--violet-soft))}
+body.light .pager button{background:#fff;border-color:var(--line)}
+body.light .pager .pager-size{background:#fff;color:var(--text)}
+
+/* ============ RTL ============ */
+html[dir="rtl"] body{font-family:"Segoe UI","Tahoma","Arial",var(--font-body)}
+html[dir="rtl"] .status{margin-left:0;margin-right:auto}
+html[dir="rtl"] .data th,html[dir="rtl"] .data td{text-align:right}
+html[dir="rtl"] .ground-table{min-width:1120px}
+html[dir="rtl"] .ground-table td:nth-child(2){direction:ltr;text-align:left}
+html[dir="rtl"] .justification{text-align:right}
+html[dir="rtl"] .section-head{flex-direction:row}
+html[dir="rtl"] .browser{grid-template-columns:minmax(0,1fr) 300px}
+html[dir="rtl"] .section h2{padding-left:0;padding-right:14px}
+html[dir="rtl"] .section h2::before{left:auto;right:0}
+@media(max-width:900px){html[dir="rtl"] .browser{grid-template-columns:1fr}}
+html[dir="rtl"] .tabs{flex-direction:row-reverse;justify-content:flex-end}
+
+/* ============ Responsive ============ */
+@media(max-width:900px){
+  .grid{grid-template-columns:repeat(2,1fr)}
+  .twocol{grid-template-columns:1fr}
+  .browser{grid-template-columns:1fr}
+  .side{max-height:240px}
+}
+@media(max-width:520px){
+  .grid{grid-template-columns:1fr 1fr}
+  .metric{font-size:26px}
+  .top{align-items:flex-start}
+  .status{margin-left:0;width:100%}
+  .logo{width:64px;height:64px}
+}
+</style>
+</head>
+<body>
+<header class="top">
+  <div class="brand">
+    <div class="logo"><img src="judy-logo.png" alt="JUDY Logo"></div>
+    <div>
+      <div class="eyebrow" data-i18n="eyebrow">JUDY · RESEARCH CONSOLE</div>
+      <div class="title" data-i18n="title">Experiment Observatory</div>
+      <div class="sub" data-i18n="subtitle">Exploring how AI models judge competitive debates — and how often they agree with human experts.</div>
+    </div>
+  </div>
+  <div class="actions">
+    <button id="theme">☼ <span data-i18n="themeLight">Light theme</span></button>
+    <button id="lang" title="Switch language">🌐 <span id="langLabel">العربية</span></button>
+    <button id="rescan">↻ <span data-i18n="reload">Reload data</span></button>
+  </div>
+</header>
+<main class="wrap">
+<div class="notice" id="loadNotice"><strong data-i18n="loadingStrong">Loading research data from GitHub…</strong> <span data-i18n="loadingText">The dashboard automatically reads the JSON files stored alongside this page in the GitHub repository.</span></div>
+<div class="toolbar">
+  <select id="experiment" disabled><option value="" data-i18n="allExperiments">All experiments</option></select>
+  <select id="model" disabled><option value="" data-i18n="allModels">All models</option></select>
+  <select id="debate" disabled><option value="" data-i18n="allDebates">All debates</option></select>
+  <input id="globalSearch" class="search" placeholder="Search debates, justifications, JSON…" data-i18n-placeholder="searchPlaceholder" disabled>
+  <span class="status" id="status" data-i18n="noFolder">No folder selected</span>
+</div>
+<div class="grid">
+  <div class="card"><div class="metric-label" data-i18n="mDebatesLabel">Debates in ground truth</div><div class="metric" id="mDebates">—</div><div class="metric-note" data-i18n="mDebatesNote">Unique debate IDs</div></div>
+  <div class="card"><div class="metric-label" data-i18n="mVerdictsLabel">Model verdicts loaded</div><div class="metric" id="mVerdicts">—</div><div class="metric-note" data-i18n="mVerdictsNote">Across experiment × model folders</div></div>
+  <div class="card"><div class="metric-label" data-i18n="mAccuracyLabel">Overall accuracy</div><div class="metric" id="mAccuracy">—</div><div class="metric-note" data-i18n="mAccuracyNote">Against official winners · filtered view</div></div>
+  <div class="card"><div class="metric-label" data-i18n="mConfidenceLabel">Mean confidence</div><div class="metric" id="mConfidence">—</div><div class="metric-note" data-i18n="mConfidenceNote">Available confidence values</div></div>
+</div>
+<div class="section twocol">
+  <div class="card"><div class="section-head"><h2 data-i18n="accuracyByModel">Accuracy by model</h2><span class="hint" data-i18n="filteredVerdicts">Filtered verdicts</span></div><div id="accuracyChart" class="chart"><div class="empty" data-i18n="loadingData">Loading data…</div></div></div>
+  <div class="card"><div class="section-head"><h2 data-i18n="verdictDist">Verdict distribution</h2><span class="hint" data-i18n="propVsOpp">Proposition vs Opposition</span></div><div id="winnerChart" class="chart"></div><div class="legend"><span><i class="dot" style="background:var(--cyan)"></i><span data-i18n="proposition">Proposition</span></span><span><i class="dot" style="background:var(--violet)"></i><span data-i18n="opposition">Opposition</span></span></div></div>
+</div>
+<div class="section card">
+  <div class="section-head"><h2 data-i18n="expModelPerf">Experiment × model performance</h2><span class="hint" data-i18n="perfHint">Accuracy, agreement and coverage</span></div>
+  <div class="tablebox"><table class="data"><thead><tr>
+    <th data-i18n="thExperiment">Experiment</th><th data-i18n="thModel">Model</th><th data-i18n="thCorrect">Correct</th><th data-i18n="thAccuracy">Accuracy</th><th data-i18n="thCoverage">Coverage</th><th data-i18n="thMeanConf">Mean confidence</th>
+  </tr></thead><tbody id="performance"></tbody></table></div>
+</div>
+<div class="section card">
+  <div class="section-head"><h2 data-i18n="exploreData">Explore source data</h2><span class="hint" data-i18n="exploreHint">Inspect complete JSON, including nested fields and justifications</span></div>
+  <div class="section card">
+    <div class="section-head"><h2 data-i18n="gtVsModel">Ground truth vs model decisions</h2><span class="hint" data-i18n="gtVsModelHint">Every loaded verdict compared with the official debate outcome</span></div>
+    <div class="tablebox"><table class="data" style="min-width:900px"><thead><tr>
+      <th data-i18n="thDebate">Debate</th><th data-i18n="thGT">Ground truth</th><th data-i18n="thExperiment">Experiment</th><th data-i18n="thModel">Model</th><th data-i18n="thModelOutput">Model output</th><th data-i18n="thMatch">Match</th><th data-i18n="thJustification">Justification</th>
+    </tr></thead><tbody id="comparison"><tr><td colspan="7" data-i18n="loadingData">Loading data…</td></tr></tbody></table></div>
+    <div class="pager" id="comparisonPager"></div>
+  </div>
+
+  <div class="tabs">
+    <button class="tab active" data-tab="verdicts" data-i18n="tabVerdicts">Model output JSON</button>
+    <button class="tab" data-tab="ground" data-i18n="tabGround">Ground truth JSON</button>
+    <button class="tab" data-tab="detailed-ground" data-i18n="tabDetailed">Detailed Ground Truth (CSV)</button>
+    <button class="tab" data-tab="debates" data-i18n="tabDebates">Debate transcripts</button>
+    <button class="tab" data-tab="files" data-i18n="tabFiles">All JSON files</button>
+  </div>
+  <div id="detailedGroundPanel" class="ground-panel" hidden><div class="ground-count" id="groundCount" data-i18n="groundCountDefault">20 detailed debate records · Source: detailed_ground_truth.csv</div><div class="tablebox"><table class="data ground-table"><thead><tr><th>#</th><th data-i18n="thYouTube">YouTube URL</th><th>البطولة</th><th>مستوى المناظرة</th><th>الموالاة</th><th>المعارصة</th><th>الفريق الفائز</th><th>ID</th></tr></thead><tbody id="detailedGroundRows"><tr><td colspan="8" data-i18n="loadingDetailed">Loading detailed ground truth…</td></tr></tbody></table></div></div>
+  <div class="browser" id="sourceBrowser">
+    <div class="card side" id="fileList"><div class="empty" data-i18n="loadingData">Loading data…</div></div>
+    <div class="detail">
+      <div class="detailhead"><strong id="detailTitle" data-i18n="selectFile">Select a file</strong><button id="copy" data-i18n="copyJson" disabled>Copy JSON</button></div>
+      <div id="detailContent" class="json"><div class="empty" data-i18n="jsonPlaceholder">Full JSON content will appear here.</div></div>
+      <div class="pager" id="filePager"></div>
+    </div>
+  </div>
+</div>
+<div class="footer" data-i18n="footer"></div>
+</main>
+
+<script>
+// ============ i18n dictionary ============
+const I18N = {
+  en: {
+    eyebrow: "JUDY · RESEARCH CONSOLE",
+    title: "Experiment Observatory",
+    subtitle: "Debate adjudication · model evaluation · ground-truth benchmarking",
+    themeLight: "Light theme",
+    themeDark: "Dark theme",
+    reload: "Reload data",
+    loadingStrong: "Loading research data from GitHub…",
+    loadingText: "The dashboard automatically reads the JSON files stored alongside this page in the GitHub repository.",
+    allExperiments: "All experiments",
+    allModels: "All models",
+    allDebates: "All debates",
+    searchPlaceholder: "Search debates, justifications, JSON…",
+    noFolder: "No folder selected",
+    mDebatesLabel: "Debates in ground truth",
+    mDebatesNote: "Unique debate IDs",
+    mVerdictsLabel: "Model verdicts loaded",
+    mVerdictsNote: "Across experiment × model folders",
+    mAccuracyLabel: "Overall accuracy",
+    mAccuracyNote: "Against official winners · filtered view",
+    mConfidenceLabel: "Mean confidence",
+    mConfidenceNote: "Available confidence values",
+    accuracyByModel: "Accuracy by model",
+    filteredVerdicts: "Filtered verdicts",
+    verdictDist: "Verdict distribution",
+    propVsOpp: "Proposition vs Opposition",
+    proposition: "Proposition",
+    opposition: "Opposition",
+    expModelPerf: "Experiment × model performance",
+    perfHint: "Accuracy, agreement and coverage",
+    thExperiment: "Experiment",
+    thModel: "Model",
+    thCorrect: "Correct",
+    thAccuracy: "Accuracy",
+    thCoverage: "Coverage",
+    thMeanConf: "Mean confidence",
+    exploreData: "Explore source data",
+    exploreHint: "Inspect complete JSON, including nested fields and justifications",
+    gtVsModel: "Ground truth vs model decisions",
+    gtVsModelHint: "Every loaded verdict compared with the official debate outcome",
+    thDebate: "Debate",
+    thGT: "Ground truth",
+    thModelOutput: "Model output",
+    thMatch: "Match",
+    thJustification: "Justification",
+    tabVerdicts: "Model output JSON",
+    tabGround: "Ground truth JSON",
+    tabDetailed: "Detailed Ground Truth (CSV)",
+    tabDebates: "Debate transcripts",
+    tabFiles: "All JSON files",
+    thYouTube: "YouTube URL",
+    loadingDetailed: "Loading detailed ground truth…",
+    selectFile: "Select a file",
+    copyJson: "Copy JSON",
+    jsonPlaceholder: "Full JSON content will appear here.",
+    footer: "Runs entirely in your browser. On GitHub Pages, data is fetched from the public repository when the page opens. For a private repository or custom domain, set the repository constants near the top of the script.",
+    loadingData: "Loading data…",
+    noMatchVerdicts: "No matching verdicts.",
+    noWinnerLabels: "No winner labels found.",
+    noVerdictsFilter: "No verdicts match the current filters.",
+    noFilesMatch: "No files match this view.",
+    noVerdictFiles: "No verdict files found. Check the outputs folder layout.",
+    notScored: "Not scored",
+    correct: "✓ Correct",
+    different: "✕ Different",
+    noJustification: "No justification available.",
+    showMore: "Show more justification",
+    showLess: "Show less justification",
+    copy: "Copy JSON",
+    allFiles: "JSON file",
+    officialOutcomes: "Official outcomes",
+    debateTranscript: "Debate transcript",
+    connecting: "Connecting to GitHub…",
+    fetching: "Fetching the repository file list and JSON contents.",
+    couldNotLoad: "Could not load repository data",
+    autoLoadFailed: "Automatic loading failed.",
+    loadHint: "Make sure the GitHub repository is public, DATA_ROOT points to the folder containing ground_truth.json, debates/, and outputs/, and GitHub Pages is enabled.",
+    dataLoadedFrom: "Data loaded from",
+    readFiles: "Read",
+    jsonFiles: "JSON files",
+    verdicts: "verdicts",
+    debatesCount: "debates",
+    couldNotRead: "could not be read",
+    reloadHint: "Reload the page or use “Reload data” to fetch the latest version.",
+    groundCount: "detailed debate records · Source: detailed_ground_truth.csv",
+    groundMissing: "Detailed ground truth CSV was not found or could not be read. Add detailed_ground_truth.csv to the repository root.",
+    page: "Page",
+    of: "of",
+    items: "items",
+    perPage: "/page",
+    youtubeUrl: "YouTube URL",
+    languageName: "العربية"
+  },
+  ar: {
+    eyebrow: "JUDY · لوحة البحث",
+    title: "مرصد التجارب",
+    subtitle: "استكشاف كيفية تقييم نماذج الذكاء الاصطناعي للمناظرات التنافسية، ومدى توافقها مع آراء الخبراء البشريين.",
+    themeLight: "الوضع الفاتح",
+    themeDark: "الوضع الداكن",
+    reload: "إعادة تحميل البيانات",
+    loadingStrong: "جارٍ تحميل بيانات البحث من GitHub…",
+    loadingText: "تقرأ لوحة المعلومات تلقائيًا ملفات JSON المخزنة بجانب هذه الصفحة في مستودع GitHub.",
+    allExperiments: "جميع التجارب",
+    allModels: "جميع النماذج",
+    allDebates: "جميع المناظرات",
+    searchPlaceholder: "ابحث في المناظرات والتبريرات وملفات JSON…",
+    noFolder: "لم يتم تحديد مجلد",
+    mDebatesLabel: "المناظرات في الحقيقة المرجعية",
+    mDebatesNote: "معرّفات مناظرات فريدة",
+    mVerdictsLabel: "أحكام النماذج المحمّلة",
+    mVerdictsNote: "عبر مجلدات التجارب × النماذج",
+    mAccuracyLabel: "الدقة الإجمالية",
+    mAccuracyNote: "مقارنة بالفائزين الرسميين · العرض المفلتر",
+    mConfidenceLabel: "متوسط الثقة",
+    mConfidenceNote: "قيم الثقة المتاحة",
+    accuracyByModel: "الدقة حسب النموذج",
+    filteredVerdicts: "الأحكام المفلترة",
+    verdictDist: "توزيع الأحكام",
+    propVsOpp: "الموالاة مقابل المعارضة",
+    proposition: "الموالاة",
+    opposition: "المعارضة",
+    expModelPerf: "أداء التجربة × النموذج",
+    perfHint: "الدقة والتوافق والتغطية",
+    thExperiment: "التجربة",
+    thModel: "النموذج",
+    thCorrect: "صحيح",
+    thAccuracy: "الدقة",
+    thCoverage: "التغطية",
+    thMeanConf: "متوسط الثقة",
+    exploreData: "استكشاف البيانات المصدرية",
+    exploreHint: "افحص ملف JSON الكامل، بما في ذلك الحقول المتداخلة والتبريرات",
+    gtVsModel: "الحقيقة المرجعية مقابل قرارات النموذج",
+    gtVsModelHint: "كل حكم محمّل مقارنة بالنتيجة الرسمية للمناظرة",
+    thDebate: "المناظرة",
+    thGT: "الحقيقة المرجعية",
+    thModelOutput: "مخرجات النموذج",
+    thMatch: "التطابق",
+    thJustification: "التبرير",
+    tabVerdicts: "JSON مخرجات النموذج",
+    tabGround: "JSON الحقيقة المرجعية",
+    tabDetailed: "الحقيقة المرجعية المفصلة (CSV)",
+    tabDebates: "نصوص المناظرات",
+    tabFiles: "جميع ملفات JSON",
+    thYouTube: "رابط يوتيوب",
+    loadingDetailed: "جارٍ تحميل الحقيقة المرجعية المفصلة…",
+    selectFile: "اختر ملفًا",
+    copyJson: "نسخ JSON",
+    jsonPlaceholder: "سيظهر محتوى JSON الكامل هنا.",
+    footer: "",
+    loadingData: "جارٍ تحميل البيانات…",
+    noMatchVerdicts: "لا توجد أحكام مطابقة.",
+    noWinnerLabels: "لم يتم العثور على تسميات فائز.",
+    noVerdictsFilter: "لا توجد أحكام تطابق عوامل التصفية الحالية.",
+    noFilesMatch: "لا توجد ملفات تطابق هذا العرض.",
+    noVerdictFiles: "لم يتم العثور على ملفات أحكام. تحقق من تخطيط مجلد المخرجات.",
+    notScored: "غير مُقيَّم",
+    correct: "✓ صحيح",
+    different: "✕ مختلف",
+    noJustification: "لا يوجد تبرير متاح.",
+    showMore: "عرض المزيد من التبرير",
+    showLess: "عرض أقل من التبرير",
+    copy: "نسخ JSON",
+    allFiles: "ملف JSON",
+    officialOutcomes: "النتائج الرسمية",
+    debateTranscript: "نص المناظرة",
+    connecting: "جارٍ الاتصال بـ GitHub…",
+    fetching: "جارٍ جلب قائمة ملفات المستودع ومحتويات JSON.",
+    couldNotLoad: "تعذّر تحميل بيانات المستودع",
+    autoLoadFailed: "فشل التحميل التلقائي.",
+    loadHint: "تأكد من أن مستودع GitHub عام، وأن DATA_ROOT يشير إلى المجلد الذي يحتوي على ground_truth.json و debates/ و outputs/، وأن GitHub Pages مفعّل.",
+    dataLoadedFrom: "تم تحميل البيانات من",
+    readFiles: "تمت قراءة",
+    jsonFiles: "ملفات JSON",
+    verdicts: "أحكام",
+    debatesCount: "مناظرات",
+    couldNotRead: "تعذّرت قراءتها",
+    reloadHint: "أعد تحميل الصفحة أو استخدم «إعادة تحميل البيانات» لجلب أحدث إصدار.",
+    groundCount: "سجلات مناظرات مفصلة · المصدر: detailed_ground_truth.csv",
+    groundMissing: "لم يتم العثور على ملف CSV للحقيقة المرجعية المفصلة أو تعذّرت قراءته. أضف detailed_ground_truth.csv إلى جذر المستودع.",
+    page: "صفحة",
+    of: "من",
+    items: "عنصر",
+    perPage: "/صفحة",
+    youtubeUrl: "رابط يوتيوب",
+    languageName: "English"
+  }
+};
+
+let LANG = localStorage.getItem('judy_lang') || 'en';
+function t(key){ return (I18N[LANG] && I18N[LANG][key]) || I18N.en[key] || key; }
+function applyI18n(){
+  document.documentElement.lang = LANG;
+  document.documentElement.dir = LANG === 'ar' ? 'rtl' : 'ltr';
+  document.querySelectorAll('[data-i18n]').forEach(el => { el.textContent = t(el.dataset.i18n); });
+  document.querySelectorAll('[data-i18n-placeholder]').forEach(el => { el.placeholder = t(el.dataset.i18nPlaceholder); });
+  $('theme').innerHTML = '☼ <span>' + (document.body.classList.contains('light') ? t('themeDark') : t('themeLight')) + '</span>';
+  $('langLabel').textContent = t('languageName');
+  if (typeof records !== 'undefined' && records.length){ render(); renderList(); renderDetailedGround(); }
+}
+
+// ============ App constants ============
+const GITHUB_OWNER = '';
+const GITHUB_REPO = '';
+const DATA_ROOT = '';
+const $=id=>document.getElementById(id);
+let ground={}, debates=[], records=[], allFiles=[], selected=null, activeTab='verdicts', detailedGroundTruth=[];
+
+const PAGE_SIZE_DEFAULT = 20;
+let pageState = {
+  comparison: { page: 1, size: PAGE_SIZE_DEFAULT },
+  files:      { page: 1, size: PAGE_SIZE_DEFAULT }
+};
+
+const norm=s=>String(s??'').toLowerCase().trim();
+const winnerOf=o=>o?.result?.winner??o?.winner??o?.verdict?.winner??o?.decision?.winner??'';
+const confidenceOf=o=>{let x=o?.result?.confidence??o?.confidence??o?.verdict?.confidence;return typeof x==='number'?x:null};
+const debateId=o=>o?.debate_id??o?.id??'';
+const fmt=x=>Number.isFinite(x)?(x*100).toFixed(1)+'%':'—';
+function esc(s){return String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));}
+async function readJson(f){if(f.data!==undefined)return f.data;try{const r=await fetch(f.url);if(!r.ok)throw Error('HTTP '+r.status);return await r.json()}catch(e){return {__parse_error:String(e)}}}
+function repoInfo(){let owner=GITHUB_OWNER,repo=GITHUB_REPO;if(owner&&repo)return {owner,repo};const host=location.hostname;const path=location.pathname.split('/').filter(Boolean);if(host.endsWith('.github.io')){owner=host.split('.')[0];repo=path[0]||`${owner}.github.io`;return {owner,repo}}if(host==='github.com'&&path.length>=2)return {owner:path[0],repo:path[1]};throw Error('Cannot detect the GitHub repository from this URL. Set GITHUB_OWNER and GITHUB_REPO near the top of the dashboard script.');}
+async function fetchJson(url){const r=await fetch(url,{headers:{Accept:'application/vnd.github+json', 'User-Agent': 'JUDY-Observatory'}});if(!r.ok)throw Error(`GitHub request failed (${r.status}) for ${url}`);return r.json()}
+function parseCSV(text){const out=[];let row=[],cell='',quoted=false;for(let i=0;i<text.length;i++){const c=text[i];if(quoted){if(c==='"'&&text[i+1]==='"'){cell+='"';i++}else if(c==='"')quoted=false;else cell+=c}else if(c==='"')quoted=true;else if(c===','){row.push(cell);cell=''}else if(c==='\n'){row.push(cell.replace(/\r$/,''));if(row.some(v=>v!==''))out.push(row);row=[];cell=''}else cell+=c}row.push(cell.replace(/\r$/,''));if(row.some(v=>v!==''))out.push(row);return out}
+function renderDetailedGround(){
+  const body=$('detailedGroundRows');
+  if(!detailedGroundTruth.length){
+    body.innerHTML='<tr><td colspan="8">'+esc(t('groundMissing'))+'</td></tr>';
+    return;
+  }
+  body.innerHTML=detailedGroundTruth.map(r=>`<tr><td>${esc(r[0])}</td><td><a href="${esc(r[1])}" target="_blank" rel="noopener noreferrer">${esc(r[1])}</a></td><td>${esc(r[2])}</td><td>${esc(r[3])}</td><td>${esc(r[4])}</td><td>${esc(r[5])}</td><td><strong>${esc(r[6])}</strong></td><td>${esc(r[7])}</td></tr>`).join('');
+  $('groundCount').textContent = `${detailedGroundTruth.length} ${t('groundCount')}`;
+}
+async function load(){
+  const notice=$('loadNotice');
+  $('status').textContent=t('connecting');
+  $('rescan').disabled=true;
+  notice.innerHTML='<strong>'+t('loadingStrong')+'</strong> '+t('fetching');
+  try{
+    const {owner,repo}=repoInfo();
+    const meta=await fetchJson(`https://api.github.com/repos/${encodeURIComponent(owner)}/${encodeURIComponent(repo)}`);
+    const branch=meta.default_branch||'main';
+    const tree=await fetchJson(`https://api.github.com/repos/${encodeURIComponent(owner)}/${encodeURIComponent(repo)}/git/trees/${encodeURIComponent(branch)}?recursive=1`);
+    if(tree.truncated)throw Error('GitHub returned a truncated repository file list.');
+    let root='';
+    if(DATA_ROOT){root=DATA_ROOT.replace(/^\/+|\/+$/g,'')+'/'}
+    else{
+      const gtPath=tree.tree.find(x=>x.type==='blob'&&x.path.endsWith('ground_truth.json')&&tree.tree.some(y=>y.type==='blob'&&y.path.startsWith(x.path.replace(/ground_truth\.json$/,'debates/')))&&tree.tree.some(y=>y.type==='blob'&&y.path.startsWith(x.path.replace(/ground_truth\.json$/,'outputs'))));
+      if(gtPath)root=gtPath.path.slice(0,-'ground_truth.json'.length);
+    }
+    const csvPath=tree.tree.find(x=>x.type==='blob'&&x.path===root+'detailed_ground_truth.csv')||tree.tree.find(x=>x.type==='blob'&&x.path.split('/').pop().toLowerCase()==='detailed_ground_truth.csv');
+    if(csvPath){
+      const csvUrl=`https://raw.githubusercontent.com/${owner}/${repo}/${encodeURIComponent(branch)}/${csvPath.path.split('/').map(encodeURIComponent).join('/')}`;
+      const csvResponse=await fetch(csvUrl);
+      if(csvResponse.ok){const csvRows=parseCSV(await csvResponse.text());detailedGroundTruth=csvRows.slice(1).map(r=>r.slice(0,8));renderDetailedGround();}
+    }
+    const jsonPaths=tree.tree.filter(x=>x.type==='blob'&&x.path.startsWith(root)&&x.path.toLowerCase().endsWith('.json'));
+    if(!jsonPaths.some(x=>x.path===root+'ground_truth.json'))throw Error(`Could not find ground_truth.json with its debates/ and outputs/ folders.`);
+    allFiles=jsonPaths.map(x=>{const path=x.path.slice(root.length);return {name:path.split('/').pop(),path,url:`https://raw.githubusercontent.com/${owner}/${repo}/${encodeURIComponent(branch)}/${x.path.split('/').map(encodeURIComponent).join('/')}`,data:undefined}});
+    let cursor=0,failed=0;
+    async function worker(){while(cursor<allFiles.length){const i=cursor++;const f=allFiles[i];try{const r=await fetch(f.url);if(!r.ok)throw Error('HTTP '+r.status);f.data=await r.json()}catch(e){f.data={__parse_error:String(e)};failed++}}}
+    await Promise.all(Array.from({length:8},worker));
+    const gt=allFiles.find(f=>f.name==='ground_truth.json'&&f.path.split('/').length===1);
+    ground=gt?.data||{};
+    debates=allFiles.filter(f=>f.path.startsWith('debates/')&&!f.data?.__parse_error).map(f=>({file:f,data:f.data}));
+    records=[];
+    for(const f of allFiles){
+      if(!/\.verdict\.json$/i.test(f.name)||f.data?.__parse_error)continue;
+      const parts=f.path.split('/');
+      const outputsIndex=parts.findIndex(p=>p.startsWith('outputs'));
+      if(outputsIndex<0)continue;
+      const base=parts[outputsIndex];
+      let experiment,model;
+      if(base==='outputs'){experiment=parts[outputsIndex+1]||'outputs';model=parts.length>outputsIndex+3?parts[outputsIndex+2]:'Length-only'}
+      else{experiment=base;model=parts.length>outputsIndex+2?parts[outputsIndex+1]:'Length-only'}
+      const data=f.data;
+      records.push({file:f,experiment,model,data,id:debateId(data)||f.name.replace('.verdict.json',''),winner:norm(winnerOf(data)),confidence:confidenceOf(data)});
+    }
+    $('status').textContent=`${allFiles.length} ${t('jsonFiles')} · ${records.length} ${t('verdicts')} · ${debates.length} ${t('debatesCount')}`;
+    $('rescan').disabled=false;
+    ['experiment','model','debate','globalSearch'].forEach(id=>$(id).disabled=false);
+    populateFilters(); render(); renderList();
+    notice.innerHTML=`<strong>${t('dataLoadedFrom')} ${esc(owner)}/${esc(repo)} (${esc(branch)}).</strong> ${t('readFiles')} ${allFiles.length} ${t('jsonFiles')}${failed?`; ${failed} ${t('couldNotRead')}`:''}. ${t('reloadHint')}`;
+  }catch(e){
+    $('status').textContent=t('couldNotLoad');
+    $('rescan').disabled=false;
+    notice.innerHTML=`<strong>${t('autoLoadFailed')}</strong> ${esc(e.message)}<br><span>${t('loadHint')}</span>`;
+    $('comparison').innerHTML=`<tr><td colspan="7">${esc(e.message)}</td></tr>`;
+  }
+}
+function unique(a){return [...new Set(a)].sort()}
+function populateFilters(){
+  const fill=(id,vals,label)=>{let el=$(id),old=el.value;el.innerHTML=`<option value="">${esc(label)}</option>`+vals.map(v=>`<option>${esc(v)}</option>`).join('');if(vals.includes(old))el.value=old};
+  fill('experiment',unique(records.map(r=>r.experiment)),t('allExperiments'));
+  fill('model',unique(records.map(r=>r.model)),t('allModels'));
+  fill('debate',unique([...Object.keys(ground),...records.map(r=>r.id)]),t('allDebates'));
+}
+function filtered(){
+  let e=$('experiment').value,m=$('model').value,d=$('debate').value,q=norm($('globalSearch').value);
+  return records.filter(r=>(!e||r.experiment===e)&&(!m||r.model===m)&&(!d||r.id===d)&&(!q||norm(JSON.stringify(r.data)).includes(q)||norm(r.id).includes(q)));
+}
+function render(){
+  let rs=filtered(),known=Object.keys(ground);
+  let correct=rs.filter(r=>Object.hasOwn(ground,r.id)&&r.winner===norm(ground[r.id])).length;
+  let scored=rs.filter(r=>Object.hasOwn(ground,r.id));
+  let confs=rs.map(r=>r.confidence).filter(x=>x!==null);
+  $('mDebates').textContent=known.length||debates.length;
+  $('mVerdicts').textContent=rs.length;
+  $('mAccuracy').textContent=fmt(scored.length?correct/scored.length:NaN);
+  $('mConfidence').textContent=confs.length?(confs.reduce((a,b)=>a+b,0)/confs.length).toFixed(2):'—';
+
+  let byModel=unique(rs.map(r=>r.model)).map(m=>{let a=rs.filter(r=>r.model===m),s=a.filter(r=>Object.hasOwn(ground,r.id)),c=s.filter(r=>r.winner===norm(ground[r.id])).length;return {m,a,s,c,acc:s.length?c/s.length:0}});
+  $('accuracyChart').innerHTML=byModel.length?byModel.map(x=>`<div class="barwrap"><div class="barval">${fmt(x.acc)}</div><div class="bararea"><div class="bar" style="height:${x.acc*100}%"></div></div><div class="barlabel">${esc(x.m)}</div></div>`).join(''):`<div class="empty">${t('noMatchVerdicts')}</div>`;
+
+  let prop=rs.filter(r=>r.winner.includes('proposition')).length;
+  let opp=rs.filter(r=>r.winner.includes('opposition')).length;
+  let total=prop+opp;
+  $('winnerChart').innerHTML=total?`<div style="width:100%;align-self:center"><div style="display:flex;height:28px;border-radius:8px;overflow:hidden;background:#263550"><div style="width:${prop/total*100}%;background:var(--cyan)"></div><div style="width:${opp/total*100}%;background:var(--violet)"></div></div><div style="display:flex;justify-content:space-between;margin-top:14px"><span>${t('proposition')} <b>${prop}</b> · ${fmt(prop/total)}</span><span>${t('opposition')} <b>${opp}</b> · ${fmt(opp/total)}</span></div><div class="hint" style="margin-top:8px">${total}</div></div>`:`<div class="empty">${t('noWinnerLabels')}</div>`;
+
+  renderComparisonTable(rs);
+
+  $('performance').innerHTML=byModel.length?unique(rs.map(r=>r.experiment)).flatMap(e=>unique(rs.filter(r=>r.experiment===e).map(r=>r.model)).map(m=>{let a=rs.filter(r=>r.experiment===e&&r.model===m),s=a.filter(r=>Object.hasOwn(ground,r.id)),c=s.filter(r=>r.winner===norm(ground[r.id])).length,cf=a.map(r=>r.confidence).filter(x=>x!==null);return `<tr><td>${esc(e)}</td><td>${esc(m)}</td><td>${c}/${s.length}</td><td>${fmt(s.length?c/s.length:NaN)}</td><td>${fmt(a.length/Math.max(1,known.length))}</td><td>${cf.length?(cf.reduce((x,y)=>x+y,0)/cf.length).toFixed(2):'—'}</td></tr>`})).join(''):`<tr><td colspan="6">${t('noVerdictFiles')}</td></tr>`;
+  renderList();
+}
+
+function renderComparisonTable(rs){
+  const st = pageState.comparison;
+  const total = rs.length;
+  const pages = Math.max(1, Math.ceil(total / st.size));
+  if (st.page > pages) st.page = pages;
+  const start = (st.page - 1) * st.size;
+  const slice = rs.slice(start, start + st.size);
+
+  $('comparison').innerHTML = slice.length
+    ? slice.map((r, i) => {
+        const gi = start + i;
+        const gt = ground[r.id] ?? '—';
+        const match = gt !== '—' && r.winner === norm(gt);
+        const j = r.data?.result?.justification ?? r.data?.justification ?? '';
+        return `<tr>
+          <td>${esc(r.id)}</td>
+          <td><span class="pill">${esc(gt)}</span></td>
+          <td>${esc(r.experiment)}</td>
+          <td>${esc(r.model)}</td>
+          <td>${esc(r.winner || '—')}</td>
+          <td class="${gt === '—' ? '' : match ? 'good' : 'bad'}">${gt === '—' ? t('notScored') : match ? t('correct') : t('different')}</td>
+          <td class="just-cell">
+            <div class="justification collapsed" id="just-${gi}">${esc(j || t('noJustification'))}</div>
+            ${j.length > 160 ? `<button class="expand" data-expand="just-${gi}" aria-expanded="false" title="${t('showMore')}">+</button>` : ''}
+          </td>
+        </tr>`;
+      }).join('')
+    : `<tr><td colspan="7">${t('noVerdictsFilter')}</td></tr>`;
+
+  document.querySelectorAll('[data-expand]').forEach(b => b.onclick = () => {
+    const el = $(b.dataset.expand);
+    const open = b.getAttribute('aria-expanded') !== 'true';
+    el.classList.toggle('collapsed', !open);
+    b.setAttribute('aria-expanded', String(open));
+    b.textContent = open ? '−' : '+';
+    b.title = open ? t('showLess') : t('showMore');
+  });
+
+  renderPager('comparisonPager', pageState.comparison, total, () => renderComparisonTable(filtered()));
+}
+
+function candidates(){
+  let e=$('experiment').value,m=$('model').value,d=$('debate').value,q=norm($('globalSearch').value);
+  if(activeTab==='verdicts')return records.filter(r=>(!e||r.experiment===e)&&(!m||r.model===m)&&(!d||r.id===d)&&(!q||norm(JSON.stringify(r.data)).includes(q))).map(r=>({label:`${r.id} · ${r.model}`,sub:r.experiment+' · '+r.winner,file:r.file,data:r.data}));
+  if(activeTab==='ground')return allFiles.filter(f=>f.name==='ground_truth.json').map(f=>({label:f.name,sub:t('officialOutcomes'),file:f,data:ground}));
+  if(activeTab==='debates')return debates.filter(r=>(!d||r.data.id===d)&&(!q||norm(JSON.stringify(r.data)).includes(q))).map(r=>({label:r.data.id||r.file.name,sub:r.data.motion||t('debateTranscript'),file:r.file,data:r.data}));
+  return allFiles.filter(f=>(!q||norm(f.path).includes(q))).map(f=>({label:f.path,sub:t('allFiles'),file:f,data:f.data}));
+}
+
+function renderList(){
+  const arr = candidates();
+  const st = pageState.files;
+  const total = arr.length;
+  const pages = Math.max(1, Math.ceil(total / st.size));
+  if (st.page > pages) st.page = pages;
+  const start = (st.page - 1) * st.size;
+  const slice = arr.slice(start, start + st.size);
+
+  $('fileList').innerHTML = slice.length
+    ? slice.map((x, i) => {
+        const gi = start + i;
+        return `<div class="listitem ${selected?.file.path === x.file.path ? 'active' : ''}" data-i="${gi}">${esc(x.label)}<small>${esc(x.sub)}</small></div>`;
+      }).join('')
+    : `<div class="empty">${t('noFilesMatch')}</div>`;
+
+  [...$('fileList').querySelectorAll('.listitem')].forEach(el => {
+    el.onclick = () => { const item = candidates()[+el.dataset.i]; showItem(item); };
+  });
+
+  renderPager('filePager', pageState.files, total, () => renderList());
+}
+
+function renderPager(elId, state, total, onUpdate){
+  const el = $(elId);
+  if (!el) return;
+  const pages = Math.max(1, Math.ceil(total / state.size));
+  if (total === 0){ el.innerHTML = ''; return; }
+  const btn = (label, page, disabled, active = false) =>
+    `<button ${disabled ? 'disabled' : ''} class="${active ? 'primary' : ''}" data-page="${page}">${label}</button>`;
+
+  let html = '';
+  html += btn('«', 1, state.page === 1);
+  html += btn('‹', state.page - 1, state.page === 1);
+  html += `<span class="pager-info">${t('page')} ${state.page} ${t('of')} ${pages} · ${total} ${t('items')}</span>`;
+  html += btn('›', state.page + 1, state.page === pages);
+  html += btn('»', pages, state.page === pages);
+  html += `<select class="pager-size" data-size>${[10,20,50,100].map(n => `<option value="${n}" ${n === state.size ? 'selected' : ''}>${n}${t('perPage')}</option>`).join('')}</select>`;
+  el.innerHTML = html;
+
+  el.querySelectorAll('button[data-page]').forEach(b => {
+    b.onclick = () => { const p = +b.dataset.page; if (p >= 1 && p <= pages && p !== state.page){ state.page = p; onUpdate(); } };
+  });
+  const sel = el.querySelector('select[data-size]');
+  if (sel) sel.onchange = () => { state.size = +sel.value; state.page = 1; onUpdate(); };
+}
+
+function showItem(item){
+  selected=item;
+  $('detailTitle').textContent=item.file.path;
+  $('detailContent').textContent=JSON.stringify(item.data,null,2);
+  $('copy').disabled=false;
+  renderList();
+}
+ $('copy').onclick=()=>{if(selected)navigator.clipboard.writeText(JSON.stringify(selected.data,null,2));};
+document.querySelectorAll('.tab').forEach(b=>b.onclick=()=>{
+  document.querySelectorAll('.tab').forEach(x=>x.classList.toggle('active',x===b));
+  activeTab=b.dataset.tab;
+  pageState.files.page=1;
+  const detailed=activeTab==='detailed-ground';
+  $('detailedGroundPanel').hidden=!detailed;
+  $('sourceBrowser').hidden=detailed;
+  if(!detailed){
+    selected=null;
+    $('detailTitle').textContent=t('selectFile');
+    $('detailContent').textContent=t('jsonPlaceholder');
+    $('copy').disabled=true;
+    renderList();
+  }
+});
+ $('rescan').onclick=load;
+ $('theme').onclick=()=>{
+  document.body.classList.toggle('light');
+  $('theme').innerHTML='☼ <span>'+(document.body.classList.contains('light')?t('themeDark'):t('themeLight'))+'</span>';
+};
+ $('lang').onclick=()=>{
+  LANG = LANG === 'en' ? 'ar' : 'en';
+  localStorage.setItem('judy_lang', LANG);
+  applyI18n();
+};
+['experiment','model','debate','globalSearch'].forEach(id=>$(id).addEventListener(id==='globalSearch'?'input':'change',()=>{
+  pageState.comparison.page = 1;
+  pageState.files.page = 1;
+  render();
+  renderList();
+}));
+
+// Initialize
+applyI18n();
+load();
+</script>
+</body></html>
