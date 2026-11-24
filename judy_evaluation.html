@@ -39,11 +39,22 @@ input#q{width:100%;max-width:440px;padding:6px 10px;margin-bottom:10px;border:1p
 <header><h1>Justification evaluation</h1><a href="judy_dashboard.html">Main dashboard</a><button id="br">Reload files</button><button id="bt">Light/dark</button></header>
 <main>
 <div id="st"></div>
-<div id="empty"><h2 id="eh">Reading your files</h2><p class="mut" id="ep">Looking for justification_cases.json and vote_justification_cases.json next to this page.</p></div>
+<div id="empty"><h2 id="eh">Reading your files</h2><p class="mut" id="ep">Looking for justification_cases.json and vote_justification_cases.json in your GitHub repository.</p></div>
 <div id="app" hidden><div class="tabs" id="tabs"></div><section class="sec" id="s0"></section><section class="sec" id="s1"></section><section class="sec" id="s2"></section></div>
 </main>
 <aside id="dr"></aside>
 <script>
+// ============================================================
+// CONFIGURATION — points to https://github.com/debate-judge/judy
+// The JSON files are at the repository root, not inside outputs/.
+// ============================================================
+const GH_USER = 'debate-judge';
+const GH_REPO = 'judy';
+const GH_BRANCH = 'main';
+const GH_BASE = `https://raw.githubusercontent.com/${GH_USER}/${GH_REPO}/${GH_BRANCH}`;
+const URL_BEST = `${GH_BASE}/justification_cases.json`;
+const URL_VOTE = `${GH_BASE}/vote_justification_cases.json`;
+
 const $=s=>document.querySelector(s),esc=s=>String(s==null?'':s).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c])),
 f1=x=>x==null||isNaN(x)?'–':x.toFixed(1),pc=x=>Math.round(x*100)+'%',num=s=>+(String(s).match(/(\d+)$/)||[0,0])[1],mean=a=>a.length?a.reduce((x,y)=>x+y,0)/a.length:NaN,
 CR=['faithfulness','coverage','reasoning','clarity','overall'],SH={faithfulness:'Faithful',coverage:'Coverage',reasoning:'Reasoning',clarity:'Clarity',overall:'Overall'},
@@ -140,10 +151,17 @@ function render(){
 }
 const fail=(h,m)=>{$('#eh').textContent=h;$('#ep').innerHTML=m;$('#empty').hidden=false;$('#app').hidden=true};
 async function load(){
-  if(location.protocol=='file:')return fail('This page needs a local web server','Browsers do not let a page read local files directly. Run <code>python start_dashboard.py</code> in this folder, then open <code>http://localhost:8000/judy_evaluation.html</code>.');
-  const j=u=>fetch(u).then(r=>r.ok?r.json():null).catch(()=>null);
-  S.best=await j('justification_cases.json');S.vote=await j('vote_justification_cases.json');prep();
-  if(!S.B.length&&!S.V.length)return fail('No judged cases found','Run the judging notebooks first. This page reads <code>justification_cases.json</code> and <code>vote_justification_cases.json</code> from this folder, and shows the cases that have judge results.');
+  const j=u=>fetch(u).then(r=>{if(!r.ok)throw new Error(`${r.status} ${r.statusText} — ${u}`);return r.json()});
+  try {
+    S.best=await j(URL_BEST);
+    S.vote=await j(URL_VOTE);
+  } catch(e) {
+    return fail('Could not load the JSON files',
+      `Failed to fetch from GitHub. Check that the repository is public, the branch <code>${esc(GH_BRANCH)}</code> exists, and both files are at the repository root.<br><br>` +
+      `<span class="mut">${esc(e.message)}</span><br><br>URLs tried:<br><code>${esc(URL_BEST)}</code><br><code>${esc(URL_VOTE)}</code>`);
+  }
+  prep();
+  if(!S.B.length&&!S.V.length)return fail('No judged cases found','The JSON files were fetched, but they contain no cases with judge results. Run the judging notebooks first and push the updated JSON files to the repository root.');
   render();
 }
 document.addEventListener('click',e=>{
