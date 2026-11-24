@@ -24,6 +24,7 @@
   --font-display:'Space Grotesk','Inter',system-ui,sans-serif;
   --font-body:'Inter',system-ui,-apple-system,Segoe UI,sans-serif;
   --font-mono:'JetBrains Mono',ui-monospace,SFMono-Regular,Consolas,monospace;
+  --header-h:78px;
 }
 body.light{
   --bg:#f4f7fc;--bg-grad-1:#dbe9fb;
@@ -44,6 +45,7 @@ body{
   background-attachment:fixed;color:var(--text);font:14px/1.55 var(--font-body);
   -webkit-font-smoothing:antialiased;letter-spacing:-0.005em;
   min-height:100vh;display:flex;flex-direction:column;
+  padding-top:var(--header-h);
 }
 ::-webkit-scrollbar{width:10px;height:10px}
 ::-webkit-scrollbar-track{background:transparent}
@@ -52,22 +54,33 @@ body{
 a{color:var(--cyan);text-decoration:none}
 a:hover{text-decoration:underline}
 
-/* ════════════ SHARED HEADER ════════════ */
-.top{padding:16px clamp(16px,4vw,56px);display:flex;justify-content:space-between;gap:16px;align-items:center;flex-wrap:wrap;border-bottom:1px solid var(--line-soft);position:relative;flex-shrink:0;z-index:50}
+/* ════════════ FIXED HEADER ════════════ */
+.top{
+  position:fixed;top:0;left:0;right:0;z-index:100;
+  height:var(--header-h);
+  padding:0 clamp(16px,4vw,56px);
+  display:flex;justify-content:space-between;gap:16px;align-items:center;flex-wrap:nowrap;
+  background:linear-gradient(180deg,var(--panel) 0%,rgba(18,26,48,0.92) 100%);
+  backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);
+  border-bottom:1px solid var(--line-soft);
+  box-shadow:0 4px 20px rgba(0,0,0,0.25);
+}
+body.light .top{background:linear-gradient(180deg,var(--panel) 0%,rgba(255,255,255,0.94) 100%);box-shadow:0 4px 20px rgba(20,40,80,0.08)}
 .top::after{content:'';position:absolute;left:0;right:0;bottom:-1px;height:1px;background:linear-gradient(90deg,transparent,var(--cyan),var(--violet),transparent);opacity:.45}
-.brand{display:flex;gap:14px;align-items:center}
-.logo{width:56px;height:56px;border-radius:var(--r-md);background:linear-gradient(135deg,var(--cyan-soft),var(--violet-soft));border:1px solid var(--line);display:grid;place-items:center;padding:4px;box-shadow:var(--glow-cyan);position:relative;overflow:hidden}
+.brand{display:flex;gap:14px;align-items:center;flex-shrink:0}
+.logo{width:48px;height:48px;border-radius:var(--r-md);background:linear-gradient(135deg,var(--cyan-soft),var(--violet-soft));border:1px solid var(--line);display:grid;place-items:center;padding:4px;box-shadow:var(--glow-cyan);position:relative;overflow:hidden;flex-shrink:0}
 .logo::before{content:'';position:absolute;inset:-50%;background:conic-gradient(from 0deg,transparent,rgba(94,231,245,0.28),transparent 30%);animation:spin 8s linear infinite}
 .logo img{position:relative;z-index:1;width:100%;height:100%;object-fit:contain;filter:drop-shadow(0 2px 4px rgba(0,0,0,0.3))}
 @keyframes spin{to{transform:rotate(360deg)}}
-.eyebrow{color:var(--cyan);font-size:10px;letter-spacing:.22em;font-weight:600;text-transform:uppercase;font-family:var(--font-mono)}
-.title-sm{font-family:var(--font-display);font-size:16px;font-weight:700;letter-spacing:-.03em;margin:2px 0 0}
-.nav-tabs{display:flex;gap:4px;background:var(--panel-2);border:1px solid var(--line);border-radius:var(--r-md);padding:4px;flex-wrap:wrap}
-.nav-tab{background:transparent;border:0;padding:7px 12px;font-size:13px;color:var(--muted);border-radius:var(--r-sm);cursor:pointer;font:inherit;font-weight:500;transition:all .15s}
+.eyebrow{color:var(--cyan);font-size:10px;letter-spacing:.22em;font-weight:600;text-transform:uppercase;font-family:var(--font-mono);white-space:nowrap}
+.title-sm{font-family:var(--font-display);font-size:15px;font-weight:700;letter-spacing:-.03em;margin:2px 0 0;white-space:nowrap}
+.nav-tabs{display:flex;gap:4px;background:var(--panel-2);border:1px solid var(--line);border-radius:var(--r-md);padding:4px;flex-wrap:nowrap;overflow-x:auto;scrollbar-width:none}
+.nav-tabs::-webkit-scrollbar{display:none}
+.nav-tab{background:transparent;border:0;padding:7px 12px;font-size:13px;color:var(--muted);border-radius:var(--r-sm);cursor:pointer;font:inherit;font-weight:500;transition:all .15s;white-space:nowrap}
 .nav-tab:hover{color:var(--text);background:var(--panel-3)}
 .nav-tab.active{background:linear-gradient(135deg,var(--cyan-soft),var(--violet-soft));color:var(--cyan)}
-.actions{display:flex;gap:8px;flex-wrap:wrap;align-items:center}
-button{cursor:pointer;border:1px solid var(--line);background:linear-gradient(180deg,var(--panel-3),var(--panel-2));color:var(--text);padding:8px 13px;border-radius:var(--r-md);font:inherit;font-weight:500;transition:all .18s ease;display:inline-flex;align-items:center;gap:6px}
+.actions{display:flex;gap:8px;flex-wrap:nowrap;align-items:center;flex-shrink:0}
+button{cursor:pointer;border:1px solid var(--line);background:linear-gradient(180deg,var(--panel-3),var(--panel-2));color:var(--text);padding:8px 13px;border-radius:var(--r-md);font:inherit;font-weight:500;transition:all .18s ease;display:inline-flex;align-items:center;gap:6px;white-space:nowrap}
 button:hover{border-color:var(--cyan);box-shadow:0 0 0 3px var(--cyan-soft);transform:translateY(-1px)}
 button:disabled{opacity:.5;cursor:not-allowed;transform:none;box-shadow:none}
 
@@ -219,7 +232,7 @@ html[dir="rtl"] #view-dashboard .section h2::before{left:auto;right:0}
 .tg-row{display:flex;gap:7px;flex-wrap:wrap;align-items:flex-end}
 .tg-row>*{flex:1 1 110px}
 .tg-row button{flex:0 0 auto}
-#tg-transcript{white-space:pre-wrap;word-wrap:break-word;background:var(--panel-2);border:1px solid var(--line);border-radius:8px;padding:10px 12px;max-height:calc(100vh - 420px);min-height:140px;overflow:auto;font-family:var(--font-mono);font-size:13px;line-height:1.6;user-select:text}
+#tg-transcript{white-space:pre-wrap;word-wrap:break-word;background:var(--panel-2);border:1px solid var(--line);border-radius:8px;padding:10px 12px;max-height:calc(100vh - var(--header-h) - 420px);min-height:140px;overflow:auto;font-family:var(--font-mono);font-size:13px;line-height:1.6;user-select:text}
 .tg-seg{border-radius:3px}
 .tg-seg-proposition{background:rgba(43,108,255,.16);box-shadow:inset 3px 0 var(--prop)}
 .tg-seg-opposition{background:rgba(224,72,72,.16);box-shadow:inset 3px 0 var(--opp)}
@@ -319,8 +332,18 @@ body.light #view-evaluation{--H:#2a63c9;--M:#c2620f;--S:#0f8f6e;--W:#a64a8f;--T:
 #view-evaluation .ev-empty h2{font:600 22px var(--ser);color:var(--ink)}
 
 /* ════════════ RESPONSIVE ════════════ */
-@media(max-width:1000px){.cards-grid{grid-template-columns:repeat(2,1fr)}.info-grid{grid-template-columns:1fr}}
+@media(max-width:1200px){
+  .brand .title-sm{display:none}
+  .eyebrow{font-size:9px}
+}
+@media(max-width:1000px){
+  .cards-grid{grid-template-columns:repeat(2,1fr)}
+  .info-grid{grid-template-columns:1fr}
+  .eyebrow{display:none}
+  .brand{gap:8px}
+}
 @media(max-width:900px){
+  :root{--header-h:70px}
   #view-dashboard .grid{grid-template-columns:repeat(2,1fr)}
   #view-dashboard .twocol{grid-template-columns:1fr}
   #view-dashboard .browser{grid-template-columns:1fr}
@@ -329,35 +352,45 @@ body.light #view-evaluation{--H:#2a63c9;--M:#c2620f;--S:#0f8f6e;--W:#a64a8f;--T:
   .tg-right{border-left:0;border-top:1px solid var(--line)}
   html[dir="rtl"] #view-dashboard .browser{grid-template-columns:1fr}
 }
+@media(max-width:760px){
+  :root{--header-h:66px}
+  .top{padding:0 12px;gap:8px}
+  .logo{width:38px;height:38px}
+  .nav-tabs{padding:3px}
+  .nav-tab{padding:6px 9px;font-size:12px}
+  .actions button{padding:6px 9px;font-size:12px}
+}
 @media(max-width:600px){
+  :root{--header-h:60px}
   .cards-grid{grid-template-columns:1fr}
   #view-dashboard .grid{grid-template-columns:1fr 1fr}
-  .top{padding:12px}
-  .logo{width:44px;height:44px}
-  .nav-tabs{order:3;width:100%}
+  .brand{display:none}
+  .nav-tabs{flex:1;justify-content:center}
+  .actions button span:not([id]){display:none}
+  .hero{padding-top:30px}
 }
 </style>
 </head>
 <body>
 
-<!-- ════════════ SHARED HEADER ════════════ -->
+<!-- ════════════ FIXED HEADER ════════════ -->
 <header class="top">
   <div class="brand">
     <div class="logo"><img src="judy-logo.png" alt="JUDY"></div>
     <div>
-      <div class="eyebrow">JUDY · RESEARCH HUB</div>
-      <div class="title-sm">Debate Evaluation Portal</div>
+      <div class="eyebrow" data-i18n="eyebrowTop">JUDY · RESEARCH HUB</div>
+      <div class="title-sm" data-i18n="titleTop">Debate Evaluation Portal</div>
     </div>
   </div>
   <nav class="nav-tabs">
-    <button class="nav-tab active" data-route="home">🏠 Home</button>
-    <button class="nav-tab" data-route="dashboard">📊 Observatory</button>
-    <button class="nav-tab" data-route="tagger">🏷️ Tagger</button>
-    <button class="nav-tab" data-route="evaluation">⚖️ Evaluation</button>
+    <button class="nav-tab active" data-route="home" data-i18n="navHome">🏠 Home</button>
+    <button class="nav-tab" data-route="dashboard" data-i18n="navDash">📊 Observatory</button>
+    <button class="nav-tab" data-route="tagger" data-i18n="navTag">🏷️ Tagger</button>
+    <button class="nav-tab" data-route="evaluation" data-i18n="navEval">⚖️ Evaluation</button>
   </nav>
   <div class="actions">
-    <button id="globalLang" style="display:none">🌐 <span id="globalLangLabel">العربية</span></button>
-    <button id="globalRescan" style="display:none">↻ <span>Reload</span></button>
+    <button id="globalLang">🌐 <span id="globalLangLabel">العربية</span></button>
+    <button id="globalRescan" style="display:none">↻ <span data-i18n="reload">Reload</span></button>
     <button id="globalTheme">☼ <span id="globalThemeLabel">Light</span></button>
   </div>
 </header>
@@ -366,40 +399,40 @@ body.light #view-evaluation{--H:#2a63c9;--M:#c2620f;--S:#0f8f6e;--W:#a64a8f;--T:
 <section id="view-home" class="view active">
   <div class="hero">
     <h1>JUDY</h1>
-    <p class="tagline">Debate Evaluation & Analysis Dashboard</p>
-    <p class="desc">An interactive platform for exploring and evaluating AI-generated judgments of competitive debates. Compare model predictions against human-provided ground truth, inspect debate transcripts, and analyze reasoning across multiple language models and experimental configurations.</p>
+    <p class="tagline" data-i18n="heroTagline">Debate Evaluation & Analysis Dashboard</p>
+    <p class="desc" data-i18n="heroDesc">An interactive platform for exploring and evaluating AI-generated judgments of competitive debates. Compare model predictions against human-provided ground truth, inspect debate transcripts, and analyze reasoning across multiple language models and experimental configurations.</p>
     <div class="hero-stats">
-      <div class="stat-badge"><div class="num">5</div><div class="lbl">Experiments</div></div>
-      <div class="stat-badge"><div class="num">5</div><div class="lbl">AI Models</div></div>
-      <div class="stat-badge"><div class="num">20</div><div class="lbl">Debates</div></div>
-      <div class="stat-badge"><div class="num">4</div><div class="lbl">Tools</div></div>
+      <div class="stat-badge"><div class="num">5</div><div class="lbl" data-i18n="statExperiments">Experiments</div></div>
+      <div class="stat-badge"><div class="num">5</div><div class="lbl" data-i18n="statModels">AI Models</div></div>
+      <div class="stat-badge"><div class="num">20</div><div class="lbl" data-i18n="statDebates">Debates</div></div>
+      <div class="stat-badge"><div class="num">4</div><div class="lbl" data-i18n="statTools">Tools</div></div>
     </div>
   </div>
   <section class="cards-section">
-    <h2>Tools & Dashboards</h2>
+    <h2 data-i18n="toolsDashboards">Tools & Dashboards</h2>
     <div class="cards-grid">
       <a href="#dashboard" class="nav-card accent-cyan" style="animation-delay:.05s" onclick="navigate('dashboard');return false">
         <div class="card-icon">📊</div>
-        <h3 class="card-title">Experiment Observatory</h3>
-        <p class="card-desc">Compare model predictions with ground-truth winners. Accuracy charts, verdict distributions, confidence scores, and searchable JSON outputs.</p>
-        <div class="card-footer"><span class="status-badge ready"><span class="pulse"></span>Ready</span><span class="card-arrow">→</span></div>
+        <h3 class="card-title" data-i18n="cardDashTitle">Experiment Observatory</h3>
+        <p class="card-desc" data-i18n="cardDashDesc">Compare model predictions with ground-truth winners. Accuracy charts, verdict distributions, confidence scores, and searchable JSON outputs.</p>
+        <div class="card-footer"><span class="status-badge ready"><span class="pulse"></span><span data-i18n="ready">Ready</span></span><span class="card-arrow">→</span></div>
       </a>
       <a href="#tagger" class="nav-card accent-violet" style="animation-delay:.1s" onclick="navigate('tagger');return false">
         <div class="card-icon">🏷️</div>
-        <h3 class="card-title">Debate Transcript Tagger</h3>
-        <p class="card-desc">Load, clean, and segment debate transcripts. Tag speeches by team and speaker, then export Judy-compatible JSON with validation warnings.</p>
-        <div class="card-footer"><span class="status-badge ready"><span class="pulse"></span>Ready</span><span class="card-arrow">→</span></div>
+        <h3 class="card-title" data-i18n="cardTagTitle">Debate Transcript Tagger</h3>
+        <p class="card-desc" data-i18n="cardTagDesc">Load, clean, and segment debate transcripts. Tag speeches by team and speaker, then export Judy-compatible JSON with validation warnings.</p>
+        <div class="card-footer"><span class="status-badge ready"><span class="pulse"></span><span data-i18n="ready">Ready</span></span><span class="card-arrow">→</span></div>
       </a>
       <a href="#evaluation" class="nav-card accent-amber" style="animation-delay:.15s" onclick="navigate('evaluation');return false">
         <div class="card-icon">⚖️</div>
-        <h3 class="card-title">Justification Evaluation</h3>
-        <p class="card-desc">Compare human and AI explanations side by side. An independent judge scores faithfulness, coverage, reasoning, and clarity with full rationales.</p>
-        <div class="card-footer"><span class="status-badge ready"><span class="pulse"></span>Ready</span><span class="card-arrow">→</span></div>
+        <h3 class="card-title" data-i18n="cardEvalTitle">Justification Evaluation</h3>
+        <p class="card-desc" data-i18n="cardEvalDesc">Compare human and AI explanations side by side. An independent judge scores faithfulness, coverage, reasoning, and clarity with full rationales.</p>
+        <div class="card-footer"><span class="status-badge ready"><span class="pulse"></span><span data-i18n="ready">Ready</span></span><span class="card-arrow">→</span></div>
       </a>
       <a href="https://github.com/alimallaith/judy" target="_blank" rel="noopener" class="nav-card accent-green" style="animation-delay:.2s">
         <div class="card-icon">📦</div>
-        <h3 class="card-title">Project Repository</h3>
-        <p class="card-desc">Browse source code, datasets, experiment outputs, and documentation on GitHub. Includes ground truth, CSV, transcripts, and all results.</p>
+        <h3 class="card-title" data-i18n="cardRepoTitle">Project Repository</h3>
+        <p class="card-desc" data-i18n="cardRepoDesc">Browse source code, datasets, experiment outputs, and documentation on GitHub. Includes ground truth, CSV, transcripts, and all results.</p>
         <div class="card-footer"><span class="status-badge ready"><span class="pulse"></span>GitHub</span><span class="card-arrow">↗</span></div>
       </a>
     </div>
@@ -407,33 +440,33 @@ body.light #view-evaluation{--H:#2a63c9;--M:#c2620f;--S:#0f8f6e;--W:#a64a8f;--T:
   <section class="info-section">
     <div class="info-grid">
       <div class="info-card">
-        <h3>🧪 Experimental Configurations</h3>
+        <h3><span>🧪</span> <span data-i18n="expConfigs">Experimental Configurations</span></h3>
         <div class="info-list">
-          <div class="info-row"><span class="tag">outputs/</span><span class="desc">Main experiment outputs</span></div>
-          <div class="info-row"><span class="tag">outputs_zeroshot/</span><span class="desc">Zero-shot evaluation</span></div>
-          <div class="info-row"><span class="tag">outputs_rag/</span><span class="desc">Retrieval-Augmented Generation</span></div>
-          <div class="info-row"><span class="tag">outputs_pipeline/</span><span class="desc">Pipeline-based evaluation</span></div>
-          <div class="info-row"><span class="tag">outputs_length/</span><span class="desc">Length-related experiment</span></div>
+          <div class="info-row"><span class="tag">outputs/</span><span class="desc" data-i18n="expMain">Main experiment outputs</span></div>
+          <div class="info-row"><span class="tag">outputs_zeroshot/</span><span class="desc" data-i18n="expZero">Zero-shot evaluation</span></div>
+          <div class="info-row"><span class="tag">outputs_rag/</span><span class="desc" data-i18n="expRag">Retrieval-Augmented Generation</span></div>
+          <div class="info-row"><span class="tag">outputs_pipeline/</span><span class="desc" data-i18n="expPipe">Pipeline-based evaluation</span></div>
+          <div class="info-row"><span class="tag">outputs_length/</span><span class="desc" data-i18n="expLen">Length-related experiment</span></div>
         </div>
       </div>
       <div class="info-card">
-        <h3>🤖 Language Models Evaluated</h3>
+        <h3><span>🤖</span> <span data-i18n="modelsEvaluated">Language Models Evaluated</span></h3>
         <div class="model-pills"><span class="model-pill">DeepSeek</span><span class="model-pill">Gemma</span><span class="model-pill">GPT-OSS</span><span class="model-pill">Llama</span><span class="model-pill">Qwen</span></div>
         <div style="margin-top:14px;padding-top:14px;border-top:1px solid var(--line-soft)">
-          <h3 style="margin:0 0 10px">📋 Dataset</h3>
+          <h3 style="margin:0 0 10px"><span>📋</span> <span data-i18n="dataset">Dataset</span></h3>
           <div class="info-list">
-            <div class="info-row"><span class="tag">ground_truth.json</span><span class="desc">Reference debate outcomes</span></div>
-            <div class="info-row"><span class="tag">detailed_ground_truth.csv</span><span class="desc">20 debates · Arabic metadata</span></div>
-            <div class="info-row"><span class="tag">debates/</span><span class="desc">Full transcript JSON files</span></div>
+            <div class="info-row"><span class="tag">ground_truth.json</span><span class="desc" data-i18n="dsRef">Reference debate outcomes</span></div>
+            <div class="info-row"><span class="tag">detailed_ground_truth.csv</span><span class="desc" data-i18n="dsMeta">20 debates · Arabic metadata</span></div>
+            <div class="info-row"><span class="tag">debates/</span><span class="desc" data-i18n="dsTranscripts">Full transcript JSON files</span></div>
           </div>
         </div>
       </div>
     </div>
   </section>
   <div class="home-footer">
-    <a href="https://alimallaith.github.io/judy/" target="_blank">Live Dashboard</a><span class="sep">·</span>
+    <a href="https://alimallaith.github.io/judy/" target="_blank" data-i18n="liveDash">Live Dashboard</a><span class="sep">·</span>
     <a href="https://github.com/alimallaith/judy" target="_blank">GitHub</a><span class="sep">·</span>
-    JUDY Research Console
+    <span data-i18n="footerConsole">JUDY Research Console</span>
   </div>
 </section>
 
@@ -494,56 +527,56 @@ body.light #view-evaluation{--H:#2a63c9;--M:#c2620f;--S:#0f8f6e;--W:#a64a8f;--T:
 <section id="view-tagger" class="view">
   <div class="tg-main">
     <div class="tg-left">
-      <div class="tg-h2">Input</div>
+      <div class="tg-h2" data-i18n="tgInput">Input</div>
       <div class="tg-row">
-        <div style="flex:2 1 240px"><label class="tg-label">Transcript file (.txt .srt .vtt .json)</label><input type="file" id="tg-fileInput" accept=".txt,.srt,.vtt,.json"></div>
-        <div style="flex:0 0 auto"><label class="tg-label">&nbsp;</label><button id="tg-clearBtn">Clear</button></div>
+        <div style="flex:2 1 240px"><label class="tg-label" data-i18n="tgFileLabel">Transcript file (.txt .srt .vtt .json)</label><input type="file" id="tg-fileInput" accept=".txt,.srt,.vtt,.json"></div>
+        <div style="flex:0 0 auto"><label class="tg-label">&nbsp;</label><button id="tg-clearBtn" data-i18n="tgClear">Clear</button></div>
       </div>
-      <label class="tg-label">…or paste raw transcript</label>
-      <textarea id="tg-rawText" rows="3" placeholder="Paste transcript text here, then click Load."></textarea>
-      <div class="tg-toolbar"><button id="tg-loadBtn">Load &amp; clean</button><span class="tg-status" id="tg-loadStatus"></span></div>
-      <div class="tg-h2">Mark selection</div>
+      <label class="tg-label" data-i18n="tgPasteLabel">…or paste raw transcript</label>
+      <textarea id="tg-rawText" rows="3" placeholder="Paste transcript text here, then click Load." data-i18n-placeholder="tgPastePlaceholder"></textarea>
+      <div class="tg-toolbar"><button id="tg-loadBtn" data-i18n="tgLoad">Load &amp; clean</button><span class="tg-status" id="tg-loadStatus"></span></div>
+      <div class="tg-h2" data-i18n="tgMark">Mark selection</div>
       <div class="tg-fmt">
-        <div class="hd proposition">فريق الموالاة</div><div class="hd opposition">فريق المعارضة</div>
-        <button class="proposition" data-tag="speech" data-team="proposition" data-n="1">المتحدث الأول</button>
-        <button class="opposition" data-tag="speech" data-team="opposition" data-n="1">المتحدث الأول</button>
-        <button class="proposition" data-tag="speech" data-team="proposition" data-n="2">المتحدث الثاني</button>
-        <button class="opposition" data-tag="speech" data-team="opposition" data-n="2">المتحدث الثاني</button>
-        <button class="proposition" data-tag="speech" data-team="proposition" data-n="3">المتحدث الثالث</button>
-        <button class="opposition" data-tag="speech" data-team="opposition" data-n="3">المتحدث الثالث</button>
+        <div class="hd proposition" data-i18n="tgTeamProp">فريق الموالاة</div><div class="hd opposition" data-i18n="tgTeamOpp">فريق المعارضة</div>
+        <button class="proposition" data-tag="speech" data-team="proposition" data-n="1" data-i18n="tgSpeaker1">المتحدث الأول</button>
+        <button class="opposition" data-tag="speech" data-team="opposition" data-n="1" data-i18n="tgSpeaker1">المتحدث الأول</button>
+        <button class="proposition" data-tag="speech" data-team="proposition" data-n="2" data-i18n="tgSpeaker2">المتحدث الثاني</button>
+        <button class="opposition" data-tag="speech" data-team="opposition" data-n="2" data-i18n="tgSpeaker2">المتحدث الثاني</button>
+        <button class="proposition" data-tag="speech" data-team="proposition" data-n="3" data-i18n="tgSpeaker3">المتحدث الثالث</button>
+        <button class="opposition" data-tag="speech" data-team="opposition" data-n="3" data-i18n="tgSpeaker3">المتحدث الثالث</button>
         <div class="sp"></div>
-        <button class="reply" data-tag="reply" data-team="proposition">خطاب رد الموالاة</button>
-        <button class="reply" data-tag="reply" data-team="opposition">خطاب رد المعارضة</button>
+        <button class="reply" data-tag="reply" data-team="proposition" data-i18n="tgReplyProp">خطاب رد الموالاة</button>
+        <button class="reply" data-tag="reply" data-team="opposition" data-i18n="tgReplyOpp">خطاب رد المعارضة</button>
       </div>
       <div class="tg-toolbar">
         <button id="tg-tagChairBtn" style="background:var(--chair);border-color:var(--chair);color:#1b1b1b">+ Chair</button>
         <button id="tg-tagJudgesBtn" style="background:var(--judges);border-color:var(--judges)">+ Judges</button>
         <button id="tg-removeBtn" style="background:transparent;border-color:var(--err);color:var(--err)">– Remove</button>
       </div>
-      <div class="tg-row"><div><label class="tg-label">Selected range</label><span class="tg-status" id="tg-selInfo">nothing selected</span></div></div>
-      <div class="tg-h2">Transcript <span style="font-size:11px;color:var(--muted)">— select with mouse, then click a tag</span></div>
+      <div class="tg-row"><div><label class="tg-label" data-i18n="tgSelRange">Selected range</label><span class="tg-status" id="tg-selInfo">nothing selected</span></div></div>
+      <div class="tg-h2"><span data-i18n="tgTranscript">Transcript</span> <span style="font-size:11px;color:var(--muted)" data-i18n="tgSelectHint">— select with mouse, then click a tag</span></div>
       <div class="tg-toolbar"><button id="tg-fontDown">A−</button><button id="tg-fontUp">A+</button><span class="tg-status" id="tg-fontInfo">13px</span></div>
       <div id="tg-transcript" tabindex="0" dir="rtl"><span class="tg-empty">No transcript loaded yet.</span></div>
     </div>
     <div class="tg-right">
-      <div class="tg-h2">Debate metadata</div>
+      <div class="tg-h2" data-i18n="tgMeta">Debate metadata</div>
       <label class="tg-label">ID</label><input type="text" id="tg-id" value="debate_001">
-      <label class="tg-label">Motion</label><input type="text" id="tg-motion" placeholder="سيمنع هذا المجلس ...">
+      <label class="tg-label" data-i18n="tgMotion">Motion</label><input type="text" id="tg-motion" placeholder="سيمنع هذا المجلس ...">
       <div class="tg-row">
-        <div><label class="tg-label">Motion confidence</label><select id="tg-motionConfidence"><option value="stated">stated</option><option value="inferred">inferred</option><option value="unknown" selected>unknown</option></select></div>
-        <div><label class="tg-label">Announced winner</label><select id="tg-announcedWinner"><option value="not_announced" selected>not_announced</option><option value="proposition">proposition</option><option value="opposition">opposition</option></select></div>
+        <div><label class="tg-label" data-i18n="tgMotionConf">Motion confidence</label><select id="tg-motionConfidence"><option value="stated">stated</option><option value="inferred">inferred</option><option value="unknown" selected>unknown</option></select></div>
+        <div><label class="tg-label" data-i18n="tgAnnWinner">Announced winner</label><select id="tg-announcedWinner"><option value="not_announced" selected>not_announced</option><option value="proposition">proposition</option><option value="opposition">opposition</option></select></div>
       </div>
       <div class="tg-row">
-        <div><label class="tg-label">Source file</label><input type="text" id="tg-sourceFile" placeholder="raw/unlabeled.txt"></div>
-        <div><label class="tg-label">Segmentation</label><select id="tg-segmentation"><option value="manual" selected>manual</option><option value="llm">llm</option><option value="rules">rules</option><option value="plan">plan</option></select></div>
+        <div><label class="tg-label" data-i18n="tgSourceFile">Source file</label><input type="text" id="tg-sourceFile" placeholder="raw/unlabeled.txt"></div>
+        <div><label class="tg-label" data-i18n="tgSegmentation">Segmentation</label><select id="tg-segmentation"><option value="manual" selected>manual</option><option value="llm">llm</option><option value="rules">rules</option><option value="plan">plan</option></select></div>
       </div>
-      <label class="tg-label">Model (optional)</label><input type="text" id="tg-model" placeholder="gemma3:12b">
-      <div class="tg-h2">Segments <span id="tg-segCount" style="font-size:11px;color:var(--muted)"></span></div>
+      <label class="tg-label" data-i18n="tgModel">Model (optional)</label><input type="text" id="tg-model" placeholder="gemma3:12b">
+      <div class="tg-h2"><span data-i18n="tgSegments">Segments</span> <span id="tg-segCount" style="font-size:11px;color:var(--muted)"></span></div>
       <div id="tg-segList" class="tg-list"></div>
-      <div class="tg-h2">Warnings</div><ul id="tg-warnList" class="tg-warn-list"></ul>
-      <div class="tg-h2">Stats</div><div id="tg-statsBlock"></div>
-      <div class="tg-h2">JSON preview</div>
-      <div class="tg-toolbar"><button id="tg-downloadBtn" style="background:var(--prop);border-color:var(--prop);color:#fff">Download JSON</button><button id="tg-copyBtn">Copy JSON</button><button id="tg-refreshBtn">Refresh</button><span class="tg-status" id="tg-jsonStatus"></span></div>
+      <div class="tg-h2" data-i18n="tgWarnings">Warnings</div><ul id="tg-warnList" class="tg-warn-list"></ul>
+      <div class="tg-h2" data-i18n="tgStats">Stats</div><div id="tg-statsBlock"></div>
+      <div class="tg-h2" data-i18n="tgJsonPreview">JSON preview</div>
+      <div class="tg-toolbar"><button id="tg-downloadBtn" style="background:var(--prop);border-color:var(--prop);color:#fff" data-i18n="tgDownload">Download JSON</button><button id="tg-copyBtn" data-i18n="tgCopy">Copy JSON</button><button id="tg-refreshBtn" data-i18n="tgRefresh">Refresh</button><span class="tg-status" id="tg-jsonStatus"></span></div>
       <pre id="tg-jsonPreview">{}</pre>
     </div>
   </div>
@@ -552,24 +585,85 @@ body.light #view-evaluation{--H:#2a63c9;--M:#c2620f;--S:#0f8f6e;--W:#a64a8f;--T:
 <!-- ════════════ VIEW: EVALUATION ════════════ -->
 <section id="view-evaluation" class="view">
   <div class="ev-main">
-    <div class="ev-toolbar" style="display:flex;gap:8px;margin-bottom:8px"><button id="ev-br">Reload files</button></div>
+    <div class="ev-toolbar" style="display:flex;gap:8px;margin-bottom:8px"><button id="ev-br" data-i18n="reload">Reload files</button></div>
     <div id="ev-st" class="ev-st"></div>
-    <div id="ev-empty" class="ev-empty"><h2 id="ev-eh">Reading your files</h2><p class="mut" id="ev-ep">Looking for justification_cases.json and vote_justification_cases.json in your GitHub repository.</p></div>
+    <div id="ev-empty" class="ev-empty"><h2 id="ev-eh" data-i18n="evReading">Reading your files</h2><p class="mut" id="ev-ep" data-i18n="evLooking">Looking for justification_cases.json and vote_justification_cases.json in your GitHub repository.</p></div>
     <div id="ev-app" hidden><div class="ev-tabs" id="ev-tabs"></div><section class="sec" id="ev-s0"></section><section class="sec" id="ev-s1" hidden></section><section class="sec" id="ev-s2" hidden></section></div>
   </div>
 </section>
 <aside id="ev-dr"></aside>
 
 <script>
+// ════════════ GLOBAL i18n ════════════
+const I18N={
+  en:{
+    eyebrowTop:'JUDY · RESEARCH HUB',titleTop:'Debate Evaluation Portal',
+    navHome:'🏠 Home',navDash:'📊 Observatory',navTag:'🏷️ Tagger',navEval:'⚖️ Evaluation',
+    reload:'Reload',themeLight:'Light',themeDark:'Dark',languageName:'العربية',ready:'Ready',
+    heroTagline:'Debate Evaluation & Analysis Dashboard',
+    heroDesc:'An interactive platform for exploring and evaluating AI-generated judgments of competitive debates. Compare model predictions against human-provided ground truth, inspect debate transcripts, and analyze reasoning across multiple language models and experimental configurations.',
+    statExperiments:'Experiments',statModels:'AI Models',statDebates:'Debates',statTools:'Tools',
+    toolsDashboards:'Tools & Dashboards',
+    cardDashTitle:'Experiment Observatory',cardDashDesc:'Compare model predictions with ground-truth winners. Accuracy charts, verdict distributions, confidence scores, and searchable JSON outputs.',
+    cardTagTitle:'Debate Transcript Tagger',cardTagDesc:'Load, clean, and segment debate transcripts. Tag speeches by team and speaker, then export Judy-compatible JSON with validation warnings.',
+    cardEvalTitle:'Justification Evaluation',cardEvalDesc:'Compare human and AI explanations side by side. An independent judge scores faithfulness, coverage, reasoning, and clarity with full rationales.',
+    cardRepoTitle:'Project Repository',cardRepoDesc:'Browse source code, datasets, experiment outputs, and documentation on GitHub. Includes ground truth, CSV, transcripts, and all results.',
+    expConfigs:'Experimental Configurations',expMain:'Main experiment outputs',expZero:'Zero-shot evaluation',expRag:'Retrieval-Augmented Generation',expPipe:'Pipeline-based evaluation',expLen:'Length-related experiment',
+    modelsEvaluated:'Language Models Evaluated',dataset:'Dataset',dsRef:'Reference debate outcomes',dsMeta:'20 debates · Arabic metadata',dsTranscripts:'Full transcript JSON files',
+    liveDash:'Live Dashboard',footerConsole:'JUDY Research Console',
+    tgInput:'Input',tgFileLabel:'Transcript file (.txt .srt .vtt .json)',tgClear:'Clear',tgPasteLabel:'…or paste raw transcript',tgPastePlaceholder:'Paste transcript text here, then click Load.',tgLoad:'Load & clean',
+    tgMark:'Mark selection',tgTeamProp:'Proposition',tgTeamOpp:'Opposition',
+    tgSpeaker1:'Speaker 1',tgSpeaker2:'Speaker 2',tgSpeaker3:'Speaker 3',
+    tgReplyProp:'Proposition reply',tgReplyOpp:'Opposition reply',
+    tgSelRange:'Selected range',tgTranscript:'Transcript',tgSelectHint:'— select with mouse, then click a tag',
+    tgMeta:'Debate metadata',tgMotion:'Motion',tgMotionConf:'Motion confidence',tgAnnWinner:'Announced winner',tgSourceFile:'Source file',tgSegmentation:'Segmentation',tgModel:'Model (optional)',tgSegments:'Segments',tgWarnings:'Warnings',tgStats:'Stats',tgJsonPreview:'JSON preview',tgDownload:'Download JSON',tgCopy:'Copy JSON',tgRefresh:'Refresh',
+    evReading:'Reading your files',evLooking:'Looking for justification_cases.json and vote_justification_cases.json in your GitHub repository.'
+  },
+  ar:{
+    eyebrowTop:'JUDY · مركز البحث',titleTop:'بوابة تقييم المناظرات',
+    navHome:'🏠 الرئيسية',navDash:'📊 المرصد',navTag:'🏷️ الوسم',navEval:'⚖️ التقييم',
+    reload:'إعادة تحميل',themeLight:'فاتح',themeDark:'داكن',languageName:'English',ready:'جاهز',
+    heroTagline:'لوحة تقييم وتحليل المناظرات',
+    heroDesc:'منصة تفاعلية لاستكشاف وتقييم الأحكام التي يولّدها الذكاء الاصطناعي في المناظرات التنافسية. قارن تنبؤات النماذج بالحقيقة المُقدَّمة من البشر، وافحص نصوص المناظرات، وحلّل الاستدلال عبر نماذج لغوية متعددة وتجارب متنوعة.',
+    statExperiments:'تجارب',statModels:'نماذج',statDebates:'مناظرات',statTools:'أدوات',
+    toolsDashboards:'الأدوات ولوحات المعلومات',
+    cardDashTitle:'مرصد التجارب',cardDashDesc:'قارن تنبؤات النماذج بالفائزين الرسميين. رسوم بيانية للدقة، توزيع الأحكام، درجات الثقة، ومخرجات JSON قابلة للبحث.',
+    cardTagTitle:'وسم نصوص المناظرات',cardTagDesc:'حمّل ونظّف وقسّم نصوص المناظرات. ضع وسومًا للخطابات حسب الفريق والمتحدث، ثم صدّر JSON متوافقًا مع Judy مع تحذيرات التحقق.',
+    cardEvalTitle:'تقييم التبريرات',cardEvalDesc:'قارن التفسيرات البشرية وتفسيرات الذكاء الاصطناعي جنبًا إلى جنب. يقيّم حكم مستقل الأمانة والتغطية والاستدلال والوضوح مع مبررات كاملة.',
+    cardRepoTitle:'مستودع المشروع',cardRepoDesc:'تصفّح الكود المصدري ومجموعات البيانات ومخرجات التجارب والتوثيق على GitHub. يشمل الحقيقة الرسمية وCSV والنصوص وكل النتائج.',
+    expConfigs:'إعدادات التجارب',expMain:'مخرجات التجربة الرئيسية',expZero:'تقييم بدون أمثلة',expRag:'توليد معزز بالاسترجاع',expPipe:'تقييم قائم على الأنابيب',expLen:'تجربة متعلقة بالطول',
+    modelsEvaluated:'النماذج اللغوية المُقيَّمة',dataset:'مجموعة البيانات',dsRef:'نتائج المناظرات المرجعية',dsMeta:'20 مناظرة · بيانات وصفية عربية',dsTranscripts:'ملفات JSON للنصوص الكاملة',
+    liveDash:'اللوحة المباشرة',footerConsole:'وحدة تحكم JUDY البحثية',
+    tgInput:'المدخلات',tgFileLabel:'ملف النص (.txt .srt .vtt .json)',tgClear:'مسح',tgPasteLabel:'…أو الصق النص الخام',tgPastePlaceholder:'الصق نص المناظرة هنا ثم اضغط تحميل.',tgLoad:'تحميل وتنظيف',
+    tgMark:'وسم التحديد',tgTeamProp:'فريق الموالاة',tgTeamOpp:'فريق المعارضة',
+    tgSpeaker1:'المتحدث الأول',tgSpeaker2:'المتحدث الثاني',tgSpeaker3:'المتحدث الثالث',
+    tgReplyProp:'خطاب رد الموالاة',tgReplyOpp:'خطاب رد المعارضة',
+    tgSelRange:'النطاق المحدد',tgTranscript:'النص',tgSelectHint:'— حدد بالفأرة ثم اضغط وسمًا',
+    tgMeta:'بيانات المناظرة',tgMotion:'الموضوع',tgMotionConf:'ثقة الموضوع',tgAnnWinner:'الفائز المعلن',tgSourceFile:'ملف المصدر',tgSegmentation:'التقسيم',tgModel:'النموذج (اختياري)',tgSegments:'المقاطع',tgWarnings:'تحذيرات',tgStats:'إحصاءات',tgJsonPreview:'معاينة JSON',tgDownload:'تنزيل JSON',tgCopy:'نسخ JSON',tgRefresh:'تحديث',
+    evReading:'جارٍ قراءة ملفاتك',evLooking:'يبحث عن justification_cases.json و vote_justification_cases.json في مستودع GitHub.'
+  }
+};
+let LANG=localStorage.getItem('judy_lang')||'en';
+function t(k){return(I18N[LANG]&&I18N[LANG][k])||I18N.en[k]||k}
+function applyGlobalI18n(){
+  document.documentElement.lang=LANG;
+  document.documentElement.dir=LANG==='ar'?'rtl':'ltr';
+  document.querySelectorAll('[data-i18n]').forEach(el=>{el.textContent=t(el.dataset.i18n)});
+  document.querySelectorAll('[data-i18n-placeholder]').forEach(el=>{el.placeholder=t(el.dataset.i18nPlaceholder)});
+  document.getElementById('globalLangLabel').textContent=t('languageName');
+  document.getElementById('globalThemeLabel').textContent=document.body.classList.contains('light')?t('themeDark'):t('themeLight');
+  if(window.dashApplyI18n)window.dashApplyI18n();
+}
+window.globalApplyI18n=applyGlobalI18n;
+
 // ════════════ ROUTING ════════════
-const viewsInit = {home:true,dashboard:false,tagger:false,evaluation:false};
+const viewsInit={home:true,dashboard:false,tagger:false,evaluation:false};
 function navigate(route){
   document.querySelectorAll('.view').forEach(v=>v.classList.remove('active'));
   const view=document.getElementById('view-'+route);
   if(view)view.classList.add('active');
   document.querySelectorAll('.nav-tab').forEach(t=>t.classList.toggle('active',t.dataset.route===route));
   window.location.hash=route;
-  document.getElementById('globalLang').style.display=route==='dashboard'?'':'none';
   document.getElementById('globalRescan').style.display=route==='dashboard'?'':'none';
   if(!viewsInit[route]){
     if(route==='dashboard')initDashboard();
@@ -584,32 +678,29 @@ window.addEventListener('hashchange',()=>{const r=location.hash.slice(1)||'home'
 
 // ════════════ THEME (shared) ════════════
 (function(){
-  const key='judy_theme',btn=document.getElementById('globalTheme'),lbl=document.getElementById('globalThemeLabel');
-  if(localStorage.getItem(key)==='light'){document.body.classList.add('light');lbl.textContent='Dark';}
+  const key='judy_theme',btn=document.getElementById('globalTheme');
+  if(localStorage.getItem(key)==='light'){document.body.classList.add('light')}
   btn.addEventListener('click',()=>{
     document.body.classList.toggle('light');
     const l=document.body.classList.contains('light');
     localStorage.setItem(key,l?'light':'dark');
-    lbl.textContent=l?'Dark':'Light';
-    if(window.dashApplyI18n)window.dashApplyI18n();
+    applyGlobalI18n();
   });
 })();
+
+// Language toggle
+document.getElementById('globalLang').addEventListener('click',()=>{
+  LANG=LANG==='en'?'ar':'en';
+  localStorage.setItem('judy_lang',LANG);
+  applyGlobalI18n();
+});
 
 // ════════════ DASHBOARD ════════════
 function initDashboard(){
 const $=id=>document.getElementById(id);
-const I18N={en:{loadingStrong:"Loading research data from GitHub…",loadingText:"The dashboard reads JSON files from the repository.",allExperiments:"All experiments",allModels:"All models",allDebates:"All debates",searchPlaceholder:"Search debates, justifications, JSON…",noFolder:"No folder selected",mDebatesNote:"Unique debate IDs",mVerdictsNote:"Across experiment × model folders",mAccuracyNote:"Against official winners · filtered",mConfidenceNote:"Available confidence values",loadingData:"Loading data…",noMatchVerdicts:"No matching verdicts.",noWinnerLabels:"No winner labels found.",noVerdictsFilter:"No verdicts match the current filters.",noFilesMatch:"No files match this view.",noVerdictFiles:"No verdict files found.",notScored:"Not scored",correct:"✓ Correct",different:"✕ Different",noJustification:"No justification available.",showMore:"Show more",showLess:"Show less",selectFile:"Select a file",copyJson:"Copy JSON",jsonPlaceholder:"Full JSON content will appear here.",connecting:"Connecting to GitHub…",fetching:"Fetching repository file list and JSON contents.",couldNotLoad:"Could not load",autoLoadFailed:"Automatic loading failed.",loadHint:"Make sure the GitHub repository is public and GitHub Pages is enabled.",dataLoadedFrom:"Data loaded from",readFiles:"Read",jsonFiles:"JSON files",verdicts:"verdicts",debatesCount:"debates",couldNotRead:"could not be read",reloadHint:"Use Reload to fetch the latest version.",groundCount:"detailed debate records",groundMissing:"Detailed ground truth CSV not found.",page:"Page",of:"of",items:"items",perPage:"/page",themeLight:"Light",themeDark:"Dark",languageName:"العربية",eyebrow:"JUDY · RESEARCH CONSOLE",title:"Experiment Observatory",subtitle:"Exploring how AI models judge competitive debates.",officialOutcomes:"Official outcomes",debateTranscript:"Debate transcript",allFiles:"JSON file",accuracyByModel:"Accuracy by model",filteredVerdicts:"Filtered verdicts",verdictDist:"Verdict distribution",propVsOpp:"Proposition vs Opposition",proposition:"Proposition",opposition:"Opposition",expModelPerf:"Experiment × model performance",perfHint:"Accuracy, agreement and coverage",exploreData:"Explore source data",exploreHint:"Inspect complete JSON",gtVsModel:"Ground truth vs model decisions",gtVsModelHint:"Every loaded verdict compared with official outcome",thExperiment:"Experiment",thModel:"Model",thCorrect:"Correct",thAccuracy:"Accuracy",thCoverage:"Coverage",thMeanConf:"Mean confidence",thDebate:"Debate",thGT:"Ground truth",thModelOutput:"Model output",thMatch:"Match",thJustification:"Justification",tabVerdicts:"Model output JSON",tabGround:"Ground truth JSON",tabDetailed:"Detailed Ground Truth (CSV)",tabDebates:"Debate transcripts",tabFiles:"All JSON files",loadingDetailed:"Loading detailed ground truth…",thYouTube:"YouTube URL",mDebatesLabel:"Debates in ground truth",mVerdictsLabel:"Model verdicts loaded",mAccuracyLabel:"Overall accuracy",mConfidenceLabel:"Mean confidence",footer:"Runs entirely in your browser.",reload:"Reload data"},ar:{loadingStrong:"جارٍ تحميل البيانات من GitHub…",loadingText:"تقرأ لوحة المعلومات ملفات JSON من المستودع.",allExperiments:"جميع التجارب",allModels:"جميع النماذج",allDebates:"جميع المناظرات",searchPlaceholder:"ابحث في المناظرات والتبريرات…",noFolder:"لم يتم تحديد مجلد",mDebatesNote:"معرّفات فريدة",mVerdictsNote:"عبر مجلدات التجارب × النماذج",mAccuracyNote:"مقارنة بالفائزين الرسميين",mConfidenceNote:"قيم الثقة المتاحة",loadingData:"جارٍ التحميل…",noMatchVerdicts:"لا توجد أحكام مطابقة.",noWinnerLabels:"لا توجد تسميات فائز.",noVerdictsFilter:"لا توجد أحكام مطابقة.",noFilesMatch:"لا توجد ملفات مطابقة.",noVerdictFiles:"لم يتم العثور على ملفات أحكام.",notScored:"غير مُقيَّم",correct:"✓ صحيح",different:"✕ مختلف",noJustification:"لا يوجد تبرير.",showMore:"عرض المزيد",showLess:"عرض أقل",selectFile:"اختر ملفًا",copyJson:"نسخ JSON",jsonPlaceholder:"سيظهر المحتوى هنا.",connecting:"جارٍ الاتصال…",fetching:"جارٍ جلب الملفات.",couldNotLoad:"تعذّر التحميل",autoLoadFailed:"فشل التحميل التلقائي.",loadHint:"تأكد من أن المستودع عام.",dataLoadedFrom:"تم التحميل من",readFiles:"تمت قراءة",jsonFiles:"ملفات JSON",verdicts:"أحكام",debatesCount:"مناظرات",couldNotRead:"تعذّرت قراءتها",reloadHint:"استخدم إعادة التحميل.",groundCount:"سجلات مفصلة",groundMissing:"لم يتم العثور على ملف CSV.",page:"صفحة",of:"من",items:"عنصر",perPage:"/صفحة",themeLight:"الفاتح",themeDark:"الداكن",languageName:"English",eyebrow:"JUDY · لوحة البحث",title:"مرصد التجارب",subtitle:"استكشاف تقييم النماذج للمناظرات.",officialOutcomes:"النتائج الرسمية",debateTranscript:"نص المناظرة",allFiles:"ملف JSON",accuracyByModel:"الدقة حسب النموذج",filteredVerdicts:"الأحكام المفلترة",verdictDist:"توزيع الأحكام",propVsOpp:"الموالاة مقابل المعارضة",proposition:"الموالاة",opposition:"المعارضة",expModelPerf:"أداء التجربة × النموذج",perfHint:"الدقة والتوافق والتغطية",exploreData:"استكشاف البيانات",exploreHint:"افحص JSON",gtVsModel:"الحقيقة مقابل قرارات النموذج",gtVsModelHint:"كل حكم مقارنة بالنتيجة الرسمية",thExperiment:"التجربة",thModel:"النموذج",thCorrect:"صحيح",thAccuracy:"الدقة",thCoverage:"التغطية",thMeanConf:"متوسط الثقة",thDebate:"المناظرة",thGT:"الحقيقة",thModelOutput:"مخرجات النموذج",thMatch:"التطابق",thJustification:"التبرير",tabVerdicts:"JSON مخرجات النموذج",tabGround:"JSON الحقيقة",tabDetailed:"الحقيقة المفصلة (CSV)",tabDebates:"نصوص المناظرات",tabFiles:"جميع ملفات JSON",loadingDetailed:"جارٍ التحميل…",thYouTube:"رابط يوتيوب",mDebatesLabel:"المناظرات",mVerdictsLabel:"أحكام النماذج",mAccuracyLabel:"الدقة الإجمالية",mConfidenceLabel:"متوسط الثقة",footer:"يعمل في متصفحك.",reload:"إعادة تحميل"}};
-let LANG=localStorage.getItem('judy_lang')||'en';
-function t(key){return(I18N[LANG]&&I18N[LANG][key])||I18N.en[key]||key}
-function applyI18n(){
-  document.documentElement.lang=LANG;document.documentElement.dir=LANG==='ar'?'rtl':'ltr';
-  document.querySelectorAll('#view-dashboard [data-i18n]').forEach(el=>{el.textContent=t(el.dataset.i18n)});
-  document.querySelectorAll('#view-dashboard [data-i18n-placeholder]').forEach(el=>{el.placeholder=t(el.dataset.i18nPlaceholder)});
-  $('globalLangLabel').textContent=t('languageName');
-  $('globalThemeLabel').textContent=document.body.classList.contains('light')?t('themeDark'):t('themeLight');
-  if(typeof records!=='undefined'&&records.length){render();renderList();renderDetailedGround()}
-}
-window.dashApplyI18n=applyI18n;
+const I18N_D={en:{loadingStrong:"Loading research data from GitHub…",loadingText:"The dashboard reads JSON files from the repository.",allExperiments:"All experiments",allModels:"All models",allDebates:"All debates",searchPlaceholder:"Search debates, justifications, JSON…",noFolder:"No folder selected",mDebatesNote:"Unique debate IDs",mVerdictsNote:"Across experiment × model folders",mAccuracyNote:"Against official winners · filtered",mConfidenceNote:"Available confidence values",loadingData:"Loading data…",noMatchVerdicts:"No matching verdicts.",noWinnerLabels:"No winner labels found.",noVerdictsFilter:"No verdicts match the current filters.",noFilesMatch:"No files match this view.",noVerdictFiles:"No verdict files found.",notScored:"Not scored",correct:"✓ Correct",different:"✕ Different",noJustification:"No justification available.",showMore:"Show more",showLess:"Show less",selectFile:"Select a file",copyJson:"Copy JSON",jsonPlaceholder:"Full JSON content will appear here.",connecting:"Connecting to GitHub…",fetching:"Fetching repository file list and JSON contents.",couldNotLoad:"Could not load",autoLoadFailed:"Automatic loading failed.",loadHint:"Make sure the GitHub repository is public and GitHub Pages is enabled.",dataLoadedFrom:"Data loaded from",readFiles:"Read",jsonFiles:"JSON files",verdicts:"verdicts",debatesCount:"debates",couldNotRead:"could not be read",reloadHint:"Use Reload to fetch the latest version.",groundCount:"detailed debate records",groundMissing:"Detailed ground truth CSV not found.",page:"Page",of:"of",items:"items",perPage:"/page",themeLight:"Light",themeDark:"Dark",languageName:"العربية",eyebrow:"JUDY · RESEARCH CONSOLE",title:"Experiment Observatory",subtitle:"Exploring how AI models judge competitive debates.",officialOutcomes:"Official outcomes",debateTranscript:"Debate transcript",allFiles:"JSON file",accuracyByModel:"Accuracy by model",filteredVerdicts:"Filtered verdicts",verdictDist:"Verdict distribution",propVsOpp:"Proposition vs Opposition",proposition:"Proposition",opposition:"Opposition",expModelPerf:"Experiment × model performance",perfHint:"Accuracy, agreement and coverage",exploreData:"Explore source data",exploreHint:"Inspect complete JSON",gtVsModel:"Ground truth vs model decisions",gtVsModelHint:"Every loaded verdict compared with official outcome",thExperiment:"Experiment",thModel:"Model",thCorrect:"Correct",thAccuracy:"Accuracy",thCoverage:"Coverage",thMeanConf:"Mean confidence",thDebate:"Debate",thGT:"Ground truth",thModelOutput:"Model output",thMatch:"Match",thJustification:"Justification",tabVerdicts:"Model output JSON",tabGround:"Ground truth JSON",tabDetailed:"Detailed Ground Truth (CSV)",tabDebates:"Debate transcripts",tabFiles:"All JSON files",loadingDetailed:"Loading detailed ground truth…",thYouTube:"YouTube URL",mDebatesLabel:"Debates in ground truth",mVerdictsLabel:"Model verdicts loaded",mAccuracyLabel:"Overall accuracy",mConfidenceLabel:"Mean confidence",footer:"Runs entirely in your browser.",reload:"Reload data"},ar:{loadingStrong:"جارٍ تحميل البيانات من GitHub…",loadingText:"تقرأ لوحة المعلومات ملفات JSON من المستودع.",allExperiments:"جميع التجارب",allModels:"جميع النماذج",allDebates:"جميع المناظرات",searchPlaceholder:"ابحث في المناظرات والتبريرات…",noFolder:"لم يتم تحديد مجلد",mDebatesNote:"معرّفات فريدة",mVerdictsNote:"عبر مجلدات التجارب × النماذج",mAccuracyNote:"مقارنة بالفائزين الرسميين",mConfidenceNote:"قيم الثقة المتاحة",loadingData:"جارٍ التحميل…",noMatchVerdicts:"لا توجد أحكام مطابقة.",noWinnerLabels:"لا توجد تسميات فائز.",noVerdictsFilter:"لا توجد أحكام مطابقة.",noFilesMatch:"لا توجد ملفات مطابقة.",noVerdictFiles:"لم يتم العثور على ملفات أحكام.",notScored:"غير مُقيَّم",correct:"✓ صحيح",different:"✕ مختلف",noJustification:"لا يوجد تبرير.",showMore:"عرض المزيد",showLess:"عرض أقل",selectFile:"اختر ملفًا",copyJson:"نسخ JSON",jsonPlaceholder:"سيظهر المحتوى هنا.",connecting:"جارٍ الاتصال…",fetching:"جارٍ جلب الملفات.",couldNotLoad:"تعذّر التحميل",autoLoadFailed:"فشل التحميل التلقائي.",loadHint:"تأكد من أن المستودع عام.",dataLoadedFrom:"تم التحميل من",readFiles:"تمت قراءة",jsonFiles:"ملفات JSON",verdicts:"أحكام",debatesCount:"مناظرات",couldNotRead:"تعذّرت قراءتها",reloadHint:"استخدم إعادة التحميل.",groundCount:"سجلات مفصلة",groundMissing:"لم يتم العثور على ملف CSV.",page:"صفحة",of:"من",items:"عنصر",perPage:"/صفحة",themeLight:"الفاتح",themeDark:"الداكن",languageName:"English",eyebrow:"JUDY · لوحة البحث",title:"مرصد التجارب",subtitle:"استكشاف تقييم النماذج للمناظرات.",officialOutcomes:"النتائج الرسمية",debateTranscript:"نص المناظرة",allFiles:"ملف JSON",accuracyByModel:"الدقة حسب النموذج",filteredVerdicts:"الأحكام المفلترة",verdictDist:"توزيع الأحكام",propVsOpp:"الموالاة مقابل المعارضة",proposition:"الموالاة",opposition:"المعارضة",expModelPerf:"أداء التجربة × النموذج",perfHint:"الدقة والتوافق والتغطية",exploreData:"استكشاف البيانات",exploreHint:"افحص JSON",gtVsModel:"الحقيقة مقابل قرارات النموذج",gtVsModelHint:"كل حكم مقارنة بالنتيجة الرسمية",thExperiment:"التجربة",thModel:"النموذج",thCorrect:"صحيح",thAccuracy:"الدقة",thCoverage:"التغطية",thMeanConf:"متوسط الثقة",thDebate:"المناظرة",thGT:"الحقيقة",thModelOutput:"مخرجات النموذج",thMatch:"التطابق",thJustification:"التبرير",tabVerdicts:"JSON مخرجات النموذج",tabGround:"JSON الحقيقة",tabDetailed:"الحقيقة المفصلة (CSV)",tabDebates:"نصوص المناظرات",tabFiles:"جميع ملفات JSON",loadingDetailed:"جارٍ التحميل…",thYouTube:"رابط يوتيوب",mDebatesLabel:"المناظرات",mVerdictsLabel:"أحكام النماذج",mAccuracyLabel:"الدقة الإجمالية",mConfidenceLabel:"متوسط الثقة",footer:"يعمل في متصفحك.",reload:"إعادة تحميل"}};
+let DLANG=LANG;
+function td(key){return(I18N_D[DLANG]&&I18N_D[DLANG][key])||I18N_D.en[key]||key}
 const GITHUB_OWNER='',GITHUB_REPO='',DATA_ROOT='';
 let ground={},debates=[],records=[],allFiles=[],selected=null,activeTab='verdicts',detailedGroundTruth=[];
 const PAGE_SIZE=20;
@@ -623,22 +714,22 @@ function esc(s){return String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&l
 function repoInfo(){let o=GITHUB_OWNER,r=GITHUB_REPO;if(o&&r)return{owner:o,repo:r};const h=location.hostname,p=location.pathname.split('/').filter(Boolean);if(h.endsWith('.github.io')){o=h.split('.')[0];r=p[0]||o+'.github.io';return{owner:o,repo:r}}if(h==='github.com'&&p.length>=2)return{owner:p[0],repo:p[1]};throw Error('Set GITHUB_OWNER and GITHUB_REPO in the script.')}
 async function fetchJson(url){const r=await fetch(url,{headers:{Accept:'application/vnd.github+json'}});if(!r.ok)throw Error(`GitHub ${r.status} for ${url}`);return r.json()}
 function parseCSV(t){const o=[];let row=[],c='',q=false;for(let i=0;i<t.length;i++){const ch=t[i];if(q){if(ch==='"'&&t[i+1]==='"'){c+='"';i++}else if(ch==='"')q=false;else c+=ch}else if(ch==='"')q=true;else if(ch===','){row.push(c);c=''}else if(ch==='\n'){row.push(c.replace(/\r$/,''));if(row.some(v=>v!==''))o.push(row);row=[];c=''}else c+=ch}row.push(c.replace(/\r$/,''));if(row.some(v=>v!==''))o.push(row);return o}
-function renderDetailedGround(){const b=$('dd-detailedGroundRows');if(!detailedGroundTruth.length){b.innerHTML='<tr><td colspan="8">'+esc(t('groundMissing'))+'</td></tr>';return}b.innerHTML=detailedGroundTruth.map(r=>`<tr><td>${esc(r[0])}</td><td><a href="${esc(r[1])}" target="_blank">${esc(r[1])}</a></td><td>${esc(r[2])}</td><td>${esc(r[3])}</td><td>${esc(r[4])}</td><td>${esc(r[5])}</td><td><strong>${esc(r[6])}</strong></td><td>${esc(r[7])}</td></tr>`).join('');$('dd-groundCount').textContent=`${detailedGroundTruth.length} ${t('groundCount')}`}
-async function load(){const n=$('dd-loadNotice');$('dd-status').textContent=t('connecting');$('globalRescan').disabled=true;n.innerHTML='<strong>'+t('loadingStrong')+'</strong> '+t('fetching');try{const{owner,repo}=repoInfo();const meta=await fetchJson(`https://api.github.com/repos/${owner}/${repo}`);const branch=meta.default_branch||'main';const tree=await fetchJson(`https://api.github.com/repos/${owner}/${repo}/git/trees/${branch}?recursive=1`);if(tree.truncated)throw Error('Truncated tree');let root='';if(DATA_ROOT){root=DATA_ROOT.replace(/^\/+|\/+$/g,'')+'/'}else{const gt=tree.tree.find(x=>x.type==='blob'&&x.path.endsWith('ground_truth.json')&&tree.tree.some(y=>y.path.startsWith(x.path.replace(/ground_truth\.json$/,'debates/')))&&tree.tree.some(y=>y.path.startsWith(x.path.replace(/ground_truth\.json$/,'outputs'))));if(gt)root=gt.path.slice(0,-'ground_truth.json'.length)}const csvPath=tree.tree.find(x=>x.path===root+'detailed_ground_truth.csv')||tree.tree.find(x=>x.path.split('/').pop().toLowerCase()==='detailed_ground_truth.csv');if(csvPath){const cu=`https://raw.githubusercontent.com/${owner}/${repo}/${branch}/${csvPath.path.split('/').map(encodeURIComponent).join('/')}`;const cr=await fetch(cu);if(cr.ok){const rows=parseCSV(await cr.text());detailedGroundTruth=rows.slice(1).map(r=>r.slice(0,8));renderDetailedGround()}}const jp=tree.tree.filter(x=>x.path.startsWith(root)&&x.path.endsWith('.json'));if(!jp.some(x=>x.path===root+'ground_truth.json'))throw Error('ground_truth.json not found');allFiles=jp.map(x=>{const p=x.path.slice(root.length);return{name:p.split('/').pop(),path:p,url:`https://raw.githubusercontent.com/${owner}/${repo}/${branch}/${x.path.split('/').map(encodeURIComponent).join('/')}`,data:undefined}});let cur=0,fail=0;async function w(){while(cur<allFiles.length){const i=cur++,f=allFiles[i];try{const r=await fetch(f.url);if(!r.ok)throw Error('HTTP '+r.status);f.data=await r.json()}catch(e){f.data={__parse_error:String(e)};fail++}}}await Promise.all(Array.from({length:8},w));const gt=allFiles.find(f=>f.name==='ground_truth.json'&&f.path.split('/').length===1);ground=gt?.data||{};debates=allFiles.filter(f=>f.path.startsWith('debates/')&&!f.data?.__parse_error).map(f=>({file:f,data:f.data}));records=[];for(const f of allFiles){if(!/\.verdict\.json$/i.test(f.name)||f.data?.__parse_error)continue;const p=f.path.split('/'),oi=p.findIndex(x=>x.startsWith('outputs'));if(oi<0)continue;const b=p[oi];let exp,mod;if(b==='outputs'){exp=p[oi+1]||'outputs';mod=p.length>oi+3?p[oi+2]:'Length-only'}else{exp=b;mod=p.length>oi+2?p[oi+1]:'Length-only'}records.push({file:f,experiment:exp,model:mod,data:f.data,id:debateId(f.data)||f.name.replace('.verdict.json',''),winner:norm(winnerOf(f.data)),confidence:confidenceOf(f.data)})}$('dd-status').textContent=`${allFiles.length} ${t('jsonFiles')} · ${records.length} ${t('verdicts')} · ${debates.length} ${t('debatesCount')}`;$('globalRescan').disabled=false;['dd-experiment','dd-model','dd-debate','dd-search'].forEach(id=>$(id).disabled=false);populateFilters();render();renderList();n.innerHTML=`<strong>${t('dataLoadedFrom')} ${esc(owner)}/${esc(repo)}.</strong> ${t('readFiles')} ${allFiles.length} ${t('jsonFiles')}${fail?`; ${fail} ${t('couldNotRead')}`:''}.`}catch(e){$('dd-status').textContent=t('couldNotLoad');$('globalRescan').disabled=false;n.innerHTML=`<strong>${t('autoLoadFailed')}</strong> ${esc(e.message)}<br><span>${t('loadHint')}</span>`;$('dd-comparison').innerHTML=`<tr><td colspan="7">${esc(e.message)}</td></tr>`}}
+function renderDetailedGround(){const b=$('dd-detailedGroundRows');if(!detailedGroundTruth.length){b.innerHTML='<tr><td colspan="8">'+esc(td('groundMissing'))+'</td></tr>';return}b.innerHTML=detailedGroundTruth.map(r=>`<tr><td>${esc(r[0])}</td><td><a href="${esc(r[1])}" target="_blank">${esc(r[1])}</a></td><td>${esc(r[2])}</td><td>${esc(r[3])}</td><td>${esc(r[4])}</td><td>${esc(r[5])}</td><td><strong>${esc(r[6])}</strong></td><td>${esc(r[7])}</td></tr>`).join('');$('dd-groundCount').textContent=`${detailedGroundTruth.length} ${td('groundCount')}`}
+async function load(){const n=$('dd-loadNotice');$('dd-status').textContent=td('connecting');$('globalRescan').disabled=true;n.innerHTML='<strong>'+td('loadingStrong')+'</strong> '+td('fetching');try{const{owner,repo}=repoInfo();const meta=await fetchJson(`https://api.github.com/repos/${owner}/${repo}`);const branch=meta.default_branch||'main';const tree=await fetchJson(`https://api.github.com/repos/${owner}/${repo}/git/trees/${branch}?recursive=1`);if(tree.truncated)throw Error('Truncated tree');let root='';if(DATA_ROOT){root=DATA_ROOT.replace(/^\/+|\/+$/g,'')+'/'}else{const gt=tree.tree.find(x=>x.type==='blob'&&x.path.endsWith('ground_truth.json')&&tree.tree.some(y=>y.path.startsWith(x.path.replace(/ground_truth\.json$/,'debates/')))&&tree.tree.some(y=>y.path.startsWith(x.path.replace(/ground_truth\.json$/,'outputs'))));if(gt)root=gt.path.slice(0,-'ground_truth.json'.length)}const csvPath=tree.tree.find(x=>x.path===root+'detailed_ground_truth.csv')||tree.tree.find(x=>x.path.split('/').pop().toLowerCase()==='detailed_ground_truth.csv');if(csvPath){const cu=`https://raw.githubusercontent.com/${owner}/${repo}/${branch}/${csvPath.path.split('/').map(encodeURIComponent).join('/')}`;const cr=await fetch(cu);if(cr.ok){const rows=parseCSV(await cr.text());detailedGroundTruth=rows.slice(1).map(r=>r.slice(0,8));renderDetailedGround()}}const jp=tree.tree.filter(x=>x.path.startsWith(root)&&x.path.endsWith('.json'));if(!jp.some(x=>x.path===root+'ground_truth.json'))throw Error('ground_truth.json not found');allFiles=jp.map(x=>{const p=x.path.slice(root.length);return{name:p.split('/').pop(),path:p,url:`https://raw.githubusercontent.com/${owner}/${repo}/${branch}/${x.path.split('/').map(encodeURIComponent).join('/')}`,data:undefined}});let cur=0,fail=0;async function w(){while(cur<allFiles.length){const i=cur++,f=allFiles[i];try{const r=await fetch(f.url);if(!r.ok)throw Error('HTTP '+r.status);f.data=await r.json()}catch(e){f.data={__parse_error:String(e)};fail++}}}await Promise.all(Array.from({length:8},w));const gt=allFiles.find(f=>f.name==='ground_truth.json'&&f.path.split('/').length===1);ground=gt?.data||{};debates=allFiles.filter(f=>f.path.startsWith('debates/')&&!f.data?.__parse_error).map(f=>({file:f,data:f.data}));records=[];for(const f of allFiles){if(!/\.verdict\.json$/i.test(f.name)||f.data?.__parse_error)continue;const p=f.path.split('/'),oi=p.findIndex(x=>x.startsWith('outputs'));if(oi<0)continue;const b=p[oi];let exp,mod;if(b==='outputs'){exp=p[oi+1]||'outputs';mod=p.length>oi+3?p[oi+2]:'Length-only'}else{exp=b;mod=p.length>oi+2?p[oi+1]:'Length-only'}records.push({file:f,experiment:exp,model:mod,data:f.data,id:debateId(f.data)||f.name.replace('.verdict.json',''),winner:norm(winnerOf(f.data)),confidence:confidenceOf(f.data)})}$('dd-status').textContent=`${allFiles.length} ${td('jsonFiles')} · ${records.length} ${td('verdicts')} · ${debates.length} ${td('debatesCount')}`;$('globalRescan').disabled=false;['dd-experiment','dd-model','dd-debate','dd-search'].forEach(id=>$(id).disabled=false);populateFilters();render();renderList();n.innerHTML=`<strong>${td('dataLoadedFrom')} ${esc(owner)}/${esc(repo)}.</strong> ${td('readFiles')} ${allFiles.length} ${td('jsonFiles')}${fail?`; ${fail} ${td('couldNotRead')}`:''}.`}catch(e){$('dd-status').textContent=td('couldNotLoad');$('globalRescan').disabled=false;n.innerHTML=`<strong>${td('autoLoadFailed')}</strong> ${esc(e.message)}<br><span>${td('loadHint')}</span>`;$('dd-comparison').innerHTML=`<tr><td colspan="7">${esc(e.message)}</td></tr>`}}
 function unique(a){return[...new Set(a)].sort()}
-function populateFilters(){const fill=(id,vals,lbl)=>{let el=$(id),old=el.value;el.innerHTML=`<option value="">${esc(lbl)}</option>`+vals.map(v=>`<option>${esc(v)}</option>`).join('');if(vals.includes(old))el.value=old};fill('dd-experiment',unique(records.map(r=>r.experiment)),t('allExperiments'));fill('dd-model',unique(records.map(r=>r.model)),t('allModels'));fill('dd-debate',unique([...Object.keys(ground),...records.map(r=>r.id)]),t('allDebates'))}
+function populateFilters(){const fill=(id,vals,lbl)=>{let el=$(id),old=el.value;el.innerHTML=`<option value="">${esc(lbl)}</option>`+vals.map(v=>`<option>${esc(v)}</option>`).join('');if(vals.includes(old))el.value=old};fill('dd-experiment',unique(records.map(r=>r.experiment)),td('allExperiments'));fill('dd-model',unique(records.map(r=>r.model)),td('allModels'));fill('dd-debate',unique([...Object.keys(ground),...records.map(r=>r.id)]),td('allDebates'))}
 function filtered(){let e=$('dd-experiment').value,m=$('dd-model').value,d=$('dd-debate').value,q=norm($('dd-search').value);return records.filter(r=>(!e||r.experiment===e)&&(!m||r.model===m)&&(!d||r.id===d)&&(!q||norm(JSON.stringify(r.data)).includes(q)||norm(r.id).includes(q)))}
-function render(){let rs=filtered(),known=Object.keys(ground);let correct=rs.filter(r=>Object.hasOwn(ground,r.id)&&r.winner===norm(ground[r.id])).length,scored=rs.filter(r=>Object.hasOwn(ground,r.id)),confs=rs.map(r=>r.confidence).filter(x=>x!==null);$('dd-mDebates').textContent=known.length||debates.length;$('dd-mVerdicts').textContent=rs.length;$('dd-mAccuracy').textContent=fmt(scored.length?correct/scored.length:NaN);$('dd-mConfidence').textContent=confs.length?(confs.reduce((a,b)=>a+b,0)/confs.length).toFixed(2):'—';let bm=unique(rs.map(r=>r.model)).map(m=>{let a=rs.filter(r=>r.model===m),s=a.filter(r=>Object.hasOwn(ground,r.id)),c=s.filter(r=>r.winner===norm(ground[r.id])).length;return{m,a,s,c,acc:s.length?c/s.length:0}});$('dd-accuracyChart').innerHTML=bm.length?bm.map(x=>`<div class="barwrap"><div class="barval">${fmt(x.acc)}</div><div class="bararea"><div class="bar" style="height:${x.acc*100}%"></div></div><div class="barlabel">${esc(x.m)}</div></div>`).join(''):`<div class="dd-empty">${t('noMatchVerdicts')}</div>`;let prop=rs.filter(r=>r.winner.includes('proposition')).length,opp=rs.filter(r=>r.winner.includes('opposition')).length,tot=prop+opp;$('dd-winnerChart').innerHTML=tot?`<div style="width:100%;align-self:center"><div style="display:flex;height:24px;border-radius:8px;overflow:hidden;background:#263550"><div style="width:${prop/tot*100}%;background:var(--cyan)"></div><div style="width:${opp/tot*100}%;background:var(--violet)"></div></div><div style="display:flex;justify-content:space-between;margin-top:10px;font-size:12px"><span>${t('proposition')} <b>${prop}</b> · ${fmt(prop/tot)}</span><span>${t('opposition')} <b>${opp}</b> · ${fmt(opp/tot)}</span></div></div>`:`<div class="dd-empty">${t('noWinnerLabels')}</div>`;renderComparisonTable(rs);$('dd-performance').innerHTML=bm.length?unique(rs.map(r=>r.experiment)).flatMap(e=>unique(rs.filter(r=>r.experiment===e).map(r=>r.model)).map(m=>{let a=rs.filter(r=>r.experiment===e&&r.model===m),s=a.filter(r=>Object.hasOwn(ground,r.id)),c=s.filter(r=>r.winner===norm(ground[r.id])).length,cf=a.map(r=>r.confidence).filter(x=>x!==null);return`<tr><td>${esc(e)}</td><td>${esc(m)}</td><td>${c}/${s.length}</td><td>${fmt(s.length?c/s.length:NaN)}</td><td>${fmt(a.length/Math.max(1,known.length))}</td><td>${cf.length?(cf.reduce((x,y)=>x+y,0)/cf.length).toFixed(2):'—'}</td></tr>`})).join(''):`<tr><td colspan="6">${t('noVerdictFiles')}</td></tr>`;renderList()}
-function renderComparisonTable(rs){const st=pageState.comparison,tot=rs.length,pages=Math.max(1,Math.ceil(tot/st.size));if(st.page>pages)st.page=pages;const start=(st.page-1)*st.size,sl=rs.slice(start,start+st.size);$('dd-comparison').innerHTML=sl.length?sl.map((r,i)=>{const gi=start+i,gt=ground[r.id]??'—',match=gt!=='—'&&r.winner===norm(gt),j=r.data?.result?.justification??r.data?.justification??'';return`<tr><td>${esc(r.id)}</td><td><span class="pill">${esc(gt)}</span></td><td>${esc(r.experiment)}</td><td>${esc(r.model)}</td><td>${esc(r.winner||'—')}</td><td class="${gt==='—'?'':match?'good':'bad'}">${gt==='—'?t('notScored'):match?t('correct'):t('different')}</td><td class="just-cell"><div class="justification collapsed" id="just-${gi}">${esc(j||t('noJustification'))}</div>${j.length>160?`<button class="expand" data-expand="just-${gi}">+</button>`:''}</td></tr>`}).join(''):`<tr><td colspan="7">${t('noVerdictsFilter')}</td></tr>`;document.querySelectorAll('#view-dashboard [data-expand]').forEach(b=>b.onclick=()=>{const el=$(b.dataset.expand),open=b.getAttribute('aria-expanded')!=='true';el.classList.toggle('collapsed',!open);b.setAttribute('aria-expanded',String(open));b.textContent=open?'−':'+'});renderPager('dd-comparisonPager',pageState.comparison,tot,()=>renderComparisonTable(filtered()))}
-function candidates(){let e=$('dd-experiment').value,m=$('dd-model').value,d=$('dd-debate').value,q=norm($('dd-search').value);if(activeTab==='verdicts')return records.filter(r=>(!e||r.experiment===e)&&(!m||r.model===m)&&(!d||r.id===d)&&(!q||norm(JSON.stringify(r.data)).includes(q))).map(r=>({label:`${r.id} · ${r.model}`,sub:r.experiment+' · '+r.winner,file:r.file,data:r.data}));if(activeTab==='ground')return allFiles.filter(f=>f.name==='ground_truth.json').map(f=>({label:f.name,sub:t('officialOutcomes'),file:f,data:ground}));if(activeTab==='debates')return debates.filter(r=>(!d||r.data.id===d)&&(!q||norm(JSON.stringify(r.data)).includes(q))).map(r=>({label:r.data.id||r.file.name,sub:r.data.motion||t('debateTranscript'),file:r.file,data:r.data}));return allFiles.filter(f=>(!q||norm(f.path).includes(q))).map(f=>({label:f.path,sub:t('allFiles'),file:f,data:f.data}))}
-function renderList(){const arr=candidates(),st=pageState.files,tot=arr.length,pages=Math.max(1,Math.ceil(tot/st.size));if(st.page>pages)st.page=pages;const start=(st.page-1)*st.size,sl=arr.slice(start,start+st.size);$('dd-fileList').innerHTML=sl.length?sl.map((x,i)=>`<div class="listitem ${selected?.file.path===x.file.path?'active':''}" data-i="${start+i}">${esc(x.label)}<small>${esc(x.sub)}</small></div>`).join(''):`<div class="dd-empty">${t('noFilesMatch')}</div>`;[...$('dd-fileList').querySelectorAll('.listitem')].forEach(el=>el.onclick=()=>{const item=candidates()[+el.dataset.i];selected=item;$('dd-detailTitle').textContent=item.file.path;$('dd-detailContent').textContent=JSON.stringify(item.data,null,2);$('dd-copy').disabled=false;renderList()});renderPager('dd-filePager',pageState.files,tot,renderList)}
-function renderPager(elId,state,tot,onUpdate){const el=$(elId);if(!el)return;const pages=Math.max(1,Math.ceil(tot/state.size));if(tot===0){el.innerHTML='';return}const btn=(l,p,d,a=false)=>`<button ${d?'disabled':''} class="${a?'primary':''}" data-page="${p}">${l}</button>`;let h='';h+=btn('«',1,state.page===1);h+=btn('‹',state.page-1,state.page===1);h+=`<span class="pager-info">${t('page')} ${state.page} ${t('of')} ${pages} · ${tot} ${t('items')}</span>`;h+=btn('›',state.page+1,state.page===pages);h+=btn('»',pages,state.page===pages);h+=`<select class="pager-size">${[10,20,50,100].map(n=>`<option value="${n}" ${n===state.size?'selected':''}>${n}${t('perPage')}</option>`).join('')}</select>`;el.innerHTML=h;el.querySelectorAll('button[data-page]').forEach(b=>b.onclick=()=>{const p=+b.dataset.page;if(p>=1&&p<=pages&&p!==state.page){state.page=p;onUpdate()}});const sel=el.querySelector('select.pager-size');if(sel)sel.onchange=()=>{state.size=+sel.value;state.page=1;onUpdate()}}
+function render(){let rs=filtered(),known=Object.keys(ground);let correct=rs.filter(r=>Object.hasOwn(ground,r.id)&&r.winner===norm(ground[r.id])).length,scored=rs.filter(r=>Object.hasOwn(ground,r.id)),confs=rs.map(r=>r.confidence).filter(x=>x!==null);$('dd-mDebates').textContent=known.length||debates.length;$('dd-mVerdicts').textContent=rs.length;$('dd-mAccuracy').textContent=fmt(scored.length?correct/scored.length:NaN);$('dd-mConfidence').textContent=confs.length?(confs.reduce((a,b)=>a+b,0)/confs.length).toFixed(2):'—';let bm=unique(rs.map(r=>r.model)).map(m=>{let a=rs.filter(r=>r.model===m),s=a.filter(r=>Object.hasOwn(ground,r.id)),c=s.filter(r=>r.winner===norm(ground[r.id])).length;return{m,a,s,c,acc:s.length?c/s.length:0}});$('dd-accuracyChart').innerHTML=bm.length?bm.map(x=>`<div class="barwrap"><div class="barval">${fmt(x.acc)}</div><div class="bararea"><div class="bar" style="height:${x.acc*100}%"></div></div><div class="barlabel">${esc(x.m)}</div></div>`).join(''):`<div class="dd-empty">${td('noMatchVerdicts')}</div>`;let prop=rs.filter(r=>r.winner.includes('proposition')).length,opp=rs.filter(r=>r.winner.includes('opposition')).length,tot=prop+opp;$('dd-winnerChart').innerHTML=tot?`<div style="width:100%;align-self:center"><div style="display:flex;height:24px;border-radius:8px;overflow:hidden;background:#263550"><div style="width:${prop/tot*100}%;background:var(--cyan)"></div><div style="width:${opp/tot*100}%;background:var(--violet)"></div></div><div style="display:flex;justify-content:space-between;margin-top:10px;font-size:12px"><span>${td('proposition')} <b>${prop}</b> · ${fmt(prop/tot)}</span><span>${td('opposition')} <b>${opp}</b> · ${fmt(opp/tot)}</span></div></div>`:`<div class="dd-empty">${td('noWinnerLabels')}</div>`;renderComparisonTable(rs);$('dd-performance').innerHTML=bm.length?unique(rs.map(r=>r.experiment)).flatMap(e=>unique(rs.filter(r=>r.experiment===e).map(r=>r.model)).map(m=>{let a=rs.filter(r=>r.experiment===e&&r.model===m),s=a.filter(r=>Object.hasOwn(ground,r.id)),c=s.filter(r=>r.winner===norm(ground[r.id])).length,cf=a.map(r=>r.confidence).filter(x=>x!==null);return`<tr><td>${esc(e)}</td><td>${esc(m)}</td><td>${c}/${s.length}</td><td>${fmt(s.length?c/s.length:NaN)}</td><td>${fmt(a.length/Math.max(1,known.length))}</td><td>${cf.length?(cf.reduce((x,y)=>x+y,0)/cf.length).toFixed(2):'—'}</td></tr>`})).join(''):`<tr><td colspan="6">${td('noVerdictFiles')}</td></tr>`;renderList()}
+function renderComparisonTable(rs){const st=pageState.comparison,tot=rs.length,pages=Math.max(1,Math.ceil(tot/st.size));if(st.page>pages)st.page=pages;const start=(st.page-1)*st.size,sl=rs.slice(start,start+st.size);$('dd-comparison').innerHTML=sl.length?sl.map((r,i)=>{const gi=start+i,gt=ground[r.id]??'—',match=gt!=='—'&&r.winner===norm(gt),j=r.data?.result?.justification??r.data?.justification??'';return`<tr><td>${esc(r.id)}</td><td><span class="pill">${esc(gt)}</span></td><td>${esc(r.experiment)}</td><td>${esc(r.model)}</td><td>${esc(r.winner||'—')}</td><td class="${gt==='—'?'':match?'good':'bad'}">${gt==='—'?td('notScored'):match?td('correct'):td('different')}</td><td class="just-cell"><div class="justification collapsed" id="just-${gi}">${esc(j||td('noJustification'))}</div>${j.length>160?`<button class="expand" data-expand="just-${gi}">+</button>`:''}</td></tr>`}).join(''):`<tr><td colspan="7">${td('noVerdictsFilter')}</td></tr>`;document.querySelectorAll('#view-dashboard [data-expand]').forEach(b=>b.onclick=()=>{const el=$(b.dataset.expand),open=b.getAttribute('aria-expanded')!=='true';el.classList.toggle('collapsed',!open);b.setAttribute('aria-expanded',String(open));b.textContent=open?'−':'+'});renderPager('dd-comparisonPager',pageState.comparison,tot,()=>renderComparisonTable(filtered()))}
+function candidates(){let e=$('dd-experiment').value,m=$('dd-model').value,d=$('dd-debate').value,q=norm($('dd-search').value);if(activeTab==='verdicts')return records.filter(r=>(!e||r.experiment===e)&&(!m||r.model===m)&&(!d||r.id===d)&&(!q||norm(JSON.stringify(r.data)).includes(q))).map(r=>({label:`${r.id} · ${r.model}`,sub:r.experiment+' · '+r.winner,file:r.file,data:r.data}));if(activeTab==='ground')return allFiles.filter(f=>f.name==='ground_truth.json').map(f=>({label:f.name,sub:td('officialOutcomes'),file:f,data:ground}));if(activeTab==='debates')return debates.filter(r=>(!d||r.data.id===d)&&(!q||norm(JSON.stringify(r.data)).includes(q))).map(r=>({label:r.data.id||r.file.name,sub:r.data.motion||td('debateTranscript'),file:r.file,data:r.data}));return allFiles.filter(f=>(!q||norm(f.path).includes(q))).map(f=>({label:f.path,sub:td('allFiles'),file:f,data:f.data}))}
+function renderList(){const arr=candidates(),st=pageState.files,tot=arr.length,pages=Math.max(1,Math.ceil(tot/st.size));if(st.page>pages)st.page=pages;const start=(st.page-1)*st.size,sl=arr.slice(start,start+st.size);$('dd-fileList').innerHTML=sl.length?sl.map((x,i)=>`<div class="listitem ${selected?.file.path===x.file.path?'active':''}" data-i="${start+i}">${esc(x.label)}<small>${esc(x.sub)}</small></div>`).join(''):`<div class="dd-empty">${td('noFilesMatch')}</div>`;[...$('dd-fileList').querySelectorAll('.listitem')].forEach(el=>el.onclick=()=>{const item=candidates()[+el.dataset.i];selected=item;$('dd-detailTitle').textContent=item.file.path;$('dd-detailContent').textContent=JSON.stringify(item.data,null,2);$('dd-copy').disabled=false;renderList()});renderPager('dd-filePager',pageState.files,tot,renderList)}
+function renderPager(elId,state,tot,onUpdate){const el=$(elId);if(!el)return;const pages=Math.max(1,Math.ceil(tot/state.size));if(tot===0){el.innerHTML='';return}const btn=(l,p,d,a=false)=>`<button ${d?'disabled':''} class="${a?'primary':''}" data-page="${p}">${l}</button>`;let h='';h+=btn('«',1,state.page===1);h+=btn('‹',state.page-1,state.page===1);h+=`<span class="pager-info">${td('page')} ${state.page} ${td('of')} ${pages} · ${tot} ${td('items')}</span>`;h+=btn('›',state.page+1,state.page===pages);h+=btn('»',pages,state.page===pages);h+=`<select class="pager-size">${[10,20,50,100].map(n=>`<option value="${n}" ${n===state.size?'selected':''}>${n}${td('perPage')}</option>`).join('')}</select>`;el.innerHTML=h;el.querySelectorAll('button[data-page]').forEach(b=>b.onclick=()=>{const p=+b.dataset.page;if(p>=1&&p<=pages&&p!==state.page){state.page=p;onUpdate()}});const sel=el.querySelector('select.pager-size');if(sel)sel.onchange=()=>{state.size=+sel.value;state.page=1;onUpdate()}}
  $('dd-copy').onclick=()=>{if(selected)navigator.clipboard.writeText(JSON.stringify(selected.data,null,2))};
-document.querySelectorAll('#view-dashboard .dd-tab').forEach(b=>b.onclick=()=>{document.querySelectorAll('#view-dashboard .dd-tab').forEach(x=>x.classList.toggle('active',x===b));activeTab=b.dataset.tab;pageState.files.page=1;const dg=activeTab==='detailed-ground';$('dd-detailedGroundPanel').hidden=!dg;$('dd-sourceBrowser').hidden=dg;if(!dg){selected=null;$('dd-detailTitle').textContent=t('selectFile');$('dd-detailContent').textContent=t('jsonPlaceholder');$('dd-copy').disabled=true;renderList()}});
+document.querySelectorAll('#view-dashboard .dd-tab').forEach(b=>b.onclick=()=>{document.querySelectorAll('#view-dashboard .dd-tab').forEach(x=>x.classList.toggle('active',x===b));activeTab=b.dataset.tab;pageState.files.page=1;const dg=activeTab==='detailed-ground';$('dd-detailedGroundPanel').hidden=!dg;$('dd-sourceBrowser').hidden=dg;if(!dg){selected=null;$('dd-detailTitle').textContent=td('selectFile');$('dd-detailContent').textContent=td('jsonPlaceholder');$('dd-copy').disabled=true;renderList()}});
  $('globalRescan').onclick=load;
- $('globalLang').onclick=()=>{LANG=LANG==='en'?'ar':'en';localStorage.setItem('judy_lang',LANG);applyI18n()};
 ['dd-experiment','dd-model','dd-debate','dd-search'].forEach(id=>$(id).addEventListener(id==='dd-search'?'input':'change',()=>{pageState.comparison.page=1;pageState.files.page=1;render();renderList()}));
-applyI18n();load();
+window.dashApplyI18n=()=>{DLANG=LANG;if(records.length){render();renderList();renderDetailedGround()}};
+load();
 }
 
 // ════════════ TAGGER ════════════
@@ -711,34 +802,13 @@ function exp1(){if(!S.B.length)return'';const B=S.B,A=B.map(x=>x.st),nm=S.best.t
 function exp2(){if(!S.V.length)return'';const V=S.V,so=V.filter(x=>x.soft),ha=V.filter(x=>x.hard),hb=so.length?[so,'soft']:[ha,'hard'],av=(L,k,s,key)=>mean(L.map(x=>x[key][s][k])),ser=[{c:'--H',v:CR.map(k=>av(hb[0],k,'h',hb[1]))},{c:'--S',v:CR.map(k=>av(so,k,'m','soft'))},{c:'--W',v:CR.map(k=>av(ha,k,'m','hard'))}],ms=[...new Set(V.flatMap(x=>x.runs.map(r=>r.model)))].sort(),sa=[so.filter(x=>x.soft.pm>x.soft.ph).length,so.filter(x=>x.soft.ph>x.soft.pm).length];return`<h2 class="ev-sh">Experiment 2: AI majority vote vs human</h2><p class="ev-hero">In ${V.length} debates the majority differed. Simple count (${so.length}): AI <b>${sa[0]}</b>, human <b>${sa[1]}</b>.</p><div class="ev-card"><h3>Quality avg</h3>${gbars([['Sticks to','what was said'],['Covers','key args'],['Quality of','reasoning'],['Clear','to read'],['Overall','']],[{c:'--H',v:CR.map(k=>av(hb[0],k,'h',hb[1]))},{c:'--S',v:CR.map(k=>av(so,k,'m','soft'))},{c:'--W',v:CR.map(k=>av(ha,k,'m','hard'))}])}${leg([['Human','--H'],['Simple','--S'],['Weighted','--W']])}</div><div class="ev-card"><h3>Debate by debate</h3>${V.map(x=>drow(x,[['Human',(x.soft||x.hard).h.overall,'--H'],['Count',x.soft&&x.soft.m.overall,'--S'],['Weighted',x.hard&&x.hard.m.overall,'--W']],[['Count',x.soft],['Weighted',x.hard]])).join('')}</div><div class="ev-card ev-sc"><h3>Which models beat human?</h3><table class="gr"><tr><th></th>${V.map(x=>`<th>D${x.n}</th>`).join('')}</tr>${ms.map(m=>`<tr><th>${esc(m)}</th>${V.map(x=>{const r=x.runs.filter(r=>r.model==m);if(!r.length)return'<td></td>';const p=mean(r.map(r=>(r.preferred=='model')+.5*(r.preferred=='tie'))),k=p>.5?'AI':p<.5?'Human':'Tie';return`<td class="${k}" data-k="vote" data-n="${x.n}">${k}</td>`}).join('')}</tr>`).join('')}</table></div>`}
 function ov(){const fl=[...S.B.map(x=>[x,'Best']),...S.V.map(x=>[x,'Vote'])].map(a=>[a[0].n,a[1],flips(a[0])]).filter(a=>a[2].length);return exp1()+exp2()+`<h2 class="ev-sh">Judge reliability</h2><div class="ev-card">${fl.length?'<table><tr><th>Exp</th><th>Debate</th><th>Changed</th></tr>'+fl.map(a=>`<tr><td>${a[1]}</td><td>${a[0]}</td><td>${esc(a[2].join('; '))}</td></tr>`).join('')+'</table>':'<p><b>No order-dependent results.</b></p>'}</div>`}
 function cs(){const rows=[...S.B.map(x=>`<tr data-k="best" data-n="${x.n}"><td>Best</td><td>${x.n}</td><td>${esc(x.c.round||'')}</td><td>${x.c.human_winner}</td><td>${x.c.model_winner}</td><td>${f1(x.st.h.overall)}</td><td>${f1(x.st.m.overall)}</td><td>${lab(x.st)}</td></tr>`),...S.V.map(x=>{const a=x.soft||x.hard;return`<tr data-k="vote" data-n="${x.n}"><td>Vote</td><td>${x.n}</td><td>${esc(x.c.round||'')}</td><td>${x.c.human_winner}</td><td>${x.c.soft_winner}/${x.c.hard_winner}</td><td>${f1(a.h.overall)}</td><td>${x.soft?f1(x.soft.m.overall):'–'}</td><td>${x.soft?lab(x.soft):'–'}</td></tr>`})];return`<div class="ev-card ev-sc"><h3>All debates</h3><table><tr><th>Exp</th><th>Debate</th><th>Round</th><th>Human</th><th>AI</th><th>H score</th><th>AI score</th><th>Preferred</th></tr>${rows.join('')}</table></div>`}
-const allRuns=()=>[...S.B.flatMap(x=>x.runs.map(r=>[x,r,'Best'])),...S.V.flatMap(x=>x.runs.map(r=>[x,r,'Vote']))];
-const runRows=()=>{const q=S.q.toLowerCase();return allRuns().filter(a=>!q||(a[2]+' '+a[0].n+' '+(a[1].model||'')+' '+a[1].judge+' '+a[1].preferred+' '+a[1].rationale).toLowerCase().includes(q)).map(a=>{const x=a[0],r=a[1],u=s=>(r.scores[s].unsupported_claims||[]).length;return`<tr data-k="${x.k}" data-n="${x.n}"><td>${a[2]}</td><td>${x.n}</td><td>${esc(r.model||x.c.model||'')}</td><td>${esc(r.judge)}</td><td>A=${r.order[0]}</td><td><span class="bd ${r.preferred}">${PN[r.preferred]}</span></td><td>${r.scores.human.overall}</td><td>${r.scores.model.overall}</td><td>${u('human')}</td><td>${u('model')}</td><td class="mut">${esc(r.rationale.slice(0,90))}…</td></tr>`}).join('')};
-const rt=()=>`<div class="ev-card ev-sc"><h3>All runs (${allRuns().length})</h3><input id="ev-q" placeholder="Search…" value="${esc(S.q)}"><table><thead><tr><th>Exp</th><th>D</th><th>Model</th><th>Judge</th><th>Order</th><th>Preferred</th><th>H</th><th>AI</th><th>NF-H</th><th>NF-AI</th><th>Reason</th></tr></thead><tbody id="ev-rt">${runRows()}</tbody></table></div>`;
-const tree=(o,k)=>{const e=k==null?'':`<span class="mut">${esc(k)}</span> `;if(o&&typeof o=='object'){const ks=Object.keys(o);return`<details ${ks.length<9?'open':''}><summary>${e}<span class="mut">${Array.isArray(o)?'['+ks.length+']':'{'+ks.length+'}'}</span></summary><div class="trn">${ks.map(x=>tree(o[x],x)).join('')}</div></details>`}return`<div>${e}${typeof o=='string'&&(o.length>60||/[\u0600-\u06FF]/.test(o))?`<div class="tx">${esc(o)}</div>`:`<b>${esc(o)}</b>`}</div>`};
-const wb=w=>`<span class="bd w">${esc(w)}</span>`;
-const rcard=r=>`<div class="v"><b>${esc(r.judge)}</b> ${r.model?`<span class="mut">on ${esc(r.model)}</span>`:''}<br>Preferred: <span class="bd ${r.preferred}">${PN[r.preferred]}</span><table class="st"><tr><th></th>${CR.map(k=>`<th>${SH[k]}</th>`).join('')}<th>NF</th></tr>${['human','model'].map(s=>`<tr><th>${s=='human'?'H':'AI'}</th>${CR.map(k=>`<td>${r.scores[s][k]}</td>`).join('')}<td>${(r.scores[s].unsupported_claims||[]).length}</td></tr>`).join('')}</table><div class="mut">Reason</div><div class="tx">${esc(r.rationale)}</div></div>`;
-function openCase(k,n){const x=(k=='best'?S.B:S.V).find(y=>y.n==n);if(!x)return;const c=x.c;let h=`<button id="ev-x" style="float:right">Close</button><h3>Debate ${n}</h3><p>${esc(c.proposition_team||'')} vs ${esc(c.opposition_team||'')}<br><span class="mut">${esc([c.tournament,c.round].filter(Boolean).join(', '))}</span></p>${c.motion?`<div class="tx">${esc(c.motion)}</div>`:''}`;h+=`<p>Human: ${wb(c.human_winner)} ${k=='best'?`AI: ${wb(c.model_winner)}`:`Soft: ${wb(c.soft_winner)} Hard: ${wb(c.hard_winner)}`}</p><h4 class="bh" style="border-color:var(--H)">Human justification</h4><div class="tx">${esc(c.human_justification||'(missing)')}</div>`;h+=k=='best'?`<h4 class="bh" style="border-color:var(--M)">AI (${esc(c.model)})</h4><div class="tx">${esc(c.model_justification)}</div>`:`<h4 class="bh" style="border-color:var(--M)">AI justifications</h4>${c.models.map(m=>`<details><summary>${esc(m.model)}: ${wb(m.winner)}</summary><div class="tx">${esc(m.justification)}</div></details>`).join('')}`;h+=`<h4 class="bh">Judge (${x.runs.length} runs)</h4>${x.runs.map(rcard).join('')}<details><summary>Full data</summary>${tree(c)}</details>`;document.getElementById('ev-dr').innerHTML=h;document.getElementById('ev-dr').classList.add('o')}
-function render(){const has=S.B.length||S.V.length;$('#ev-empty').hidden=!!has;$('#ev-app').hidden=!has;if(!has)return;const js=[...new Set([...((S.best&&S.best.judge_models)||[]),...((S.vote&&S.vote.judge_models)||[])])];$('#ev-st').textContent=`${S.B.length} best-model, ${S.V.length} majority-vote. Judges: ${js.join(', ')||'—'}.`;$('#ev-tabs').innerHTML=['Overview','Debates','Runs'].map((t,i)=>`<button class="${S.tab==i?'on':''}" data-t="${i}">${t}</button>`).join('');[ov,cs,rt].forEach((f,i)=>{$('#ev-s'+i).innerHTML=f();$('#ev-s'+i).hidden=S.tab!==i})}
-const fail=(h,m)=>{$('#ev-eh').textContent=h;$('#ev-ep').innerHTML=m;$('#ev-empty').hidden=false;$('#ev-app').hidden=true};
-async function load(){const j=u=>fetch(u).then(r=>{if(!r.ok)throw new Error(`${r.status}`);return r.json()});try{S.best=await j(URL_BEST);S.vote=await j(URL_VOTE)}catch(e){return fail('Could not load',`Check repo is public.<br><span class="mut">${esc(e.message)}</span>`)}prep();if(!S.B.length&&!S.V.length)return fail('No cases','Run judging notebooks first.');render()}
-document.addEventListener('click',e=>{
-  if(!e.target.closest('#view-evaluation')&&!e.target.closest('#ev-dr'))return;
-  const t=e.target.closest('[data-t],[data-n],#ev-x,#ev-br');
-  if(!t)return;
-  if(t.id=='ev-x')document.getElementById('ev-dr').classList.remove('o');
-  else if(t.id=='ev-br')load();
-  else if(t.dataset.t!==undefined){S.tab=+t.dataset.t;render()}
-  else if(t.dataset.n!==undefined)openCase(t.dataset.k,+t.dataset.n);
-});
-document.addEventListener('input',e=>{if(e.target.id=='ev-q'){S.q=e.target.value;const rt=document.querySelector('#ev-rt');if(rt)rt.innerHTML=runRows()}});
-addEventListener('keydown',e=>{if(e.key==='Escape')document.getElementById('ev-dr').classList.remove('o')});
-document.getElementById('ev-br').addEventListener('click',load);
-load();
+async function loadEv(){const app=$('#ev-app'),empty=$('#ev-empty'),st=$('#ev-st');try{const j=u=>fetch(u).then(r=>{if(!r.ok)throw new Error(`${r.status} ${r.statusText}`);return r.json()});S.best=await j(URL_BEST);S.vote=await j(URL_VOTE);prep();if(!S.B.length&&!S.V.length)throw new Error('No cases');empty.hidden=true;app.hidden=false;st.textContent=`${S.B.length} best · ${S.V.length} vote`;$('#ev-tabs').innerHTML=['Overview','Debates','Judge runs'].map((x,i)=>`<button class="${S.tab==i?'on':''}" data-t="${i}">${x}</button>`).join('');$('#ev-s0').innerHTML=ov();$('#ev-s1').innerHTML=cs();$('#ev-s2').innerHTML='';const renderTab=()=>{['ev-s0','ev-s1','ev-s2'].forEach((id,i)=>$('#'+id).style.display=S.tab==i?'':'none')};renderTab();$('#ev-tabs').querySelectorAll('button').forEach(b=>b.onclick=()=>{S.tab=+b.dataset.t;$('#ev-tabs').querySelectorAll('button').forEach(x=>x.classList.toggle('on',x===b));renderTab()})}catch(e){empty.hidden=false;app.hidden=true;$('#ev-eh').textContent='Could not load';$('#ev-ep').textContent=`Failed to fetch from GitHub: ${e.message}`}}
+$('#ev-br').onclick=loadEv;loadEv();
 }
 
-// ════════════ INIT ════════════
-const initialRoute=location.hash.slice(1)||'home';
-navigate(initialRoute);
+// ════════════ BOOT ════════════
+applyGlobalI18n();
+navigate(location.hash.slice(1)||'home');
 </script>
 </body>
 </html>
