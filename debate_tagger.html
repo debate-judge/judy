@@ -1,0 +1,771 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Debate transcript marker → Judy JSON</title>
+<style>
+  :root {
+    --bg:#0f1115; --panel:#161a22; --panel2:#1d2330; --ink:#e6e9ef; --muted:#8b93a7;
+    --prop:#2b6cff; --opp:#e04848; --chair:#c8a13a; --judges:#9b59b6;
+    --ok:#2ecc71; --warn:#e2b93b; --err:#e74c3c; --line:#2a3140;
+  }
+  * { box-sizing:border-box; }
+  body { margin:0; font:14px/1.45 system-ui,-apple-system,Segoe UI,Roboto,sans-serif;
+         background:var(--bg); color:var(--ink); }
+  header { padding:12px 18px; background:var(--panel); border-bottom:1px solid var(--line);
+           display:flex; gap:14px; align-items:center; flex-wrap:wrap; }
+  header h1 { font-size:15px; margin:0; font-weight:600; }
+  header .hint { color:var(--muted); font-size:12px; }
+  main { display:grid; grid-template-columns:minmax(0,1.35fr) minmax(360px,1fr);
+         height:calc(100vh - 49px); }
+  section { overflow:auto; padding:14px 16px; }
+  section + section { border-left:1px solid var(--line); background:var(--panel); }
+  h2 { font-size:12px; text-transform:uppercase; letter-spacing:.12em;
+       color:var(--muted); margin:16px 0 6px; font-weight:600; }
+  h2:first-child { margin-top:0; }
+  label { display:block; font-size:12px; color:var(--muted); margin:8px 0 3px; }
+  input[type=text], input[type=file], select, textarea {
+    width:100%; background:var(--panel2); color:var(--ink); border:1px solid var(--line);
+    border-radius:6px; padding:7px 9px; font:inherit; font-size:13px;
+  }
+  input[type=file] { padding:5px; }
+  textarea { font-family:ui-monospace,SFMono-Regular,Menlo,monospace; font-size:12.5px; }
+  button { background:var(--panel2); color:var(--ink); border:1px solid var(--line);
+           border-radius:6px; padding:6px 11px; font:inherit; font-size:13px; cursor:pointer; }
+  button:hover { border-color:#3b465f; }
+  button.primary { background:var(--prop); border-color:var(--prop); color:#fff; }
+  button.ghost   { background:transparent; }
+  button.danger  { background:transparent; border-color:var(--err); color:var(--err); }
+  .row { display:flex; gap:8px; flex-wrap:wrap; align-items:flex-end; }
+  .row > * { flex:1 1 120px; }
+  .row button { flex:0 0 auto; }
+
+  #transcript { white-space:pre-wrap; word-wrap:break-word;
+    background:var(--panel2); border:1px solid var(--line); border-radius:8px;
+    padding:12px 14px; max-height:calc(100vh - 460px); min-height:160px; overflow:auto;
+    font-family:ui-monospace,SFMono-Regular,Menlo,monospace; font-size:13px;
+    line-height:1.6; user-select:text; }
+  .seg { border-radius:3px; }
+  .seg-proposition { background:rgba(43,108,255,.16); box-shadow:inset 3px 0 var(--prop); }
+  .seg-opposition  { background:rgba(224,72,72,.16);  box-shadow:inset 3px 0 var(--opp); }
+  .seg-chair       { background:rgba(200,161,58,.16); box-shadow:inset 3px 0 var(--chair); }
+  .seg-judges      { background:rgba(155,89,182,.16); box-shadow:inset 3px 0 var(--judges); }
+  .badge { display:inline-block; font-size:10px; padding:0 5px; border-radius:3px;
+           background:var(--prop); color:#fff; margin:0 4px; vertical-align:middle; }
+  .badge.opposition { background:var(--opp); }
+  .badge.chair      { background:var(--chair); color:#1b1b1b; }
+  .badge.judges     { background:var(--judges); }
+
+  /* speaker button grid (RTL: first cell sits on the right = Proposition) */
+  .fmt { display:grid; grid-template-columns:1fr 1fr; gap:6px; direction:rtl; margin:8px 0; }
+  .fmt .hd { text-align:center; font-size:12px; padding:4px 8px; border-radius:14px;
+             border:1px solid var(--line); color:var(--muted); }
+  .fmt .hd.proposition { border-color:var(--prop); color:var(--prop); }
+  .fmt .hd.opposition  { border-color:var(--opp);  color:var(--opp); }
+  .fmt button { border-radius:14px; color:#fff; }
+  .fmt button.proposition { background:var(--prop); border-color:var(--prop); }
+  .fmt button.opposition  { background:var(--opp);  border-color:var(--opp); }
+  .fmt button.reply { background:#444a5b; border-color:#444a5b; }
+  .fmt .sp { grid-column:1 / -1; height:2px; }
+
+  .list { display:flex; flex-direction:column; gap:6px; margin-top:6px; }
+  .item { background:var(--panel2); border:1px solid var(--line); border-radius:6px;
+          padding:7px 9px; font-size:12.5px; display:flex; gap:8px; align-items:flex-start; }
+  .item .tag { flex:0 0 auto; padding:1px 6px; border-radius:4px; font-size:10.5px;
+               font-weight:600; color:#fff; background:var(--muted); }
+  .item.proposition .tag { background:var(--prop); }
+  .item.opposition  .tag { background:var(--opp); }
+  .item.chair       .tag { background:var(--chair); color:#1b1b1b; }
+  .item.judges      .tag { background:var(--judges); }
+  .item .meta { flex:1 1 auto; color:var(--muted); font-size:11.5px; }
+  .item .body { color:var(--ink); margin-top:2px; }
+  .item .btns { flex:0 0 auto; display:flex; gap:4px; }
+  .item .btns button { padding:2px 6px; font-size:11px; }
+  .empty { color:var(--muted); font-style:italic; font-size:12.5px; }
+  pre#jsonPreview { background:var(--panel2); border:1px solid var(--line);
+                    border-radius:6px; padding:10px; font-size:11.5px;
+                    max-height:36vh; overflow:auto; white-space:pre-wrap; word-break:break-word; }
+  .stat { display:flex; justify-content:space-between; font-size:12px;
+          padding:2px 0; border-bottom:1px dashed var(--line); }
+  .stat:last-child { border-bottom:0; }
+  .warn-list { margin:0; padding-left:16px; color:var(--warn); font-size:12px; }
+  .warn-list li { margin:1px 0; }
+  .toolbar { display:flex; gap:6px; flex-wrap:wrap; margin:8px 0; align-items:center; }
+  .status { font-size:12px; color:var(--muted); }
+  .status.ok { color:var(--ok); }
+  .status.err { color:var(--err); }
+</style>
+</head>
+<body>
+<header>
+  <h1>Debate transcript → Judy JSON</h1>
+  <span class="hint">1) load a transcript · 2) select text &amp; tag it · 3) download JSON</span>
+</header>
+
+<main>
+  <section>
+    <h2>Input</h2>
+    <div class="row">
+      <div style="flex:2 1 260px">
+        <label>Transcript file (.txt .srt .vtt .json)</label>
+        <input type="file" id="fileInput" accept=".txt,.srt,.vtt,.json">
+      </div>
+      <div style="flex:0 0 auto">
+        <label>&nbsp;</label>
+        <button class="ghost" id="clearBtn">Clear</button>
+      </div>
+    </div>
+    <label>…or paste raw transcript</label>
+    <textarea id="rawText" rows="4" placeholder="Paste transcript text here, then click Load."></textarea>
+    <div class="toolbar">
+      <button id="loadBtn">Load &amp; clean</button>
+      <span class="status" id="loadStatus"></span>
+    </div>
+
+    <h2>Mark selection</h2>
+    <div class="fmt">
+      <!-- RTL grid: first cell appears on the right -->
+      <div class="hd proposition">فريق الموالاة</div>
+      <div class="hd opposition">فريق المعارضة</div>
+
+      <button class="proposition" data-tag="speech" data-team="proposition" data-n="1">المتحدث الأول</button>
+      <button class="opposition"  data-tag="speech" data-team="opposition"  data-n="1">المتحدث الأول</button>
+
+      <button class="proposition" data-tag="speech" data-team="proposition" data-n="2">المتحدث الثاني</button>
+      <button class="opposition"  data-tag="speech" data-team="opposition"  data-n="2">المتحدث الثاني</button>
+
+      <button class="proposition" data-tag="speech" data-team="proposition" data-n="3">المتحدث الثالث</button>
+      <button class="opposition"  data-tag="speech" data-team="opposition"  data-n="3">المتحدث الثالث</button>
+
+      <div class="sp"></div>
+
+      <button class="reply" data-tag="reply" data-team="proposition">خطاب رد الموالاة</button>
+      <button class="reply" data-tag="reply" data-team="opposition">خطاب رد المعارضة</button>
+    </div>
+    <div class="toolbar">
+      <button id="tagChairBtn" style="background:var(--chair);border-color:var(--chair);color:#1b1b1b">+ Chair</button>
+      <button id="tagJudgesBtn" style="background:var(--judges);border-color:var(--judges)">+ Judges</button>
+      <button class="danger" id="removeBtn">– Remove selection</button>
+    </div>
+    <div class="row">
+      <div>
+        <label>Selected range</label>
+        <span class="status" id="selInfo">nothing selected</span>
+      </div>
+    </div>
+
+    <h2>Transcript 
+     <div class="toolbar">
+      <button class="ghost" id="fontDown" title="Smaller text">A−</button>
+      <button class="ghost" id="fontUp" title="Larger text">A+</button>
+      <span class="status" id="fontInfo">13px</span>
+    </div>
+    <span class="hint" style="text-transform:none;letter-spacing:0;color:var(--muted)">— select with the mouse, then click a tag button</span></h2>
+    <div id="transcript" tabindex="0"  dir="rtl"><span class="empty">No transcript loaded yet.</span></div>
+  </section>
+
+  <section>
+    <h2>Debate metadata</h2>
+    <label>ID</label>
+    <input type="text" id="id" value="debate_001">
+    <label>Motion</label>
+    <input type="text" id="motion" placeholder="سيمنع هذا المجلس ...">
+    <div class="row">
+      <div>
+        <label>Motion confidence</label>
+        <select id="motionConfidence">
+          <option value="stated">stated</option>
+          <option value="inferred">inferred</option>
+          <option value="unknown" selected>unknown</option>
+        </select>
+      </div>
+      <div>
+        <label>Announced winner hint</label>
+        <select id="announcedWinner">
+          <option value="not_announced" selected>not_announced</option>
+          <option value="proposition">proposition</option>
+          <option value="opposition">opposition</option>
+        </select>
+      </div>
+    </div>
+    <div class="row">
+      <div>
+        <label>Source file</label>
+        <input type="text" id="sourceFile" placeholder="raw/unlabeled.txt">
+      </div>
+      <div>
+        <label>Segmentation</label>
+        <select id="segmentation">
+          <option value="manual" selected>manual</option>
+          <option value="llm">llm</option>
+          <option value="rules">rules</option>
+          <option value="plan">plan</option>
+        </select>
+      </div>
+    </div>
+    <label>Model (optional)</label>
+    <input type="text" id="model" placeholder="gemma3:12b">
+
+    <h2>Segments <span class="hint" id="segCount" style="text-transform:none;letter-spacing:0;color:var(--muted)"></span></h2>
+    <div id="segList" class="list"></div>
+
+    <h2>Warnings</h2>
+    <ul id="warnList" class="warn-list"></ul>
+
+    <h2>Stats</h2>
+    <div id="statsBlock"></div>
+
+    <h2>JSON preview</h2>
+    <div class="toolbar">
+      <button class="primary" id="downloadBtn">Download JSON</button>
+      <button class="ghost" id="copyBtn">Copy JSON</button>
+      <button class="ghost" id="refreshBtn">Refresh preview</button>
+      <span class="status" id="jsonStatus"></span>
+    </div>
+    <pre id="jsonPreview">{}</pre>
+  </section>
+</main>
+
+<script>
+"use strict";
+
+document.addEventListener("DOMContentLoaded", () => {
+  // ---------- constants mirrored from transcript_to_json.py ----------
+  const AR_ORD  = ["الأول","الثاني","الثالث","الرابع","الخامس","السادس"];
+  const TEAM_AR = { proposition:"الموالاة", opposition:"المعارضة" };
+  const EXPECTED = [["proposition",1],["opposition",1],["proposition",2],
+                    ["opposition",2],["proposition",3],["opposition",3]];
+
+  const TS_ARROW  = /\d{1,2}:\d{2}(?::\d{2})?[.,]?\d*\s*-->/;
+  const TS_ALONE  = /^\[?\(?\d{1,2}:\d{2}(?::\d{2})?(?:[.,]\d+)?\]?\)?$/;
+  const TS_PREFIX = /^\[?\(?\d{1,2}:\d{2}(?::\d{2})?(?:[.,]\d+)?\]?\)?\s+/;
+  const TAGS      = /<[^>]+>/g;
+  const SOUND     = /\[(?:music|applause|laughter|laughs|موسيقى|تصفيق|ضحك|ضحكات|مو[سص]يقى)\]|♪+/gi;
+
+  // ---------- text utilities ----------
+  function cleanTranscript(raw) {
+    const lines = [];
+    for (let line of raw.split(/\r?\n/)) {
+      let s = line.replace(/^\uFEFF/, "").trim();
+      if (!s) continue;
+      const up = s.toUpperCase();
+      if (up.startsWith("WEBVTT") || up.startsWith("NOTE") ||
+          up.startsWith("KIND:") || up.startsWith("LANGUAGE:")) continue;
+      if (TS_ARROW.test(s) || TS_ALONE.test(s) || (/^\d+$/.test(s) && s.length <= 5)) continue;
+      s = s.replace(TS_PREFIX, "").replace(TAGS, "");
+      s = s.replace(SOUND, "").trim();
+      if (s && (lines.length === 0 || s !== lines[lines.length - 1])) lines.push(s);
+    }
+    return lines.join("\n");
+  }
+
+  async function readInputFile(file) {
+    const txt = await file.text();
+    if (/\.json$/i.test(file.name)) {
+      let data;
+      try { data = JSON.parse(txt); }
+      catch { return { text: "", error: "Invalid JSON in uploaded file." }; }
+      if (Array.isArray(data))
+        return { text: data.map(d => d && typeof d === "object" ? String(d.text ?? "") : "").join("\n") };
+      if (data && typeof data === "object") {
+        if (Array.isArray(data.segments))
+          return { text: data.segments.map(s => String(s.text ?? "")).join("\n") };
+        return { text: String(data.text ?? "") };
+      }
+      return { text: "", error: "Unsupported JSON transcript layout." };
+    }
+    return { text: txt.replace(/^\uFEFF/, "") };
+  }
+
+  const flat = s => s.replace(/\s+/g, " ").trim();
+  const wc   = s => s.trim() ? s.trim().split(/\s+/).length : 0;
+
+  function autoDetectMotion(doc) {
+    const m = doc.match(/(?:موضوع(?:ها|نا| هذه المناظرة)?|المناظرة عن)\s*[:：]?\s*([^\n]{10,200}?)(?=\s+(?:ونرحب|وندعو|بسم|السلام|$))/);
+    return m ? flat(m[1]) : "";
+  }
+
+  // ---------- state ----------
+  const state = { doc: "", segments: [], sourceFileName: "" }; // segments: {kind,team,speech_type,n,start,end}
+  let capturedRange = null; // {start,end} in doc offsets, set on mouseup
+  let fontPx = 13;
+	
+  // ---------- DOM refs ----------
+  const $ = id => document.getElementById(id);
+  const transcriptEl = $("transcript");
+  const segListEl    = $("segList");
+  const segCountEl   = $("segCount");
+  const warnListEl   = $("warnList");
+  const statsEl      = $("statsBlock");
+  const jsonPre      = $("jsonPreview");
+  const selInfo      = $("selInfo");
+  const jsonStatus   = $("jsonStatus");
+
+  // ---------- helpers ----------
+  function escapeHtml(s) {
+    return String(s).replace(/[&<>"']/g, c =>
+      ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
+  }
+  function flash(msg, cls="") {
+    jsonStatus.textContent = msg;
+    jsonStatus.className = "status " + cls;
+    clearTimeout(flash._t);
+    flash._t = setTimeout(() => { jsonStatus.textContent=""; jsonStatus.className="status"; }, 3500);
+  }
+  function labelFor(s) {
+    if (s.kind === "speech") {
+      const t = TEAM_AR[s.team] || s.team;
+      return s.speech_type === "reply"
+        ? `${t} · رد`
+        : `${t} · المتحدث ${AR_ORD[s.n - 1] ?? s.n}`;
+    }
+    if (s.kind === "chair")  return "chair";
+    if (s.kind === "judges") return "judges";
+    return "preamble";
+  }
+
+  // ---------- transcript rendering ----------
+  function segmentsToSpans() {
+    const out = [];
+    let cursor = 0;
+    const sorted = state.segments.slice().sort((a,b) => a.start - b.start);
+    for (const s of sorted) {
+      if (s.start > cursor)
+        out.push({ kind:"preamble", team:"none", speech_type:"none",
+                   start:cursor, end:s.start, preamble:true });
+      out.push({ ...s, preamble:false });
+      cursor = Math.max(cursor, s.end);
+    }
+    if (cursor < state.doc.length)
+      out.push({ kind:"preamble", team:"none", speech_type:"none",
+                 start:cursor, end:state.doc.length, preamble:true });
+    return out;
+  }
+
+  function renderTranscript() {
+    transcriptEl.innerHTML = "";
+    if (!state.doc) {
+      transcriptEl.innerHTML = '<span class="empty">No transcript loaded yet.</span>';
+      return;
+    }
+    const spans = segmentsToSpans();
+    const frag = document.createDocumentFragment();
+    for (const sp of spans) {
+      const text = state.doc.slice(sp.start, sp.end);
+      if (!text) continue;
+      const el = document.createElement("span");
+      el.className = "seg " + (
+        sp.kind === "speech" ? "seg-" + sp.team
+                             : sp.kind === "chair" ? "seg-chair"
+                             : sp.kind === "judges" ? "seg-judges"
+                             : "");
+      el.dataset.start = String(sp.start);
+      el.dataset.end   = String(sp.end);
+      if (!sp.preamble) {
+        const b = document.createElement("span");
+        b.className = "badge " + (sp.kind === "speech" ? sp.team
+                                 : sp.kind === "chair" ? "chair"
+                                 : sp.kind === "judges" ? "judges"
+                                 : "");
+        b.textContent = labelFor(sp);
+        el.appendChild(b);
+        el.appendChild(document.createTextNode(" "));
+      }
+      el.appendChild(document.createTextNode(text));
+      frag.appendChild(el);
+    }
+    transcriptEl.appendChild(frag);
+  }
+
+  // ---------- selection → doc offsets ----------
+  function absOffset(node, offset) {
+    if (!node) return null;
+    if (node.nodeType === Node.TEXT_NODE) {
+      const parent = node.parentElement;
+      if (!parent || !transcriptEl.contains(parent)) return null;
+      let el = parent;
+      while (el && el !== transcriptEl && !el.dataset.start) el = el.parentElement;
+      if (!el || !el.dataset.start) return null;
+      const base = parseInt(el.dataset.start, 10);
+      let within = 0;
+      const walker = document.createTreeWalker(el, NodeFilter.SHOW_TEXT);
+      while (walker.nextNode()) {
+        const tn = walker.currentNode;
+        if (tn === node) { within += offset; break; }
+        within += tn.nodeValue.length;
+      }
+      return base + within;
+    }
+    if (node.nodeType === Node.ELEMENT_NODE) {
+      const child = node.childNodes[offset] || null;
+      return child ? absOffset(child, 0) : absOffset(node, 0);
+    }
+    return null;
+  }
+
+  function computeRange() {
+    const sel = window.getSelection();
+    if (!sel || sel.rangeCount === 0 || sel.isCollapsed) return null;
+    const r = sel.getRangeAt(0);
+    if (!transcriptEl.contains(r.startContainer) ||
+        !transcriptEl.contains(r.endContainer))   return null;
+    let a = absOffset(r.startContainer, r.startOffset);
+    let b = absOffset(r.endContainer,   r.endOffset);
+    if (a === null || b === null) return null;
+    let lo = Math.min(a,b), hi = Math.max(a,b);
+    const doc = state.doc;
+    while (lo > 0 && !/\s/.test(doc[lo-1])) lo--;
+    while (hi < doc.length && !/\s/.test(doc[hi])) hi++;
+    while (hi > lo && /\s/.test(doc[hi-1])) hi--;
+    while (lo < hi && /\s/.test(doc[lo]))   lo++;
+    if (hi <= lo) return null;
+    return { start: lo, end: hi };
+  }
+
+  function updateSelInfo() {
+    if (!capturedRange) { selInfo.textContent = "nothing selected"; selInfo.className = "status"; return; }
+    const n = capturedRange.end - capturedRange.start;
+    const preview = state.doc.slice(capturedRange.start,
+                                    Math.min(capturedRange.end, capturedRange.start + 50));
+    selInfo.textContent = `${n} chars · "${preview.replace(/\s+/g," ")}…"`;
+    selInfo.className = "status ok";
+  }
+
+  transcriptEl.addEventListener("mouseup", () => {
+    const r = computeRange();
+    if (r) { capturedRange = r; updateSelInfo(); }
+  });
+  transcriptEl.addEventListener("keyup", () => {
+    const r = computeRange();
+    if (r) { capturedRange = r; updateSelInfo(); }
+  });
+  document.addEventListener("keydown", e => {
+    if (e.key === "Escape") { capturedRange = null; updateSelInfo(); }
+    if ((e.metaKey || e.ctrlKey) && e.key.toLowerCase() === "s") {
+      e.preventDefault(); downloadJson();
+    }
+  });
+
+  // ---------- tag operations ----------
+  function applyTag(kind, team, speech_type, n = 0) {
+    if (!state.doc) { flash("Load a transcript first.", "err"); return; }
+    const r = capturedRange;
+    if (!r) { flash("Select some transcript text first.", "err"); return; }
+    const newSeg = { kind, team, speech_type, n, start: r.start, end: r.end };
+
+    const out = [];
+    for (const s of state.segments) {
+      if (s.end <= newSeg.start || s.start >= newSeg.end) { out.push(s); continue; }
+      if (s.start < newSeg.start) out.push({ ...s, end: newSeg.start });
+      if (s.end   > newSeg.end)   out.push({ ...s, start: newSeg.end });
+    }
+    out.push(newSeg);
+    out.sort((x,y) => x.start - y.start);
+    state.segments = out;
+
+    capturedRange = null; updateSelInfo();
+    window.getSelection().removeAllRanges();
+
+    renderTranscript(); renderSegList(); refreshPreview();
+    flash("Tagged.", "ok");
+  }
+
+  function removeAtRange(r) {
+    if (!r) { flash("Select a range to remove.", "err"); return; }
+    const out = [];
+    for (const s of state.segments) {
+      if (s.end <= r.start || s.start >= r.end) { out.push(s); continue; }
+      if (s.start < r.start) out.push({ ...s, end: r.start });
+      if (s.end   > r.end)   out.push({ ...s, start: r.end });
+    }
+    state.segments = out;
+    capturedRange = null; updateSelInfo();
+    renderTranscript(); renderSegList(); refreshPreview();
+    flash("Removed.", "ok");
+  }
+
+  // ---------- segment list ----------
+  function renderSegList() {
+    segListEl.innerHTML = "";
+    const segs = state.segments.slice().sort((a,b) => a.start - b.start);
+    segCountEl.textContent = segs.length ? `(${segs.length})` : "";
+    if (!segs.length) {
+      segListEl.innerHTML = '<div class="empty">No segments yet. Select text on the left and tag it.</div>';
+      return;
+    }
+    segs.forEach((s, i) => {
+      const div = document.createElement("div");
+      const cls = s.kind === "speech" ? s.team : s.kind;
+      div.className = "item " + cls;
+      const body = flat(state.doc.slice(s.start, s.end));
+      div.innerHTML = `
+        <span class="tag">${escapeHtml(labelFor(s))}</span>
+        <div class="meta">
+          ${i+1}. ${wc(body)} words · [${s.start}–${s.end}]
+          <div class="body">${escapeHtml(body.slice(0,140))}${body.length>140?"…":""}</div>
+        </div>
+        <div class="btns">
+          <button data-act="jump">Jump</button>
+          <button data-act="del" class="danger">×</button>
+        </div>`;
+      div.querySelector('[data-act="jump"]').addEventListener("click", () => {
+        const el = transcriptEl.querySelector(
+          `[data-start="${s.start}"][data-end="${s.end}"]`) ||
+          Array.from(transcriptEl.querySelectorAll(".seg"))
+            .find(el => +el.dataset.start <= s.start && +el.dataset.end >= s.end);
+        if (el) el.scrollIntoView({ block:"center", behavior:"smooth" });
+      });
+      div.querySelector('[data-act="del"]').addEventListener("click", () => {
+        state.segments = state.segments.filter(
+          x => !(x.start === s.start && x.end === s.end));
+        renderTranscript(); renderSegList(); refreshPreview();
+      });
+      segListEl.appendChild(div);
+    });
+  }
+
+  // ---------- build output ----------
+  function buildOutput() {
+    const id             = $("id").value.trim() || "debate";
+    const motion         = $("motion").value.trim();
+    const motionConf     = $("motionConfidence").value;
+    const announced      = $("announcedWinner").value;
+    const sourceFileName = $("sourceFile").value.trim() || state.sourceFileName || "raw/unlabeled.txt";
+    const segmentation   = $("segmentation").value;
+    const model          = $("model").value.trim() || null;
+    const doc            = state.doc;
+
+    const speeches = [], excluded = [];
+    const ordered  = state.segments.slice().sort((a,b) => a.start - b.start);
+
+    if (ordered.length && ordered[0].start > 0) {
+      const pre = flat(doc.slice(0, ordered[0].start));
+      if (pre) excluded.push({ kind:"preamble", text: pre });
+    }
+    for (const s of ordered) {
+      const segText = flat(doc.slice(s.start, s.end));
+      if (!segText) continue;
+      if (s.kind !== "speech") {
+        excluded.push({ kind: s.kind, text: segText });
+        continue;
+      }
+      let speaker;
+      if (s.speech_type === "reply") {
+        speaker = `${TEAM_AR[s.team]} - خطاب الرد`;
+      } else {
+        const ord = AR_ORD[s.n - 1] ?? String(s.n);
+        speaker = `${TEAM_AR[s.team]} - المتحدث ${ord}`;
+      }
+      speeches.push({ speaker, team: s.team, speech_type: s.speech_type, text: segText });
+    }
+
+    // sanity checks
+    const warnings = [];
+    const main = speeches.filter(s => s.speech_type === "main");
+    if (!speeches.length) warnings.push("no speeches found");
+    const teams = new Set(speeches.map(s => s.team));
+    if (speeches.length && !(teams.has("proposition") && teams.has("opposition")))
+      warnings.push("only one team detected");
+    if (main.length && main.length !== 6)
+      warnings.push(`${main.length} main speeches found (QDC format normally has 6)`);
+
+    const mainSegs = ordered.filter(s => s.kind === "speech" && s.speech_type === "main");
+    mainSegs.forEach((s, i) => {
+      const e = EXPECTED[i];
+      if (!e || e[0] !== s.team || e[1] !== s.n)
+        warnings.push(`unexpected order at main speech #${i+1}: ${TEAM_AR[s.team]} - ${AR_ORD[s.n-1] ?? s.n}`);
+    });
+    const seen = new Set();
+    for (const s of mainSegs) {
+      const k = s.team + s.n;
+      if (seen.has(k)) warnings.push(`duplicate: ${TEAM_AR[s.team]} - ${AR_ORD[s.n-1] ?? s.n}`);
+      seen.add(k);
+    }
+
+    for (const s of speeches)
+      if (wc(s.text) < 80)
+        warnings.push(`very short speech: ${s.speaker} (${wc(s.text)} words)`);
+    if (!motion) warnings.push("motion unknown - add it manually");
+
+    const total_w = wc(doc);
+    const sp_w    = speeches.reduce((a,s) => a + wc(s.text), 0);
+    const perSp   = {};
+    for (const s of speeches) perSp[s.speaker] = wc(s.text);
+
+    return {
+      id, motion,
+      speeches,
+      excluded_segments: excluded,
+      source: {
+        file: sourceFileName,
+        segmentation,
+        model,
+        created_at: new Date().toISOString().replace(/\.\d+Z$/, "+00:00"),
+      },
+      meta: {
+        motion_confidence: motionConf,
+        announced_winner_hint: announced,
+        note: "announced_winner_hint is extracted from the video and is NOT used by the judge; verify before using it as ground truth.",
+        warnings,
+        stats: {
+          total_words: total_w,
+          speech_words: sp_w,
+          speech_coverage: total_w ? +(sp_w / total_w).toFixed(3) : null,
+          words_per_speech: perSp,
+        },
+      },
+    };
+  }
+
+  function refreshPreview() {
+    const obj = buildOutput();
+    jsonPre.textContent = JSON.stringify(obj, null, 2);
+
+    warnListEl.innerHTML = "";
+    for (const w of obj.meta.warnings) {
+      const li = document.createElement("li"); li.textContent = w;
+      warnListEl.appendChild(li);
+    }
+    if (!obj.meta.warnings.length) {
+      const li = document.createElement("li");
+      li.textContent = "—"; li.style.color = "var(--muted)";
+      warnListEl.appendChild(li);
+    }
+
+    const st = obj.meta.stats;
+    statsEl.innerHTML = "";
+    const rows = [
+      ["total_words",        st.total_words],
+      ["speech_words",       st.speech_words],
+      ["speech_coverage",    st.speech_coverage ?? "—"],
+      ["speeches",           obj.speeches.length],
+      ["excluded_segments",  obj.excluded_segments.length],
+    ];
+    for (const [k,v] of rows) {
+      const d = document.createElement("div"); d.className = "stat";
+      d.innerHTML = `<span>${k}</span><span>${v}</span>`;
+      statsEl.appendChild(d);
+    }
+    return obj;
+  }
+
+  // ---------- load / clear ----------
+  async function onFileChosen(ev) {
+    const f = ev.target.files[0];
+    if (!f) return;
+    const { text, error } = await readInputFile(f);
+    if (error) { flash(error, "err"); return; }
+    state.sourceFileName = f.name;
+    $("sourceFile").value = f.name;
+    loadTranscript(text);
+  }
+
+  function loadTranscript(raw) {
+    state.doc = cleanTranscript(raw);
+    state.segments = [];
+    capturedRange = null; updateSelInfo();
+    if (!state.doc.trim()) {
+      transcriptEl.innerHTML = '<span class="empty">Transcript is empty after cleaning.</span>';
+      flash("Transcript is empty after cleaning.", "err");
+      renderSegList(); refreshPreview(); return;
+    }
+    const maybeMotion = autoDetectMotion(state.doc);
+    if (maybeMotion && !$("motion").value) {
+      $("motion").value = maybeMotion;
+      $("motionConfidence").value = "stated";
+    }
+    renderTranscript(); renderSegList(); refreshPreview();
+    const st = $("loadStatus");
+    st.textContent = `${state.doc.length} chars · ${wc(state.doc)} words`;
+    st.className = "status ok";
+    clearTimeout(loadTranscript._t);
+    loadTranscript._t = setTimeout(() => { st.textContent=""; st.className="status"; }, 4000);
+  }
+
+  // ---------- download / copy ----------
+  function downloadJson() {
+    const obj = refreshPreview();
+    const blob = new Blob([JSON.stringify(obj, null, 2) + "\n"],
+                          { type:"application/json;charset=utf-8" });
+    const url  = URL.createObjectURL(blob);
+    const a    = document.createElement("a");
+    a.href = url; a.download = `${obj.id || "debate"}.json`;
+    document.body.appendChild(a); a.click(); a.remove();
+    setTimeout(() => URL.revokeObjectURL(url), 1500);
+    flash(`Downloaded ${a.download}`, "ok");
+  }
+
+  async function copyJson() {
+    const obj = refreshPreview();
+    const txt = JSON.stringify(obj, null, 2);
+    try {
+      await navigator.clipboard.writeText(txt);
+      flash("Copied to clipboard.", "ok");
+    } catch {
+      const ta = document.createElement("textarea");
+      ta.value = txt; document.body.appendChild(ta); ta.select();
+      try { document.execCommand("copy"); flash("Copied.", "ok"); }
+      catch { flash("Copy failed — use Download.", "err"); }
+      ta.remove();
+    }
+  }
+
+  // ---------- wire up events ----------
+  $("fileInput").addEventListener("change", onFileChosen);
+
+  $("loadBtn").addEventListener("click", () => {
+    const raw = $("rawText").value;
+    if (!raw.trim()) { flash("Paste some transcript text first.", "err"); return; }
+    loadTranscript(raw);
+  });
+
+  $("clearBtn").addEventListener("click", () => {
+    state.doc = ""; state.segments = []; capturedRange = null;
+    $("rawText").value = ""; $("fileInput").value = ""; $("sourceFile").value = "";
+    transcriptEl.innerHTML = '<span class="empty">No transcript loaded yet.</span>';
+    updateSelInfo(); renderSegList(); refreshPreview();
+  });
+	  function setFont(px) {
+    fontPx = Math.min(32, Math.max(9, px));
+    transcriptEl.style.fontSize = fontPx + "px";
+    $("fontInfo").textContent = fontPx + "px";
+  }
+  for (const [id, delta] of [["fontDown", -1], ["fontUp", 1]]) {
+    const b = $(id);
+    b.addEventListener("mousedown", e => e.preventDefault()); // keep the text selection
+    b.addEventListener("click", () => setFont(fontPx + delta));
+  }
+  // per-speaker buttons
+  document.querySelectorAll("[data-tag]").forEach(btn => {
+    btn.addEventListener("mousedown", e => e.preventDefault()); // keep text selection
+    btn.addEventListener("click", () => {
+      const team = btn.dataset.team;
+      if (btn.dataset.tag === "reply") applyTag("speech", team, "reply", 0);
+      else applyTag("speech", team, "main", +btn.dataset.n);
+    });
+  });
+
+  $("tagChairBtn").addEventListener("click",  () => applyTag("chair","none","none"));
+  $("tagJudgesBtn").addEventListener("click", () => applyTag("judges","none","none"));
+
+  $("removeBtn").addEventListener("click", () => {
+    if (capturedRange) removeAtRange(capturedRange);
+    else flash("Select a segment first (or use × in the list).", "err");
+  });
+
+  $("downloadBtn").addEventListener("click", downloadJson);
+  $("copyBtn").addEventListener("click",    copyJson);
+  $("refreshBtn").addEventListener("click", () => { refreshPreview(); flash("Preview refreshed.", "ok"); });
+
+  for (const id of ["id","motion","motionConfidence","announcedWinner","sourceFile","segmentation","model"]) {
+    $(id).addEventListener("input",  () => refreshPreview());
+    $(id).addEventListener("change", () => refreshPreview());
+  }
+
+  // ---------- first render ----------
+  renderSegList();
+  refreshPreview();
+});
+</script>
+</body>
+</html>
